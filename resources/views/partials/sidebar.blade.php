@@ -196,12 +196,12 @@
           </li>
 
           @if(in_array(13, $permitted_menus_array))
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              {{-- <i class="nav-icon fa-solid fa-arrow-trend-up"></i> --}}
-              <i class="nav-icon fa-solid fa-window-restore"></i>
-              <p>
-                Stock
+         
+          <li  class="nav-item nav-link {{ Request::is('stock') ? 'nav-link active' : ''}}" style="{{ Request::is('stock') ? 'background-color: #17a2b8; !important' : ''}}">
+            <a href="{{url('/stock')}}" >
+              <i class="nav-icon fa-solid fa-window-restore" {{ Request::is('stock') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('stock') ? 'color: white; !important' : ''}}">
+                Stocks
               </p>
             </a>
           </li>

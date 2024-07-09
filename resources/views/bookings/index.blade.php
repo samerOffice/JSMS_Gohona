@@ -57,7 +57,7 @@ Booking List
                           <th>Total Amount (BDT)</th>
                           <th>Paid Amount (BDT)</th>
                           <th>Due Amount (BDT)</th>
-                          <th>Action</th>
+                          {{-- <th>Action</th> --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -79,11 +79,11 @@ Booking List
                           <td>{{$booking->total_amount}}</td>
                           <td>{{$booking->total_paid_amount}}</td>
                           <td>{{$booking->total_due_amount}}</td>
-                          <td>
+                          {{-- <td>
                              <a href="{{route('booking.edit',$booking->id)}}" style="color: white"><button class="btn btn-success"><i class="fa-solid fa-print"></i></button></a>
                              <a href="{{route('booking.edit',$booking->id)}}" style="color: white"><button class="btn btn-warning"><i class="fa-solid fa-edit"></i></button></a>
                              <a href="{{route('booking.edit',$booking->id)}}" style="color: white"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-                        </td>
+                        </td> --}}
                         </tr> 
                         @endforeach              
                  

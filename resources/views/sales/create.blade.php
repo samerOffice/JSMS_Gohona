@@ -226,8 +226,8 @@ Booking Create
             </div>
             <div class="col-12">
                 <div class="box-footer mt20 text-end">
-                    <button type="submit" class="btn btn-primary btn-lg">Save</button>
-                   <button id="preview" class="btn btn-primary btn-lg">Preview</button>
+                    <button type="submit" class="btn btn-warning btn-lg">Save & Preview</button>
+                   {{-- <button id="preview" class="btn btn-primary btn-lg">Preview</button> --}}
                 </div>
             </div>
         </div>

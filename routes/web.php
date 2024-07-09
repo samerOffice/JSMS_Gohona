@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\TodayRateController;
 use App\Http\Controllers\SaleTypeController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\StockController;
+
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerCategoryController;
@@ -18,6 +20,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingTermsAndConditionsController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\ExpenseController;
+
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RoleAndPermissionController;
 use App\Http\Controllers\CustomerTransactionController;
@@ -46,6 +50,11 @@ Route::get('/booking_preview', [BookingController::class, 'bookingPreview'])->na
 //sales
 Route::resource('sale', SaleController::class);
 Route::get('/preview_sale/{sale_id}', [SaleController::class, 'preview_sale'])->name('preview_sale');
+Route::get('/preview_last_sale', [SaleController::class, 'preview_last_sale'])->name('preview_last_sale');
+
+
+//stocks
+Route::resource('stock', StockController::class);
 
 //product-category
 Route::get('/product_category_list', [ProductCategoryController::class, 'index'])->name('product_category_list');
@@ -119,6 +128,10 @@ Route::resource('settings', SettingController::class);
 //employees
 Route::resource('employee', EmployeeController::class);
 Route::get('/employee_renew/{emp_id}', [EmployeeController::class, 'renew'])->name('employee.renew');
+
+
+//expenses
+Route::resource('expense', ExpenseController::class);
 
 //payrolls
 Route::resource('payroll', PayrollController::class);
