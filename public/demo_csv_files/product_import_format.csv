@@ -1,0 +1,4 @@
+Product NR,Details,Weight,St/Dia,st_dia_price,Wage,Wage Type
+R1,RING 12K,1.58,0.6,,,
+R2,RING 18K,2.68,,,1000,Fixed
+R3,RING 22K,1.77,,,10,Percentage

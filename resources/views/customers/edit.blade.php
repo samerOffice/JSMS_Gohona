@@ -1,0 +1,151 @@
+@extends('master')
+
+@section('title')
+Customer
+@endsection
+
+@section('content')
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-outline-info float-right" href="{{route('customer.index')}}">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
+
+               
+            <div class="col-12">
+                <br>
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Update Customer Information</h3>
+                  </div>  
+                    <div class="card-body">
+                        <form method="post" action="{{route('customer.update',$customer->id) }}">  
+                            @csrf
+                            @method('PUT')
+                            <div class="card-body">
+                                <div class="form-group">
+                                  <label for="product_category_name">Full Name</label>
+                                  <input type="text" required class="form-control" id="name" name="name" value="{{$customer->name}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="text" required  class="form-control" id="mobile_number" name="mobile_number" value="{{$customer->mobile_number}}">
+                                </div>
+  
+
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea name="address" id="summernote"  required>{{$customer->address}}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Customer Category</label>
+                                    <select class="form-control select2bs4" required name="customer_category_id" style="width: 100%;">
+                                        <option value="{{$customer->customer_category_id}}">{{$customer->customer_category_name}}</option>
+                                        @foreach($customer_categories as $customer_category)
+                                        <option value="{{$customer_category->id}}">{{$customer_category->name}}</option>
+                                        @endforeach
+                                      </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>District</label>
+                                    <select class="form-control select2bs4" required id="district_id" name="district_id" style="width: 100%;">
+                                        <option value="{{$customer->district_id}}">{{$customer->district_name}}</option>
+                                        @foreach($districts as $district)
+                                        <option value="{{$district->id}}">{{$district->name}}</option>
+                                        @endforeach
+                                      </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Zone</label>
+                                    <select required class="form-control select2bs4" id="zone_id" name="zone_id" style="width: 100%;">                                  
+                                      <option value="{{$customer->zone_id}}">{{$customer->zone_name}}</option>                                        
+                                      <option value=""></option>                                                                                              
+                                  </select>
+                                </div> 
+
+                                <div class="form-group">
+                                    <label>Facebook Name</label>
+                                    <input type="text" required class="form-control" id="fb_name" name="fb_name" value="{{$customer->fb_name}}">
+                                </div> 
+
+                              </div>
+                            <!-- /.card-body -->
+                            <input type="hidden" value="{{$customer->id}}" name="id">
+                            <button type="submit" id="sub" class="btn btn-info float-right mr-4">Update</button>
+                          </form>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+            </div>           
+        </div>      
+        <br>
+         
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+       
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+@endsection
+
+@push('myScripts')
+ <script>
+     $(document).ready(function() {      
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+            });
+        //summernote   
+        $('#summernote').summernote();
+    });
+
+
+//district and zone dependancy dropdown logic start
+$('#district_id').on('change',function(event){
+  event.preventDefault();
+  var selectedDistrict = $('#district_id').val();
+
+  if (selectedDistrict == '') {
+        $('#zone_id').html('');
+        return false;
+      }
+
+// Function to get CSRF token from meta tag
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+// Set up Axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
+
+const baseUrl = "{{ url('/') }}/";
+
+// axios.get('sanctum/csrf-cookie').then(response=>{
+ axios.post(baseUrl +'district_and_zone_dependancy',{
+        data: selectedDistrict
+      }).then(response=>{
+      $('#zone_id').html(response.data);
+        console.log(response.data);
+      });
+//  });
+});
+//district and zone dependancy dropdown logic end
+</script>
+  @endpush

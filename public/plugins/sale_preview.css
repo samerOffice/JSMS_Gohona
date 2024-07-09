@@ -1,0 +1,336 @@
+.alert-error {
+    color: #99253a;
+    background-color: #ffd8df;
+    border-color: #ffc5cf
+}
+
+.dt-body-nowrap {
+    white-space: nowrap
+}
+
+.dt-body-right {
+    text-align: right
+}
+
+.card-header {
+    background-color: #1b2c3f
+}
+
+.card-header .card-title {
+    color: #fff;
+    margin-bottom: 0;
+    line-height: 28px;
+    text-transform: uppercase
+}
+
+.lds-spinner {
+    color: official;
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 36px
+}
+
+.lds-spinner div {
+    transform-origin: 18px 18px;
+    animation: lds-spinner 1.2s linear infinite
+}
+
+.lds-spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 18px;
+    width: 3px;
+    height: 9px;
+    border-radius: 20%;
+    background: #1b2c3f
+}
+
+.lds-spinner div:nth-child(1) {
+    transform: rotate(0);
+    animation-delay: -1.1s
+}
+
+.lds-spinner div:nth-child(2) {
+    transform: rotate(30deg);
+    animation-delay: -1s
+}
+
+.lds-spinner div:nth-child(3) {
+    transform: rotate(60deg);
+    animation-delay: -.9s
+}
+
+.lds-spinner div:nth-child(4) {
+    transform: rotate(90deg);
+    animation-delay: -.8s
+}
+
+.lds-spinner div:nth-child(5) {
+    transform: rotate(120deg);
+    animation-delay: -.7s
+}
+
+.lds-spinner div:nth-child(6) {
+    transform: rotate(150deg);
+    animation-delay: -.6s
+}
+
+.lds-spinner div:nth-child(7) {
+    transform: rotate(180deg);
+    animation-delay: -.5s
+}
+
+.lds-spinner div:nth-child(8) {
+    transform: rotate(210deg);
+    animation-delay: -.4s
+}
+
+.lds-spinner div:nth-child(9) {
+    transform: rotate(240deg);
+    animation-delay: -.3s
+}
+
+.lds-spinner div:nth-child(10) {
+    transform: rotate(270deg);
+    animation-delay: -.2s
+}
+
+.lds-spinner div:nth-child(11) {
+    transform: rotate(300deg);
+    animation-delay: -.1s
+}
+
+.lds-spinner div:nth-child(12) {
+    transform: rotate(330deg);
+    animation-delay: 0s
+}
+
+.required:after {
+    content: '*';
+    color: red;
+    padding-left: 5px;
+}
+
+@keyframes lds-spinner {
+    0% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@media (max-width:767px) {
+    .dt-body-right.text-xs-align-left {
+        text-align: left
+    }
+}
+
+            body[data-sidebar=dark] .navbar-brand-box {
+        background: #3964bf;
+    }
+
+
+    @font-face {
+        font-family: 'SutonnyMJ';
+        src: url('../fonts/SutonnyMJ.woff2') format('woff2'),
+            url('../fonts/SutonnyMJ.woff') format('woff');
+        font-weight: normal;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'SutonnyMJ';
+        src: url('../fonts/SutonnyMJ-Bold.woff2') format('woff2'),
+            url('../fonts/SutonnyMJ-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'SutonnyMJ';
+        src: url('../fonts/SutonnyMJ-BoldItalic.woff2') format('woff2'),
+            url('../fonts/SutonnyMJ-BoldItalic.woff') format('woff');
+        font-weight: bold;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'SutonnyMJ';
+        src: url('../fonts/SutonnyMJ-Italic.woff2') format('woff2'),
+            url('../fonts/SutonnyMJ-Italic.woff') format('woff');
+        font-weight: normal;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'SutonnyOMJ';
+        src: url('../fonts/SutonnyOMJ.woff2') format('woff2'),
+            url('../fonts/SutonnyOMJ.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    div.page {
+        width: 210mm;
+        box-sizing: border-box;
+        overflow: hidden;
+        padding: 1.4173228346em;
+        /* page-break-after: always; */
+        position: relative;
+    }
+
+
+
+    @media print {
+        div.page {
+            width: 210mm;
+        }
+
+        div.page[orientation=landscape] {
+            width: 297mm;
+        }
+
+        div.page[size=A0] {
+            width: 841mm;
+        }
+
+        div.page[size=A0][orientation=landscape] {
+            width: 1189mm;
+        }
+
+        div.page[size=A1] {
+            width: 594mm;
+        }
+
+        div.page[size=A1][orientation=landscape] {
+            width: 841mm;
+        }
+
+        div.page[size=A2] {
+            width: 420mm;
+        }
+
+        div.page[size=A2][orientation=landscape] {
+            width: 594mm;
+        }
+
+        div.page[size=A3] {
+            width: 297mm;
+        }
+
+        div.page[size=A3][orientation=landscape] {
+            width: 420mm;
+        }
+
+        div.page[size=A4] {
+            width: 210mm;
+        }
+
+        div.page[size=A4][orientation=landscape] {
+            width: 297mm;
+        }
+
+        div.page[size=A5] {
+            width: 148mm;
+        }
+
+        div.page[size=A5][orientation=landscape] {
+            width: 210mm;
+        }
+
+        div.page[size=A6] {
+            width: 105mm;
+        }
+
+        div.page[size=A6][orientation=landscape] {
+            width: 148mm;
+        }
+
+        div.page[size=A7] {
+            width: 74mm;
+        }
+
+        div.page[size=A7][orientation=landscape] {
+            width: 105mm;
+        }
+
+        div.page[size=A8] {
+            width: 52mm;
+        }
+
+        div.page[size=A8][orientation=landscape] {
+            width: 74mm;
+        }
+
+        div.page[size=A9] {
+            width: 37mm;
+        }
+
+        div.page[size=A9][orientation=landscape] {
+            width: 52mm;
+        }
+
+        div.page[size=A10] {
+            width: 26mm;
+        }
+
+        div.page[size=A10][orientation=landscape] {
+            width: 37mm;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 50px;
+            width: 194mm;
+        }
+    }
+
+
+    .table-fw {
+        width: 100%;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .table-border {
+        border-collapse: collapse !important;
+        border-spacing: 0;
+    }
+
+    .table-border td,
+    .table-border th {
+        border: 1px solid #000;
+    }
+
+    @media screen {
+        .page {
+            background: radial-gradient(#d0d0d0, #909090) fixed;
+            font-family: 'SutonnyOMJ';
+            font-size: 20px;
+        }
+
+        div.page {
+            background: white;
+            margin: 1.4173228346em auto;
+        }
+    }
+
+    @page {
+        margin: 1.4173228346em;
+    }
