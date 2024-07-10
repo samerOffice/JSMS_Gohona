@@ -178,22 +178,176 @@ class BookingController extends Controller
                 'booking_date' => Carbon::now()->toDateString(),
                 'product_id' => $product_id,
                 'unit_price_amount' => $unit_price_amount,
-                'wage' => $wage,
+                'wage' => $wage
+                // 'payment_type' => $payment_type,
+                // 'payment_info' => $payment_info,
+                // 'reference' => $reference,
+                // 'payment_amount' => $payment_amount                
+            ]);
+
+            DB::table('booking_payment_calculations')->insert([
+                'booking_number' => $last_booking_number,
+                'booking_date' => Carbon::now()->toDateString(),
                 'payment_type' => $payment_type,
                 'payment_info' => $payment_info,
                 'reference' => $reference,
-                'payment_amount' => $payment_amount
-                
+                'payment_amount' => $payment_amount             
             ]);
+
+            $data = array();
+            $data['status']=3;
+            $updated = DB::table('products')
+                  ->where('id', $product_id)
+                  ->update($data);
         }
 
-     return redirect()->route('booking.index')->withSuccess('Booking is added successfully'); 
+    //  return redirect()->route('booking.index')->withSuccess('Booking is added successfully');
+     return redirect()->route('preview_last_booking');
     }
 
     private function generateRandomDigits($length)
     {
         return str_pad(mt_rand(0, pow(10, $length) - 1), $length, '0', STR_PAD_LEFT);
     }
+
+
+
+
+    public function preview_last_booking(){
+        
+        $user_role = Auth::user()->role_id;
+
+        $menu_data = DB::table('menu_permissions')
+                ->where('role',$user_role)
+                ->first();
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        
+        $last_inserted_data = DB::table('bookings')
+                             ->orderBy('id', 'desc')
+                             ->first();
+
+        $last_inserted_id = $last_inserted_data->id;
+
+        $booking = DB::table('bookings')
+                ->leftJoin('customers','bookings.client_id','customers.id')
+                ->leftJoin('users','bookings.user_id','users.id')
+                ->select('bookings.*',
+                'customers.name as customer_name',
+                'users.name as user_name',
+                'customers.address as customer_address',
+                'customers.mobile_number as customer_mobile_number'
+                )
+                ->where('bookings.id',$last_inserted_id)
+                ->first();
+      
+        $booked_product_details = DB::table('booking_calculations')
+                                ->leftJoin('products','booking_calculations.product_id','products.id')
+                                ->leftJoin('bookings','booking_calculations.booking_number','bookings.booking_number')
+                                ->select('booking_calculations.*',
+                                        'products.product_nr as token_no',
+                                        'products.product_details as product_details',
+                                        'products.weight as product_weight',
+                                        'products.st_or_dia as product_st_or_dia',
+                                        'products.st_or_dia_price as product_st_or_dia_price',
+                                        'booking_calculations.wage as product_wage',
+                                        DB::raw('products.weight * booking_calculations.unit_price_amount as product_individual_total_amount')                                  
+                                        )
+                                        ->where('bookings.id',$last_inserted_id)
+                                        ->get();
+
+
+        $payment_infos = DB::table('booking_payment_calculations')
+                         ->leftJoin('bookings','booking_payment_calculations.booking_number','bookings.booking_number')
+                         ->where('bookings.id',$last_inserted_id)
+                         ->get();
+
+        $totals = DB::table('booking_calculations')
+                    ->leftJoin('products', 'booking_calculations.product_id', '=', 'products.id')
+                    ->leftJoin('bookings', 'booking_calculations.booking_number', '=', 'bookings.booking_number')
+                    ->select(
+                        DB::raw('SUM(booking_calculations.wage) as total_wage'),
+                        DB::raw('SUM(products.weight) as total_weight'),
+                        DB::raw('SUM(products.weight * booking_calculations.unit_price_amount) as sum_of_product_individual_total_amount')
+                     )
+                    ->where('bookings.id', $last_inserted_id)
+                    ->first();
+
+        return view('bookings.preview',compact('permitted_menus_array','booking','booked_product_details','payment_infos','totals'));
+    }
+
+
+
+
+    
+    public function preview_booking(string $id){
+        
+        $user_role = Auth::user()->role_id;
+
+        $menu_data = DB::table('menu_permissions')
+                ->where('role',$user_role)
+                ->first();
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        
+        // $last_inserted_data = DB::table('bookings')
+        //                      ->orderBy('id', 'desc')
+        //                      ->first();
+
+        // $last_inserted_id = $last_inserted_data->id;
+
+        $booking = DB::table('bookings')
+                ->leftJoin('customers','bookings.client_id','customers.id')
+                ->leftJoin('users','bookings.user_id','users.id')
+                ->select('bookings.*',
+                'customers.name as customer_name',
+                'users.name as user_name',
+                'customers.address as customer_address',
+                'customers.mobile_number as customer_mobile_number'
+                )
+                ->where('bookings.id',$id)
+                ->first();
+      
+        $booked_product_details = DB::table('booking_calculations')
+                                ->leftJoin('products','booking_calculations.product_id','products.id')
+                                ->leftJoin('bookings','booking_calculations.booking_number','bookings.booking_number')
+                                ->select('booking_calculations.*',
+                                        'products.product_nr as token_no',
+                                        'products.product_details as product_details',
+                                        'products.weight as product_weight',
+                                        'products.st_or_dia as product_st_or_dia',
+                                        'products.st_or_dia_price as product_st_or_dia_price',
+                                        'booking_calculations.wage as product_wage',
+                                        DB::raw('products.weight * booking_calculations.unit_price_amount as product_individual_total_amount')                                  
+                                        )
+                                        ->where('bookings.id',$id)
+                                        ->get();
+
+
+        $payment_infos = DB::table('booking_payment_calculations')
+                         ->leftJoin('bookings','booking_payment_calculations.booking_number','bookings.booking_number')
+                         ->where('bookings.id',$id)
+                         ->get();
+
+        $totals = DB::table('booking_calculations')
+                    ->leftJoin('products', 'booking_calculations.product_id', '=', 'products.id')
+                    ->leftJoin('bookings', 'booking_calculations.booking_number', '=', 'bookings.booking_number')
+                    ->select(
+                        DB::raw('SUM(booking_calculations.wage) as total_wage'),
+                        DB::raw('SUM(products.weight) as total_weight'),
+                        DB::raw('SUM(products.weight * booking_calculations.unit_price_amount) as sum_of_product_individual_total_amount')
+                     )
+                    ->where('bookings.id', $id)
+                    ->first();
+
+        return view('bookings.preview',compact('permitted_menus_array','booking','booked_product_details','payment_infos','totals'));
+    }
+
+
+
+
 
     /**
      * Display the specified resource.

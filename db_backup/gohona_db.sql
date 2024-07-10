@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2024 at 12:09 PM
+-- Generation Time: Jul 10, 2024 at 03:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,7 +54,8 @@ INSERT INTO `bookings` (`id`, `booking_number`, `bin_no`, `booking_date`, `clien
 (1, '211975', '314136554-9327', '2024-07-07', NULL, 3, 1, '2,057.00', '103.00', '2,160.00', '160', '2,000.00', '1,700.00', '300.00', '2024-07-07 10:49:53', '2024-07-07 10:49:53'),
 (2, '909074', '086156301-3070', '2024-07-07', NULL, 4, 4, '3,210.00', '161.00', '3,371.00', '20', '3,351.00', '2,200.00', '1,151.00', '2024-07-07 11:20:02', '2024-07-07 11:20:02'),
 (3, '708449', '824210684-3065', '2024-07-07', NULL, 4, 2, '3,743.00', '187.00', '3,930.00', '100', '3,830.00', '3,060.00', '770.00', '2024-07-07 17:10:57', '2024-07-07 17:10:57'),
-(4, '298818', '521455151-6106', '2024-07-09', NULL, 3, 2, '531.00', '27.00', '558.00', '58', '500.00', '200.00', '300.00', '2024-07-09 10:08:31', '2024-07-09 10:08:31');
+(4, '298818', '521455151-6106', '2024-07-09', NULL, 3, 2, '531.00', '27.00', '558.00', '58', '500.00', '200.00', '300.00', '2024-07-09 10:08:31', '2024-07-09 10:08:31'),
+(5, '553213', '539466168-0041', '2024-07-10', NULL, 2, 2, '496.00', '25.00', '521.00', '21', '500.00', '350.00', '150.00', '2024-07-10 07:23:46', '2024-07-10 07:23:46');
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,9 @@ INSERT INTO `booking_calculations` (`id`, `booking_number`, `booking_date`, `pro
 (3, '909074', '2024-07-07', 12, '100', '10', 'cash', 'BY CHEQUE', NULL, '2200', '2024-07-07 11:20:02', '2024-07-07 11:20:02'),
 (4, '708449', '2024-07-07', 12, '100', '2', 'cash', 'CASH', NULL, '2500', '2024-07-07 17:10:57', '2024-07-07 17:10:57'),
 (5, '708449', '2024-07-07', 64, '200', '4.8', 'card', 'DBBL-CARD', NULL, '560', '2024-07-07 17:10:57', '2024-07-07 17:10:57'),
-(6, '298818', '2024-07-09', 11, '240', '2.6', 'cash', 'CASH', NULL, '200', '2024-07-09 10:08:31', '2024-07-09 10:08:31');
+(6, '298818', '2024-07-09', 11, '240', '2.6', 'cash', 'CASH', NULL, '200', '2024-07-09 10:08:31', '2024-07-09 10:08:31'),
+(7, '553213', '2024-07-10', 11, '100', '2.5', NULL, NULL, NULL, NULL, '2024-07-10 07:23:46', '2024-07-10 07:23:46'),
+(8, '553213', '2024-07-10', 64, '100', '4.8', NULL, NULL, NULL, NULL, '2024-07-10 07:23:46', '2024-07-10 07:23:46');
 
 -- --------------------------------------------------------
 
@@ -98,13 +101,22 @@ INSERT INTO `booking_calculations` (`id`, `booking_number`, `booking_date`, `pro
 CREATE TABLE `booking_payment_calculations` (
   `id` int(11) NOT NULL,
   `booking_number` varchar(255) DEFAULT NULL,
-  `payment_type` int(100) DEFAULT NULL,
-  `payment_info` int(100) DEFAULT NULL,
-  `reference` varchar(100) DEFAULT NULL,
+  `booking_date` date DEFAULT NULL,
+  `payment_type` varchar(100) DEFAULT NULL,
+  `payment_info` varchar(100) DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
   `payment_amount` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booking_payment_calculations`
+--
+
+INSERT INTO `booking_payment_calculations` (`id`, `booking_number`, `booking_date`, `payment_type`, `payment_info`, `reference`, `payment_amount`, `created_at`, `updated_at`) VALUES
+(1, '553213', '2024-07-10', 'cash', 'CASH', NULL, '100', '2024-07-10 07:23:46', '2024-07-10 07:23:46'),
+(2, '553213', '2024-07-10', 'bank', 'DBBL-TRANSFER', NULL, '250', '2024-07-10 07:23:46', '2024-07-10 07:23:46');
 
 -- --------------------------------------------------------
 
@@ -629,9 +641,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `product_nr`, `product_details`, `product_category`, `product_type`, `weight`, `carat`, `quantity`, `st_or_dia`, `st_or_dia_price`, `wage`, `wage_type`, `supplier`, `purchase_price`, `stock_type`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'BNG-068', 'asdffsdfs', NULL, NULL, '3.8', NULL, NULL, NULL, NULL, '6.7', 'Fixed', NULL, NULL, 2, 1, NULL, NULL),
-(11, 'dsf', 'aa@gmail.com', 9, NULL, '2.2', NULL, NULL, NULL, NULL, '2.6', 'Fixed', NULL, NULL, 1, 1, NULL, NULL),
+(11, 'dsf', 'aa@gmail.com', 9, NULL, '2.2', NULL, NULL, NULL, NULL, '2.6', 'Fixed', NULL, NULL, 1, 3, NULL, NULL),
 (12, 'qqq', 'qq@gmai', 9, NULL, '32kg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL),
-(64, 'R2', 'RING 22K', NULL, NULL, '2.68', NULL, NULL, NULL, NULL, '4.8', 'Fixed', NULL, NULL, NULL, 1, NULL, NULL),
+(64, 'R2', 'RING 22K', NULL, NULL, '2.68', NULL, NULL, NULL, NULL, '4.8', 'Fixed', NULL, NULL, NULL, 3, NULL, NULL),
 (65, 'R3', 'RING 21K', NULL, NULL, '2.68', NULL, NULL, NULL, NULL, '4.8', 'Percentage', NULL, NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -741,8 +753,8 @@ CREATE TABLE `sale_payment_calculations` (
   `sale_date` date DEFAULT NULL,
   `payment_type` varchar(100) DEFAULT NULL,
   `payment_info` varchar(100) DEFAULT NULL,
-  `reference` varchar(100) DEFAULT NULL,
-  `payment_amount` varchar(100) DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  `payment_amount` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1169,19 +1181,19 @@ ALTER TABLE `zones`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `booking_calculations`
 --
 ALTER TABLE `booking_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `booking_payment_calculations`
 --
 ALTER TABLE `booking_payment_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `booking_terms_and_conditions`

@@ -44,13 +44,16 @@ Route::middleware('auth')->group(function () {
 
 //booking
 Route::resource('booking', BookingController::class);
-Route::post('/booking_preview_data', [BookingController::class, 'bookingPreviewData']);
-Route::get('/booking_preview', [BookingController::class, 'bookingPreview'])->name('booking_preview');
+Route::get('/preview_last_booking', [BookingController::class, 'preview_last_booking'])->name('preview_last_booking');
+Route::get('/preview_booking/{booking_id}', [BookingController::class, 'preview_booking'])->name('preview_booking');
+// Route::post('/booking_preview_data', [BookingController::class, 'bookingPreviewData']);
+// Route::get('/booking_preview', [BookingController::class, 'bookingPreview'])->name('booking_preview');
 
 //sales
 Route::resource('sale', SaleController::class);
-Route::get('/preview_sale/{sale_id}', [SaleController::class, 'preview_sale'])->name('preview_sale');
 Route::get('/preview_last_sale', [SaleController::class, 'preview_last_sale'])->name('preview_last_sale');
+Route::get('/preview_sale/{sale_id}', [SaleController::class, 'preview_sale'])->name('preview_sale');
+
 
 
 //stocks
