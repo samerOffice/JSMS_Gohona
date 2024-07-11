@@ -52,8 +52,7 @@ class SaleController extends Controller
                     ->get();
          $customers = DB::table('customers')->get();
          $users = DB::table('users')->get();
-
-       
+    
         return view('sales.create',compact('permitted_menus_array','products','sale_types','customers','users'));
     }
 
@@ -64,7 +63,11 @@ class SaleController extends Controller
     {
         $randomPart1 = $this->generateRandomDigits(9); // Generates the first part (9 digits)
         $randomPart2 = $this->generateRandomDigits(4); // Generates the second part (4 digits)
-        $binNumber = $randomPart1 . '-' . $randomPart2;
+
+        // $binNumber = $randomPart1 . '-' . $randomPart2;
+
+        $company_bin_no = DB::table('settings')->first();
+        $binNumber = $company_bin_no->bin;
 
         $sale_number = mt_rand(100000, 999999);
 

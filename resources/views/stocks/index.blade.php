@@ -71,8 +71,6 @@ Sales List
                                 <td>3.88</td>
                             </tr>
 
-                            
-
                             <tr>
                                 <td>SALE</td>
                                 <td>0</td>
@@ -81,8 +79,17 @@ Sales List
                                 <td>0</td>
                                 <td>0</td>
                                 <td>0</td>
+                            </tr>
 
-                                                                    </tr>
+                            <tr>
+                              <td>SALE FROM STOCK</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                          </tr>
 
                             <tr style=" font-weight: bold;">
                                 <td>BALANCE</td>
@@ -103,7 +110,8 @@ Sales List
                                 <td>0</td>
                                 <td>0</td>
                             </tr>
-                                                                <tr>
+
+                            <tr>
                                 <td>EXCHANGE</td>
                                 <td>0</td>
                                 <td>0</td>
@@ -113,7 +121,6 @@ Sales List
                                 <td>0</td>
                             </tr>
                             
-
                             <tr>
                                 <td>OLD GOLD</td>
                                 <td>0</td>

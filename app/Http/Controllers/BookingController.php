@@ -81,6 +81,8 @@ class BookingController extends Controller
             'product_nr' => $product->product_nr,
             'product_details' => $product->product_details,
             'weight' => $product->weight,
+            'st_dia' => $product->st_or_dia,
+            'st_dia_price' => $product->st_or_dia_price,
             'wage' => $product->wage,
             'wage_type' => $product->wage_type
         ], 200);
@@ -131,7 +133,12 @@ class BookingController extends Controller
         
         $randomPart1 = $this->generateRandomDigits(9); // Generates the first part (9 digits)
         $randomPart2 = $this->generateRandomDigits(4); // Generates the second part (4 digits)
-        $binNumber = $randomPart1 . '-' . $randomPart2;
+
+        $company_bin_no = DB::table('settings')->first();
+
+        $binNumber = $company_bin_no->bin;
+
+        // $binNumber = $randomPart1 . '-' . $randomPart2;
 
         $booking_number = mt_rand(100000, 999999);
 
@@ -381,27 +388,5 @@ class BookingController extends Controller
         //
     }
 
-    public function bookingPreviewData(Request $request){
-
-        $selectedPaymentMethod = $request->input('data');
-
-        return response()->json([
-            'status' => 'success',
-            'info' => $selectedPaymentMethod
-                    
-        ], 200);
-
-    }
-
-    public function bookingPreview(){
-        // $user_role = Auth::user()->role_id;
-
-        // $menu_data = DB::table('menu_permissions')
-        //         ->where('role',$user_role)
-        //         ->first();
-        // $permitted_menus = $menu_data->menus;
-        // $permitted_menus_array = explode(',', $permitted_menus);
-        // return view('bookings.preview', compact('permitted_menus_array'));
-        return view('bookings.preview');
-    }
+  
 }

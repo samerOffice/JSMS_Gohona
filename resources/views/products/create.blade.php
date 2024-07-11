@@ -34,7 +34,7 @@ Welcome
                               </div>
 
                               <div class="form-group">
-                                <label >Product Details</label>
+                                <label>Product Details</label>
                                 <input type="text" required class="form-control" id="product_details" name="product_details" >
                               </div>
 
@@ -65,7 +65,7 @@ Welcome
                               <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
-                                        <label >Weight</label>
+                                        <label>Weight</label>
                                         <input type="text" required class="form-control" id="weight" name="weight" >
                                     </div>
                                 </div>
@@ -81,10 +81,10 @@ Welcome
                                 </div>
                               </div>
                             
-                              <div class="form-group">
+                              {{-- <div class="form-group">
                                 <label>Quantity</label>
                                 <input type="text" class="form-control" id="quantity" name="quantity">
-                              </div>
+                              </div> --}}
 
                               <div class="form-group">
                                 <label>St/Dia</label>
@@ -108,7 +108,7 @@ Welcome
                                     <label>Wage Type</label>
                                     <select class="form-control select2bs4" required id="wage_type" name="wage_type" style="width: 100%;">                                  
                                         <option value="Percentage">Percentage</option>
-                                        <option value="Fixed">Fixed</option>                             
+                                        {{-- <option value="Fixed">Fixed</option> --}}
                                     </select>
                                 </div>
                                 </div>

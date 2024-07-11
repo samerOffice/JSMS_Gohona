@@ -98,7 +98,7 @@ Booking Create
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2" class="text-end">Total Weight</td>
+                                    <td colspan="2" class="" style="text-align:right">Total Weight</td>
                                     <td id="total_weight"></td>
                                     <td></td>
                                     <td></td>
@@ -117,18 +117,18 @@ Booking Create
                                     <input type="hidden" name="total_vat_amount" id="total_vat_amount_input_value">
                                 </tr>
                                 <tr>
-                                    <td colspan="7" class="text-end" >Subtotal</td>
+                                    <td colspan="7" class="" style="text-align:right">Subtotal</td>
                                     <td colspan="2" id="subtotal_with_vat"></td>
                                     <input type="hidden" id="subtotal_amount_with_vat_input_value" name="subtotal_amount">
                                 </tr>
                                 <tr>
-                                    <td colspan="7" class="text-end" >Discount</td>
+                                    <td colspan="7" class="" style="text-align:right">Discount</td>
                                     <td colspan="2" style="padding: 1px;">
                                         <input id="discount" class="form-control" name="discount" type="text" value="">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="7" class="text-end" >Total</td>
+                                    <td colspan="7" class="" style="text-align:right">Total</td>
                                     <td colspan="2" id="total"></td>
                                     <input type="hidden" id="total_amount_input_value" name="total_amount_after_discount">
                                 </tr>
@@ -183,7 +183,7 @@ Booking Create
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-end" colspan="7">
+                                    <td class="" colspan="7" style="text-align:right">
                                         Paid
                                     </td>
                                     <td id="paid" style="padding: 1px;" colspan="2">
@@ -191,7 +191,7 @@ Booking Create
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-end" colspan="7" >
+                                    <td class="" colspan="7" style="text-align:right">
                                         Due
                                     </td>
                                     <td id="due" style="padding: 1px;" colspan="2">
@@ -207,7 +207,7 @@ Booking Create
                 <div class="box-footer mt20 text-end">
                     {{-- <button type="submit" class="btn btn-primary btn-lg">Save</button>
                    <button id="preview" class="btn btn-primary btn-lg">Preview</button> --}}
-                   <button type="submit" class="btn btn-warning btn-lg">Save & Preview</button>
+                   <button type="submit" class="btn btn-success btn-lg float-right">Save & Preview</button>
                 </div>
             </div>
         </div>
@@ -411,6 +411,13 @@ $(document).ready(function() {
 //Initialize Select2 Elements
 $('.select2bs4').select2({
     theme: 'bootstrap4'
+    });
+
+$('.select2bs4').on('select2:open', function() {
+        let searchField = $('.select2-search__field');
+        if (searchField.length > 0) {
+            searchField[0].focus();
+        }
     });
 //summernote   
 $('#summernote').summernote();
@@ -688,31 +695,6 @@ $('#summernote').summernote();
         }
 
 
-        $("#preview").on("click", function(e) {
-            e.preventDefault();
-            var formData = $("#order-form").serialize();
-
-               // Function to get CSRF token from meta tag
-                function getCsrfToken() {
-                return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                }
-                // Set up Axios defaults
-                axios.defaults.withCredentials = true;
-                axios.defaults.headers.common['X-CSRF-TOKEN'] = getCsrfToken();
-
-                const baseUrl = "{{ url('/') }}/";
-
-                axios.post(baseUrl +'booking_preview_data',{
-                        data: formData
-                    }).then(response=>{
-                        var baseUrl = "{{ route('booking_preview') }}";
-                        var myPath = baseUrl + "?" + formData;
-                        window.location.href = myPath;
-                        console.log(response.data);
-                    });
-
-            // openWindow("https://localhost/gohona/booking-preview?" + formData);
-        });
 
         function openWindow(url, title) {
             var left = (screen.width - 900) / 2;
@@ -749,65 +731,6 @@ $('#summernote').summernote();
 
             );
         }
-
-
-        // function onClickShowHandeler(element) {
-        //     $('#showMoreModal').modal('show');
-        //     $.ajax({
-        //             url: $(element).data('route'),
-        //             type: 'get',
-        //         })
-        //         .done(function(response) {
-        //             $("#showMoreModal .modal-title").html(response.title);
-        //             $("#showMoreModal .modal-body").html(response.body);
-        //         })
-        //         .fail(function(response) {
-        //             $('#showMoreModal').modal('hide');
-        //             if (response.status === 419) {
-        //                 Swal.fire("Cancelled!", response.responseJSON.message, "error")
-        //             } else {
-        //                 Swal.fire("Cancelled!", response.statusText, "error")
-        //             }
-        //         });
-        // }
-
-        // function onClickDeleteHandeler(element) {
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: $(element).data('desc') ?? "You won't be able to revert this!",
-        //         icon: "warning",
-        //         showCancelButton: !0,
-        //         confirmButtonColor: "#1cbb8c",
-        //         cancelButtonColor: "#ff3d60",
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then(function(t) {
-        //         if (t.isConfirmed) {
-        //             $.ajax({
-        //                     url: $(element).data('route'),
-        //                     type: 'POST',
-        //                     data: {
-        //                         _token: "8eyHwlhgbvUWRrPpYCRndSFGl7lkmT1kALo2D2Wr",
-        //                         _method: "DELETE"
-        //                     },
-        //                 })
-        //                 .done(function() {
-        //                     Swal.fire("Deleted!", "Your item has been deleted.", "success");
-        //                     if ($(element).data('redirect')) {
-        //                         location.href = $(element).data('redirect');
-        //                     } else {
-        //                         table.ajax.reload(null, false);
-        //                     }
-        //                 })
-        //                 .fail(function(response) {
-        //                     if (response.status === 419) {
-        //                         Swal.fire("Cancelled!", response.responseJSON.message, "error")
-        //                     } else {
-        //                         Swal.fire("Cancelled!", response.statusText, "error")
-        //                     }
-        //                 });
-        //         }
-        //     })
-        // }
 
         $(document).ready(function() {
             $("input[required]").parents('.form-group').find('label').addClass('required');
