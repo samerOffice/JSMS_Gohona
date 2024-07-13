@@ -12,7 +12,11 @@ Sales List
       <div class="container-fluid">
         <br>
         <div class="row">
-            <div class="col-12">                              
+            <div class="col-12">  
+              
+              <a class="btn btn-outline-danger float-right ml-2" href="{{route('stock_list')}}">
+                <i class="fas fa-list"></i> Stock List
+              </a> 
                 <a class="btn btn-outline-primary float-right ml-2" href="{{route('stock.create')}}">
                     <i class="fas fa-plus"></i> Add Stock
                 </a> 
@@ -43,7 +47,7 @@ Sales List
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Stock List</h3>
+                      <h3 class="card-title">Stocks</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

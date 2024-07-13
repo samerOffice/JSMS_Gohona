@@ -54,9 +54,9 @@ Route::get('/preview_last_sale', [SaleController::class, 'preview_last_sale'])->
 Route::get('/preview_sale/{sale_id}', [SaleController::class, 'preview_sale'])->name('preview_sale');
 
 
-
 //stocks
 Route::resource('stock', StockController::class);
+Route::get('/stock_list', [StockController::class, 'stock_list'])->name('stock_list');
 
 //product-category
 Route::get('/product_category_list', [ProductCategoryController::class, 'index'])->name('product_category_list');

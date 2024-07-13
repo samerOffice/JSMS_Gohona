@@ -29,21 +29,21 @@ Welcome
                             @csrf                  
                             <div class="card-body">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Date</label>
                                         <input type="date" required class="form-control" id="stock_date" name="stock_date" >
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="form-group">
-                                        <label>Memo</label>
-                                        <input type="text" required placeholder="Memo" class="form-control" id="stock_memo" name="stock_memo" >
+                                        <label>Stock Name</label>
+                                        <input type="text" required placeholder="Stock Name" class="form-control" id="stock_name" name="stock_name" >
                                       </div>
                                 </div>
 
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="form-group">
                                         <label>Unit 18K</label>
                                         <input type="text" placeholder="Unit 18K" class="form-control" id="stock_unit_18k" name="stock_unit_18k" >
@@ -78,7 +78,7 @@ Welcome
                                         <label>Dia</label>
                                         <input type="text" placeholder="Dia" class="form-control" id="stock_dia" name="stock_dia">
                                     </div>        
-                                </div>
+                                </div> --}}
                             </div>                          
                             </div>
                             <!-- /.card-body -->
