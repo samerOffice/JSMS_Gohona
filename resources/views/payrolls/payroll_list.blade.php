@@ -46,6 +46,7 @@ Welcome
                           <th>Designation</th>
                           <th>Salary Date</th>
                           <th>Paid Salary Amount (BDT)</th>
+                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,7 +57,12 @@ Welcome
                           <td>{{$payroll->employee_name}}</td>
                           <td>{{$payroll->employee_designation}}</td>
                           <td>{{$payroll->salary_date}}</td>
-                          <td>{{$payroll->final_pay_amount}}</td>                          
+                          <td>{{$payroll->final_pay_amount}}</td>                         
+                          
+                          <td>
+                             <a href="{{url('payroll_show_data/'. $payroll->id)}}" style="color: white"><button class="btn btn-outline-info"><i class="fa-solid fa-eye"></i> View</button></a>
+                          </td>
+                                                  
                         </tr> 
                         @endforeach              
                  

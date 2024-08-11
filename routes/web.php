@@ -138,7 +138,8 @@ Route::resource('expense', ExpenseController::class);
 //payrolls
 Route::resource('payroll', PayrollController::class);
 Route::get('/payroll_list', [PayrollController::class, 'payroll_list'])->name('payroll_list');
-Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
+// Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
+Route::get('/payroll_show_data/{last_payroll_id}', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
 
 //dependencies
 Route::post('/employee_details_dependancy', [PayrollController::class, 'employee_details_dependancy']);
@@ -147,7 +148,7 @@ Route::post('/product_dependancy', [BookingController::class, 'productDependancy
 Route::post('/client_dependancy', [BookingController::class, 'clientDependancy']);
 // Route::post('/payment_method_dependancy', [BookingController::class, 'paymentMethodDependancy']);
 
-Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
+// Route::get('/payroll_show_data', [PayrollController::class, 'payroll_show_data'])->name('payroll_show_data');
 Route::post('/generate-csv', [PayrollController::class, 'generateCsv'])->name('generate-csv');
 
 //roles and permissions

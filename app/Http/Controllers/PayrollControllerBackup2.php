@@ -162,10 +162,7 @@ class PayrollController extends Controller
                 $updated = DB::table('employees')
                             ->where('id', $employee_id)
                             ->update($data);
-
-                // return redirect()->route('payroll_show_data');
-                return redirect('/payroll_show_data/' . $payroll);
-
+                return redirect()->route('payroll_show_data');
             }else{
                //update renewed yearly bonus date in employee table
                $data = array();
@@ -173,9 +170,7 @@ class PayrollController extends Controller
                $updated = DB::table('employees')
                            ->where('id', $employee_id)
                            ->update($data);
-
-               // return redirect()->route('payroll_show_data');
-               return redirect('/payroll_show_data/' . $payroll);
+               return redirect()->route('payroll_show_data');
             }     
        }else{
 
@@ -186,10 +181,7 @@ class PayrollController extends Controller
                 $updated = DB::table('employees')
                             ->where('id', $employee_id)
                             ->update($data);
-
-                // return redirect()->route('payroll_show_data');
-                return redirect('/payroll_show_data/' . $payroll);
-
+                return redirect()->route('payroll_show_data');
             }else{
                 //update yearly bonus date in employee table
                 $data = array();
@@ -197,18 +189,14 @@ class PayrollController extends Controller
                 $updated = DB::table('employees')
                             ->where('id', $employee_id)
                             ->update($data);
-
-                // return redirect()->route('payroll_show_data');
-                return redirect('/payroll_show_data/' . $payroll);
+                return redirect()->route('payroll_show_data');
             }
         
        }  
     }
 
 
-    public function payroll_show_data($last_payroll_id){
-
-        // dd($last_payroll_id);
+    public function payroll_show_data(){
         
         $user_role = Auth::user()->role_id;
 
@@ -219,16 +207,22 @@ class PayrollController extends Controller
         $permitted_menus_array = explode(',', $permitted_menus);
         
         
-       
+        $last_inserted_data = DB::table('payrolls')
+                             ->orderBy('id', 'desc')
+                             ->first();
+
+        $last_inserted_id = $last_inserted_data->id;
+
         $emp_payroll_info = DB::table('payrolls')
                                 ->leftJoin('employees','payrolls.employee','employees.id')
                                 ->select(
                                 'employees.id as emp_id',
                                 'employees.emp_name as emp_name',
                                 'employees.designation as emp_designation',
+                                // 'employees.joining_date as emp_joining_date',
                                 'payrolls.*',        
                                 'payrolls.salary_date as emp_salary_date')
-                                ->where('payrolls.id', $last_payroll_id)
+                                ->where('payrolls.id', $last_inserted_id)
                                 ->first();
 
         $emp_payroll_info = (array) $emp_payroll_info;
@@ -238,13 +232,13 @@ class PayrollController extends Controller
 
         $emp_id = $filteredData['emp_id'] ?? null;
         $emp_name = $filteredData['emp_name'] ?? null;
-        $emp_designation = $filteredData['emp_designation'] ?? null;
-        $emp_joining_date = $filteredData['emp_joining_date'] ?? null; 
-        $emp_salary_date = $filteredData['emp_salary_date'] ?? null; 
+        $emp_designation = $filteredData['emp_designation'] ?? null; // Fix typo
+        $emp_joining_date = $filteredData['emp_joining_date'] ?? null; // Fix typo
+        $emp_salary_date = $filteredData['emp_salary_date'] ?? null; // Fix typo
 
         
 
-        return view('payrolls.show_data',compact('filteredData','emp_id','emp_name','emp_designation','emp_joining_date','emp_salary_date','last_payroll_id','permitted_menus_array'));
+        return view('payrolls.show_data',compact('filteredData','emp_id','emp_name','emp_designation','emp_joining_date','emp_salary_date','last_inserted_id','permitted_menus_array'));
     }
 
 

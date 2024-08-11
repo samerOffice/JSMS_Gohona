@@ -42,7 +42,7 @@ Payroll
 
         <div class="invoice p-3 mt-3" id="payroll_details">         
             <div class="row">          
-                <div class="col-12">
+                <div class="col-8">
                     <br>
                     <div class="card">
 
@@ -145,7 +145,61 @@ Payroll
                               </table>
                         </div>
                       </div>
-                </div>            
+                </div> 
+
+                <div class="col-4">
+                  <div class="row">
+                      <div class="col-6">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                      <span>-----------------------</span><br>
+                      <span style="padding-left: 15px;">হিসাবকারীর স্বাক্ষর</span>
+                      </div>
+                      <div class="col-6">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                      <span>-----------------------</span><br>
+                     <span style="padding-left: 15px;">অডিটরের স্বাক্ষর</span>
+                      </div>
+                      <div class="col-6">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                      <span>-----------------------</span><br>
+                      <span style="padding-left: 15px;">গ্রহীতার স্বাক্ষর</span>
+                      </div>
+                      <div class="col-6">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                      <span>-----------------------</span><br>
+                      <span style="padding-left: 15px;">কর্তৃপক্ষের স্বাক্ষর</span>
+                      </div>
+                  </div>
+
+                </div>           
             </div>  
                 
             <div class="row no-print">
@@ -156,7 +210,7 @@ Payroll
                   {{-- <button onclick="window.location.href='{{ route('generate-csv', ['id' => $payroll]) }}'">Download CSV</button> --}}
                   <form method="post" action="{{route('generate-csv')}}">
                     @csrf
-                    <input type="hidden" name="payroll" value="{{$last_inserted_id}}">
+                    <input type="hidden" id="lastPayroll" name="payroll" value="{{$last_payroll_id}}">
                   <button type="submit" class="btn btn-success"><i class="fas fa-download"></i> Download CSV</button>
                 </form>
                 </div>
@@ -202,7 +256,8 @@ $(document).ready(function() {
                 setTimeout(function() {
                     if (!window.matchMedia('print').matches) {
                         // Redirect to a different page if print was canceled
-                        window.location.href = '{{ route('payroll_show_data') }}';
+                        var last_payroll = $('#lastPayroll').val();
+                  window.location.href = '{{ url('payroll_show_data') }}/' + last_payroll;
                     }
                 }, 500);
 
