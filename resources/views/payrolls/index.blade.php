@@ -163,7 +163,7 @@ Welcome
                         </tr>
                         <tr>
                           <td>Yearly Bonus</td>
-                          <td><input type="number" readonly id="yearly_bonus" name="yearly_bonus"></td>
+                          <td><input type="number"  id="yearly_bonus" name="yearly_bonus"></td>
                         </tr>
                         <tr>
                           <td>Total Payable Salary</td>
@@ -1082,6 +1082,68 @@ $('#retail_commission').on('keyup',function(){
     var final_pay_amount = (total_payable_salary-(advance_less+any_deduction));
     $('#final_pay_amount').val(final_pay_amount);
 });
+
+
+
+
+//-----------------------yearly bonus (manual entry) calculation-----------------------------
+$('#yearly_bonus').on('keyup',function(){
+  
+  
+  //........current mm-yyyy starts............
+  var currentDateFormatted = new Date();
+  var currentMonth = currentDateFormatted.getMonth() + 1; // Adding 1 because getMonth() returns zero-based month index
+  var currentYear = currentDateFormatted.getFullYear();
+  // Format month as two digits
+  var currentMonthString = currentMonth < 10 ? '0' + currentMonth : '' + currentMonth;
+  // Combine month and year in "mm-yyyy" format
+  var current_mm_yyyy = currentMonthString + '-' + currentYear;
+  //.........current mm-yyyy ends..............
+  
+  $('#bonus_eligible_month').val('');
+  $('#bonus_pay_month').val(current_mm_yyyy);
+
+  $('#total_payable_salary').val(0);
+  $('#advance_less').val(0);
+  $('#any_deduction').val(0);
+  $('#final_pay_amount').val(0);
+
+  var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
+  var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
+  var rental_cost_allowance = parseFloat($('#rental_cost_allowance').val());
+  var hospital_bill_allowance = parseFloat($('#hospital_bill_allowance').val());
+  var insurance_allowance = parseFloat($('#insurance_allowance').val());
+  var sales_commission = parseFloat($('#sales_commission').val());
+  var retail_commission = parseFloat($('#retail_commission').val());
+  var monthly_salary = parseFloat($('#monthly_salary').val());
+  var monthly_holiday_bonus = parseFloat($('#monthly_holiday_bonus').val());
+  var advance_less = parseFloat($('#advance_less').val());
+  var any_deduction = parseFloat($('#any_deduction').val());
+
+  //total others result
+  var total_others = (monthly_holiday_bonus+total_daily_allowance+total_travel_allowance+rental_cost_allowance+hospital_bill_allowance+insurance_allowance+sales_commission+retail_commission);
+  $('#total_others').val(total_others);
+  
+  //total salary result
+  var total_salary = (monthly_salary+total_others);
+   $('#total_salary').val(total_salary);
+
+   //total payable salary result
+   var yearly_bonus = parseFloat($('#yearly_bonus').val());
+    var total_payable_salary = (total_salary+yearly_bonus);
+    $('#total_payable_salary').val(total_payable_salary);
+
+    //final pay amount result
+    var final_pay_amount = (total_payable_salary-(advance_less+any_deduction));
+    $('#final_pay_amount').val(final_pay_amount);
+});
+
+
+
+
+
+
+
 
 
 //advance less calculation

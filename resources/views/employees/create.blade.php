@@ -83,26 +83,26 @@ Welcome
                               <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                   <div class="form-group">
-                                    <label >Contact Number <small style="color: red">*</small></label>
-                                    <input type="text" required class="form-control" id="mobile_number" name="mobile_number" >
+                                    <label >Contact Number</label>
+                                    <input type="text"  class="form-control" id="mobile_number" name="mobile_number" >
                                   </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                   <div class="form-group">
-                                    <label >NID Number <small style="color: red">*</small></label>
-                                    <input type="text" required class="form-control" id="nid_number" name="nid_number" >
+                                    <label >NID Number </label>
+                                    <input type="text"  class="form-control" id="nid_number" name="nid_number" >
                                   </div>
                                 </div>
                               </div>
                                 
                               <div class="form-group">
-                                <label >Present Address <small style="color: red">*</small></label><br>
-                                <textarea required name="present_address" class="summernote" id="present_address"></textarea>
+                                <label >Present Address </label><br>
+                                <textarea  name="present_address" class="summernote" id="present_address"></textarea>
                               </div>
 
                               <div class="form-group">
-                                <label >Permanent Address <small style="color: red">*</small></label><br>
-                                <textarea required name="permanent_address" class="summernote" id="permanent_address" ></textarea>
+                                <label >Permanent Address </label><br>
+                                <textarea  name="permanent_address" class="summernote" id="permanent_address" ></textarea>
                               </div>
 
                               <div class="row">
@@ -177,20 +177,20 @@ Welcome
                                 <div class="row">
                                   <div class="col-md-4 col-sm-12">
                                     <div class="form-group">
-                                      <label>Name <small style="color: red">*</small></label>
-                                      <input type="text" required  class="form-control" id="emergency_contact_name_one" name="emergency_contact_name_one">
+                                      <label>Name </label>
+                                      <input type="text"   class="form-control" id="emergency_contact_name_one" name="emergency_contact_name_one">
                                     </div>
                                   </div>
                                 <div class="col-md-4 col-sm-12">
                                   <div class="form-group">
-                                    <label>Number <small style="color: red">*</small></label>
-                                    <input type="text" required class="form-control" id="emergency_contact_number_one" name="emergency_contact_number_one">
+                                    <label>Number </label>
+                                    <input type="text"  class="form-control" id="emergency_contact_number_one" name="emergency_contact_number_one">
                                   </div>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                   <div class="form-group">
-                                    <label>Relation <small style="color: red">*</small></label>
-                                    <input type="text" required class="form-control" id="emergency_contact_relation_one" name="emergency_contact_relation_one">
+                                    <label>Relation </label>
+                                    <input type="text"  class="form-control" id="emergency_contact_relation_one" name="emergency_contact_relation_one">
                                   </div>
                                 </div>
                                </div>
@@ -200,20 +200,20 @@ Welcome
                                <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                   <div class="form-group">
-                                    <label>Name <small style="color: red">*</small></label>
-                                    <input type="text" required  class="form-control" id="emergency_contact_name_two" name="emergency_contact_name_two">
+                                    <label>Name <</label>
+                                    <input type="text"   class="form-control" id="emergency_contact_name_two" name="emergency_contact_name_two">
                                   </div>
                                 </div>
                               <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
-                                  <label>Number <small style="color: red">*</small></label>
-                                  <input type="text" required class="form-control" id="emergency_contact_number_two" name="emergency_contact_number_two">
+                                  <label>Number </label>
+                                  <input type="text"  class="form-control" id="emergency_contact_number_two" name="emergency_contact_number_two">
                                 </div>
                               </div>
                               <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
-                                  <label>Relation <small style="color: red">*</small></label>
-                                  <input type="text" required class="form-control" id="emergency_contact_relation_two" name="emergency_contact_relation_two">
+                                  <label>Relation</label>
+                                  <input type="text" class="form-control" id="emergency_contact_relation_two" name="emergency_contact_relation_two">
                                 </div>
                               </div>
                              </div>
