@@ -7,175 +7,215 @@ Welcome
 @section('content')
 <div class="content-wrapper">
     <section class="content">
-        <div class="container-fluid">
-         
-          <div class="row">
-            <div class="col-md-2 col-sm-1"></div>
-            <div class="col-md-8 col-sm-10">
-                  <!-- Pay Slip Header -->
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5><i class="fa-solid fa-receipt"></i> Pay Slip
-                        <small class="float-right"><b>Date:</b> <span style="color: green">{{ \Carbon\Carbon::now()->format('F j, Y') }}</span></small>
-                    </h5>
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <br>
+            @if ($message = Session::get('success'))
+            <div class="alert alert-info" role="alert">
+              <div class="row">
+                <div class="col-11">
+                  {{ $message }}
                 </div>
-
-                <!-- Pay Slip Form -->
-                <form action="{{ route('payroll.store') }}" method="post">
-                    @csrf
-                    <div class="card-body">
-
-                        <!-- Employee Information -->
-                        <div class="row mb-3">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Employee Name</label>
-                                <select class="form-control select2bs4" id="employee" name="employee">
-                                    <option value="">Select Employee</option>
-                                    @foreach ($employees as $employee)
-                                    <option value="{{$employee->id}}">{{$employee->emp_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <!-- <div class="col-md-4 col-sm-12">
-                                <b>Joining Date:</b> <span id="emp_joining_date"></span><br>
-                                <b>Per Day Salary:</b> <span id="emp_per_day_salary"></span><br>
-                                <b>Total Bonus Day:</b> <span id="emp_total_bonus_day">39 days</span>
-                                <input type="hidden" value="39" name="emp_total_bonus_day">
-                                <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" name="salary_date">
-                            </div> -->
-                        </div>
-                        <br>
-                        <div class="row">
-                          <div class="col-md-3 col-sm-12">
-                            <label>Total Yearly Bonus (BDT):</label>
-                                <input type="text" readonly style="background-color: #d9ff8d;" id="emp_total_bonus_amount" name="emp_total_bonus_amount" class="form-control mb-2">
-                          </div>
-                          <div class="col-md-3 col-sm-12">
-                            <label>Bonus Eligible Month:</label>
-                                <input type="text" readonly style="background-color: #d9ff8d;" id="bonus_eligible_month" name="bonus_eligible_month" class="form-control mb-2">
-                          </div>
-                          <div class="col-md-3 col-sm-12">
-                            <label>Bonus Payable Month:</label>
-                                <input type="text" readonly style="background-color: #d9ff8d;" id="bonus_pay_month" name="bonus_pay_month" class="form-control mb-2">
-                          </div>
-                          <div class="col-md-3 col-sm-12">
-                            <label>Bonus Payable Amount (BDT):</label>
-                                <input type="text" readonly style="background-color: #d9ff8d;" id="bonus_pay_amount" name="bonus_pay_amount" class="form-control">
-                          </div>
-                        </div>
-
-                        <!-- Payment Calculation Table -->
-                        <h4 class="mt-4">Payment Calculation</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td>Joining Date</td>
-                                    <td><input type="date" readonly style="background-color: #b7f3fd;" id="joining_date" name="joining_date" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Working Days</td>
-                                    <td><input type="number" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_working_day" name="total_working_day" class="form-control" value="26"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Leave</td>
-                                    <td><input type="number" id="total_leave" name="total_leave" class="form-control" value="0"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Number of Payable Days</td>
-                                    <td><input type="number" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_number_of_pay_day" name="total_number_of_pay_day" class="form-control" value="26"></td>
-                                </tr>
-                                <tr>
-                                    <td>Per Day Salary</td>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="per_day_salary" name="per_day_salary" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Monthly Salary</td>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="monthly_salary" name="monthly_salary" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Monthly Holiday Bonus</td>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="monthly_holiday_bonus" name="monthly_holiday_bonus" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Daily Allowance</td>
-                                    <td><input type="number" step="0.01" id="total_daily_allowance" name="total_daily_allowance" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Travel Allowance</td>
-                                    <td><input type="number" step="0.01" id="total_travel_allowance" name="total_travel_allowance" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Rental Cost Allowance</td>
-                                    <td><input type="number" step="0.01" id="rental_cost_allowance" name="rental_cost_allowance" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Hospital Bill Allowance</td>
-                                    <td><input type="number" step="0.01" id="hospital_bill_allowance" name="hospital_bill_allowance" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Insurance Allowance</td>
-                                    <td><input type="number" step="0.01" id="insurance_allowance" name="insurance_allowance" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Sales Commission</td>
-                                    <td><input type="number" step="0.01" id="sales_commission" name="sales_commission" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Retail Commission</td>
-                                    <td><input type="number" step="0.01" id="retail_commission" name="retail_commission" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Total Others</th>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_others" name="total_others" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Total Salary</th>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_salary" name="total_salary" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Yearly Bonus</td>
-                                    <td><input type="number" step="0.01" id="yearly_bonus" name="yearly_bonus" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Payable Salary</td>
-                                    <td><input type="number" step="0.01" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="total_payable_salary" name="total_payable_salary" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Salary Advance Less</td>
-                                    <td><input type="number" step="0.01" id="advance_less" name="advance_less" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td>Any Deduction</td>
-                                    <td><input type="number" step="0.01" id="any_deduction" name="any_deduction" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Final Pay Amount</th>
-                                    <td><input type="number" readonly style="-webkit-appearance: none; -moz-appearance: textfield; background-color: #b7f3fd; pointer-events: none;" id="final_pay_amount" name="final_pay_amount" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Loan Advance</th>
-                                    <td><input type="number" step="0.01" id="loan_advance" name="loan_advance" class="form-control"></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Payment</button>
-                    </div>
-                </form>
+                <div class="col-1">
+                  <button type="button" class=" btn btn-info" data-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
             </div>
-            </div>
-            <div class="col-md-2 col-sm-1"></div>
-          </div>
-
-
-        
+            @endif
         </div>
-    </section>
-</div>
+          <div class="col-12">
+            <!-- Main content -->
+            <div class=" p-3 mt-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h5>
+                    <i class="fa-solid fa-receipt"></i> Pay Slip
+                    <small class="float-right"><b>Date:</b> <span style="color: green">{{ \Carbon\Carbon::now()->format('F j, Y') }}</span></small>
+                  </h5>
+                </div>
+              </div>
+              <br>
+              <!-- info row -->
 
+              <form action="{{route('payroll.store')}}" method="post">
+                @csrf
+                <div class="row invoice-info">
+                  <div class="col-md-4 col-sm-12 invoice-col">
+                      <label>Employee Name</label>
+                      <select class="form-control select2bs4" id="employee"  name="employee" style="width: 80%;">                                  
+                          <option value="">Select Employee</option>
+                          @foreach ($employees as $employee)
+                          <option value="{{$employee->id}}">{{$employee->emp_name}}</option> 
+                          @endforeach                                               
+                      </select>
+                <br>
+                  </div>
+                  <div class="col-md-4 col-sm-12 invoice-col">
+                    <b>Joining Date:</b> <span id="emp_joining_date"></span><br>
+                    <b>Per Day Salary:</b> <span id="emp_per_day_salary"></span><br>
+                    <b>Total Bonus Day:</b> <span id="emp_total_bonus_day">39 days</span><br>
+                    <input type="hidden" value="39" name="emp_total_bonus_day">
+                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d')}} " name="salary_date">
+                    
+                  </div>  
+                  
+                  <!-- /.col -->
+                  <div class="col-md-4 col-sm-12 invoice-col">
+                    {{-- <b>Yearly Total Bonus Amount:</b> <span id="emp_total_bonus_amount"></span> BDT<br> --}}
+                    <label for="">Yearly Total Bonus Amount:</label>
+                    <input type="text" readonly id="emp_total_bonus_amount" name="emp_total_bonus_amount"> BDT <br>
+
+                    {{-- <b>Bonus Eligible Month:</b> <span id="bonus_eligible_month"></span><br> --}}
+                    <label for="">Bonus Eligible Month:</label>
+                    <input type="text" readonly id="bonus_eligible_month" name="bonus_eligible_month"><br>
+
+                    {{-- <b>Bonus Payable Month:</b> <span id="bonus_pay_month"></span> <br> --}}
+                    <label for="">Bonus Payable Month:</label>
+                    <input type="text" readonly id="bonus_pay_month" name="bonus_pay_month"><br>
+
+                    {{-- <b>Bonus Payable Amount:</b> <span id="bonus_pay_amount"></span>  BDT --}}
+                    <label for="">Bonus Payable Amount:</label>
+                    <input type="text" readonly id="bonus_pay_amount" name="bonus_pay_amount"> BDT<br>
+                  </div>
+                  
+                  
+                </div>
+                <br>
+                <!-- /.row -->
+                <div class="row">              
+                  <div class="col-12">
+                    <h4>Payment Calculation</h4>
+  
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tr>
+                          <td>Joining Date</td>
+                          <td><input type="date" readonly id="joining_date" name="joining_date"></td>
+                        </tr>
+                        <tr>
+                          <td>Total Working days</td>
+                          <td><input type="number" readonly  id="total_working_day" name="total_working_day" value="26"></td>
+                        </tr>
+                       
+  
+                          <tr>
+                            <td>Total Leave</td>
+                            <td><input type="number" id="total_leave" name="total_leave" value="0" ></td>
+                          </tr>
+  
+                          <tr>
+                          <td>Total Number of payable days</td>
+                          <td><input type="number" readonly id="total_number_of_pay_day" name="total_number_of_pay_day" value="26"></td>
+                        </tr>
+                        <tr>
+                          <td>Per Day Salary</td>
+                          <td><input type="number" readonly id="per_day_salary" name="per_day_salary"></td>
+                        </tr>
+                        <tr>
+                          <td>Monthly Salary</td>
+                          <td><input type="number" readonly id="monthly_salary" name="monthly_salary"></td>
+                        </tr>
+  
+                        <tr>
+                          <td>Monthly Holiday Bonus</td>
+                          <td><input type="number" readonly  id="monthly_holiday_bonus" name="monthly_holiday_bonus"></td>
+                        </tr>
+  
+                        <tr>
+                          <td>Total Daily Allowance</td>
+                          <td><input type="number"  id="total_daily_allowance" name="total_daily_allowance"></td>
+                        </tr>
+                        <tr>
+                          <td>Total Travel Allowance</td>
+                          <td><input type="number"  id="total_travel_allowance" name="total_travel_allowance"></td>
+                        </tr>
+                        <tr>
+                          <td>Rental Cost Allowance</td>
+                          <td><input type="number"  id="rental_cost_allowance" name="rental_cost_allowance"></td>
+                        </tr>
+                        <tr>
+                          <td>Hospital Bill Allowance</td>
+                          <td><input type="number"  id="hospital_bill_allowance" name="hospital_bill_allowance"></td>
+                        </tr>
+  
+                        <tr>
+                          <td>Insurance Allowance</td>
+                          <td><input type="number"  id="insurance_allowance" name="insurance_allowance"></td>
+                        </tr>
+                        <tr>
+                          <td>Sales Commission</td>
+                          <td><input type="number"  id="sales_commission" name="sales_commission"></td>
+                        </tr>
+                        <tr>
+                          <td>Retail Commission</td>
+                          <td><input type="number"  id="retail_commission" name="retail_commission"></td>
+                        </tr>
+                        <tr>
+                          <th style="color: skyblue">Total Others</th>
+                          <td><input type="number" readonly id="total_others" name="total_others"></td>
+                        </tr>
+                        <tr>
+                          <th style="color: green">Total Salary</th>
+                          <td><input type="number" readonly  id="total_salary" name="total_salary"></td>
+                        </tr>
+                        <tr>
+                          <td>Yearly Bonus</td>
+                          <td><input type="number"  id="yearly_bonus" name="yearly_bonus"></td>
+                        </tr>
+                        <tr>
+                          <td>Total Payable Salary</td>
+                          <td><input type="number" readonly  id="total_payable_salary" name="total_payable_salary"></td>
+                        </tr>
+                        <tr>
+                          <td>Advance Less</td>
+                          <td><input type="number"  id="advance_less" name="advance_less"></td>
+                        </tr>
+                        <tr>
+                          <td>Any Deduction</td>
+                          <td><input type="number"  id="any_deduction" name="any_deduction"></td>
+                        </tr>
+                        <tr>
+                          <th>Final Pay Amount</th>
+                          <td><input type="number" readonly  id="final_pay_amount" name="final_pay_amount"></td>
+                        </tr>
+                        <tr>
+                          <th style="color: red">Loan Advance</th>
+                          <td><input type="number"  id="loan_advance" name="loan_advance"></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+  
+                <!-- this row will not appear when printing -->
+                <div class="row no-print">
+                  <div class="col-12">
+                    {{-- <button type="button" id="invoice_print" class="btn btn-primary" style="margin-right: 5px;">
+                      <i class="fas fa-print"></i> Print
+                    </button> --}}
+                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                      Payment
+                    </button>
+                    {{-- <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> Generate PDF
+                    </button> --}}
+                  </div>
+                </div>
+              </form>
+   
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
 @endsection
 
 
