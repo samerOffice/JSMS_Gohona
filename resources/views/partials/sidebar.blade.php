@@ -152,6 +152,17 @@
           </li>
           @endif
 
+          @if(in_array(42, $permitted_menus_array))
+          <li  class="nav-item nav-link {{ Request::is('product') ? 'nav-link active' : ''}}" style="{{ Request::is('product') ? 'background-color: #17a2b8; !important' : ''}}">
+            <a href="{{url('/product')}}" >
+              <i class="nav-icon fa-regular fa-gem" {{ Request::is('product') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('product') ? 'color: white; !important' : ''}}">
+                Expense
+              </p>
+            </a>
+          </li>
+          @endif
+
           <li class="nav-item @if(Request::is('customer_transaction')) menu-open 
                               @elseif(Request::is('supplier_transaction')) menu-open
                               @endif">

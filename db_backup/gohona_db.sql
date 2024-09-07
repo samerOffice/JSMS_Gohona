@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2024 at 01:36 PM
+-- Generation Time: Sep 07, 2024 at 02:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -320,11 +320,22 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `emp_name`, `designation`, `joining_date`, `yearly_bonus_date`, `renew_date`, `renewed_yearly_bonus_date`, `per_day_salary`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name_one`, `emergency_contact_number_one`, `emergency_contact_relation_one`, `emergency_contact_name_two`, `emergency_contact_number_two`, `emergency_contact_relation_two`, `emergency_contact_name_three`, `emergency_contact_number_three`, `emergency_contact_relation_three`, `yearly_bonus_status`, `created_at`, `updated_at`) VALUES
-(1, 'Kamrul Hasan Uddin', 'Sales Executive', '2024-04-02', '2024-07-02', '2024-07-02', NULL, '1200', 'Mahmudul Hasan', 'Halima Khatun', '01513470121', '34534456', '<p>laalbagh<br></p>', '<p>laalbagh, dhaka<br></p>', '1995-09-10', 'A+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Mahmudul', '01513470130', 'Father', 'Halima Khantun', '01514450127', 'Mother', NULL, NULL, NULL, NULL, '2024-05-16 13:28:47', '2024-05-16 13:28:47'),
-(2, 'Hamid Mahmud', 'Sales Executive', '2024-04-02', '2024-07-04', NULL, NULL, '900', 'Almas Mahmud', 'Hasina Begum', '01513470121', '634135485', 'Dhanmondi 2, Dhaka<br>', '<p>Dhanmondi 2, Dhaka</p>', '1994-04-07', 'B+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Almas Mahmud', '01715470120', 'Father', 'Kawser Mahmud', '01514450127', 'Brother', NULL, NULL, NULL, NULL, '2024-05-23 06:02:15', '2024-05-23 06:02:15'),
-(3, 'Kartik Paul Kumar', 'Sales Manager', '2020-05-08', NULL, NULL, NULL, '800', 'Suvra Paul', 'Priya Paul', '01513470127', '35464124', '<p>Tantibazar, Dhaka<br></p>', '<p>Tantibazar, Dhaka<br></p><p></p>', '1992-04-08', 'O+', 'Bangladeshi', 'Married', 'Hindu', 'Male', NULL, 'Suvra Paul', '01513470120', 'Father', 'Priya Paul', '01413470150', 'Mother', NULL, NULL, NULL, NULL, '2024-05-23 11:40:12', '2024-05-23 11:40:12'),
-(4, 'Salman Seikh', 'Sales Executive gg', '2022-07-05', NULL, NULL, NULL, '850', 'Mahmud Seikh', 'Halima Khatun', '01513470121', '3543515', '<p>laalbagh, dhaka<br></p>', '<p>laalbagh, dhaka<br></p>', '1996-06-05', 'O+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Mahmud Seikh', '01513470120', 'Father', 'Rakib Seikh', '01814780120', 'Brother', NULL, NULL, NULL, NULL, '2024-06-04 06:26:23', '2024-06-04 06:26:23'),
-(5, 'Farhan Ahmed', 'Sales Officer', '2024-04-03', NULL, NULL, NULL, '750', 'Imran Ahmed', 'Hasina Begum', '01814750120', '354353363', 'Dhanmondi 27, Dhaka, Bangladesh<br>', '<p>Dhanmondi 27, Dhaka, Bangladesh</p>', '1991-07-11', 'O+', 'Bangladeshi', 'Single', 'Islam', 'Male', NULL, 'Imran Ahmed', '01715470120', 'Father', 'Halima Begum', '01413470150', 'Mother', NULL, NULL, NULL, NULL, '2024-07-02 07:29:22', '2024-07-02 07:29:22');
+(1, 'Kartik Paul', 'Employee', '2021-05-02', NULL, NULL, NULL, '1200', NULL, NULL, NULL, NULL, NULL, NULL, '1995-07-04', 'A+', NULL, 'Single', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-12 04:42:42', '2024-08-12 04:42:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` int(11) NOT NULL,
+  `expense_type` int(10) DEFAULT NULL COMMENT '1 = Daily Payments, 2 = Monthly Payment, 3 = Yearly Payment\r\n4 = Marketing Cost\r\n5 = Payments\r\n6 = Investment Expenses\r\n7 = Loan/Advance',
+  `expense_name` varchar(255) DEFAULT NULL,
+  `expense_pay_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -400,7 +411,8 @@ INSERT INTO `menus` (`id`, `menu_name`, `created_at`, `updated_at`) VALUES
 (38, 'Delete Employee', '2024-06-04 06:48:18', '2024-06-04 06:48:18'),
 (39, 'Payroll List', '2024-06-04 06:49:09', '2024-06-04 06:49:09'),
 (40, 'Add Payroll', '2024-06-04 06:49:09', '2024-06-04 06:49:09'),
-(41, 'Sale Settings', '2024-06-04 07:25:20', '2024-06-04 07:25:20');
+(41, 'Sale Settings', '2024-06-04 07:25:20', '2024-06-04 07:25:20'),
+(42, 'Expense List', '2024-09-07 12:08:15', '2024-09-07 12:08:15');
 
 -- --------------------------------------------------------
 
@@ -421,9 +433,9 @@ CREATE TABLE `menu_permissions` (
 --
 
 INSERT INTO `menu_permissions` (`id`, `role`, `menus`, `created_at`, `updated_at`) VALUES
-(1, 1, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41', '2024-06-03 10:06:05', '2024-06-03 10:06:05'),
-(2, 2, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41', '2024-06-03 10:06:42', '2024-06-03 10:06:42'),
-(3, 3, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,35,36,37,38,39,40,41', '2024-06-03 10:07:23', '2024-06-03 10:07:23'),
+(1, 1, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42', '2024-06-03 10:06:05', '2024-06-03 10:06:05'),
+(2, 2, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42', '2024-06-03 10:06:42', '2024-06-03 10:06:42'),
+(3, 3, '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,35,36,37,38,39,40,41,42', '2024-06-03 10:07:23', '2024-06-03 10:07:23'),
 (4, 5, '1,9,10,11', '2024-06-03 12:07:50', '2024-06-03 12:07:50');
 
 -- --------------------------------------------------------
@@ -540,21 +552,6 @@ CREATE TABLE `payrolls` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `payrolls`
---
-
-INSERT INTO `payrolls` (`id`, `employee`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
-(1, 3, '2024-07-02', '2020-05-08', '800', '39', '31200', '07-2020', '08-2020', '7800', '26', '0', '26', '20800', '800', '0', '0', '0', '0', '0', '0', '0', '800', '21600', '0', '21600', '0', '0', '21600', NULL, '2024-07-02 09:57:39', '2024-07-02 09:57:39'),
-(2, 4, '2024-07-02', '2022-07-05', '850', '39', '33150', '09-2022', '10-2022', '8287.5', '26', '0', '26', '22100', '850', '0', '0', '0', '0', '0', '0', '0', '850', '22950', '0', '22950', '0', '0', '22950', NULL, '2024-07-02 10:02:21', '2024-07-02 10:02:21'),
-(3, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '06-2024', '07-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '11700', '44100', '0', '0', '44100', NULL, '2024-07-02 10:04:31', '2024-07-02 10:04:31'),
-(4, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '09-2024', '10-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '0', '32400', NULL, '2024-07-02 10:05:05', '2024-07-02 10:05:05'),
-(5, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '09-2024', '10-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '0', '32400', NULL, '2024-07-02 10:06:38', '2024-07-02 10:06:38'),
-(6, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '09-2024', '10-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '0', '32400', NULL, '2024-07-02 10:06:54', '2024-07-02 10:06:54'),
-(7, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '06-2024', '07-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '11700', '44100', '0', '0', '44100', NULL, '2024-07-02 10:08:15', '2024-07-02 10:08:15'),
-(8, 1, '2024-07-02', '2024-04-02', '1200', '39', '46800', '09-2024', '10-2024', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '50', '32350', NULL, '2024-07-02 10:08:34', '2024-07-02 10:08:34'),
-(9, 2, '2024-07-04', '2024-04-02', '900', '39', '35100', '06-2024', '07-2024', '8775', '26', '0', '26', '23400', '900', '0', '0', '0', '0', '0', '0', '0', '900', '24300', '8775', '33075', '0', '0', '33075', NULL, '2024-07-04 12:22:02', '2024-07-04 12:22:02');
 
 -- --------------------------------------------------------
 
@@ -799,7 +796,8 @@ CREATE TABLE `stocks` (
 --
 
 INSERT INTO `stocks` (`id`, `stock_memo`, `stock_date`, `stock_name`, `created_at`, `updated_at`) VALUES
-(1, '202407-13', '2024-07-13', 'Test Stock', '2024-07-13 11:23:41', '2024-07-13 11:23:41');
+(1, '202407-13', '2024-07-13', 'Test Stock', '2024-07-13 11:23:41', '2024-07-13 11:23:41'),
+(2, '202407-519', '2024-07-13', 'Test Stock-2', '2024-07-13 11:47:41', '2024-07-13 11:47:41');
 
 -- --------------------------------------------------------
 
@@ -1020,6 +1018,12 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -1217,7 +1221,13 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1229,7 +1239,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `menu_permissions`
@@ -1253,7 +1263,7 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1313,7 +1323,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
