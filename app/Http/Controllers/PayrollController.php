@@ -91,7 +91,7 @@ class PayrollController extends Controller
         $payroll = DB::table('payrolls')
         ->insertGetId([
         'employee'=>$request->employee,
-        'salary_date'=>$request->salary_date,
+        'salary_date'=>Carbon::now()->toDateString(),
         'joining_date'=>$request->joining_date,
         'per_day_salary'=>$request->per_day_salary,
         'emp_total_bonus_day'=>$request->emp_total_bonus_day,

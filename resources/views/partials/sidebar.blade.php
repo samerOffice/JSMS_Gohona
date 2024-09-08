@@ -153,10 +153,10 @@
           @endif
 
           @if(in_array(42, $permitted_menus_array))
-          <li  class="nav-item nav-link {{ Request::is('product') ? 'nav-link active' : ''}}" style="{{ Request::is('product') ? 'background-color: #17a2b8; !important' : ''}}">
-            <a href="{{url('/product')}}" >
-              <i class="nav-icon fa-regular fa-gem" {{ Request::is('product') ? 'color: white; !important' : ''}}"></i>
-              <p style="{{ Request::is('product') ? 'color: white; !important' : ''}}">
+          <li  class="nav-item nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+            <a href="{{url('/expense')}}" >
+              <i class="nav-icon fa-solid fa-money-bill" {{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+              <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">
                 Expense
               </p>
             </a>

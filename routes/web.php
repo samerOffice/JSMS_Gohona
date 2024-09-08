@@ -28,6 +28,7 @@ use App\Http\Controllers\CustomerTransactionController;
 use App\Http\Controllers\SupplierTransactionController;
 
 
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('guest');
 Route::get('/home', [CustomAuthController::class, 'dashboard'])->name('dashboard');
 Route::get('/login', [CustomAuthController::class, 'index'])->name('login')->middleware('guest');

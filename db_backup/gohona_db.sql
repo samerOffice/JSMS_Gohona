@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2024 at 02:10 PM
+-- Generation Time: Sep 08, 2024 at 01:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -332,10 +332,23 @@ CREATE TABLE `expenses` (
   `id` int(11) NOT NULL,
   `expense_type` int(10) DEFAULT NULL COMMENT '1 = Daily Payments, 2 = Monthly Payment, 3 = Yearly Payment\r\n4 = Marketing Cost\r\n5 = Payments\r\n6 = Investment Expenses\r\n7 = Loan/Advance',
   `expense_name` varchar(255) DEFAULT NULL,
+  `expense_amount` varchar(100) DEFAULT NULL,
   `expense_pay_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `expense_type`, `expense_name`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Snacks', '150', '2024-09-08', '2024-09-08 07:53:23', '2024-09-08 07:53:23'),
+(2, 1, 'Parking Cost', '147', '2024-09-08', '2024-09-08 07:53:23', '2024-09-08 07:53:23'),
+(3, 2, 'Salary (Kartik Paul)', '32400', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
+(4, 2, 'Salary (Kartik Paul)', '32380', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
+(5, 2, 'Water Bill', '3390', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
+(6, 2, 'Shop Rent', '52500', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09');
 
 -- --------------------------------------------------------
 
@@ -552,6 +565,14 @@ CREATE TABLE `payrolls` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payrolls`
+--
+
+INSERT INTO `payrolls` (`id`, `employee`, `salary_date`, `joining_date`, `per_day_salary`, `emp_total_bonus_day`, `emp_total_bonus_amount`, `bonus_eligible_month`, `bonus_pay_month`, `bonus_pay_amount`, `total_working_day`, `total_leave`, `total_number_of_pay_day`, `monthly_salary`, `monthly_holiday_bonus`, `total_daily_allowance`, `total_travel_allowance`, `rental_cost_allowance`, `hospital_bill_allowance`, `insurance_allowance`, `sales_commission`, `retail_commission`, `total_others`, `total_salary`, `yearly_bonus`, `total_payable_salary`, `advance_less`, `any_deduction`, `final_pay_amount`, `loan_advance`, `created_at`, `updated_at`) VALUES
+(1, 1, '2024-09-08', '2021-05-02', '1200', NULL, '46800', '07-2021', '08-2021', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '0', '32400', NULL, '2024-09-08 08:47:43', '2024-09-08 08:47:43'),
+(2, 1, '2024-09-08', '2021-05-02', '1200', NULL, '46800', '07-2021', '08-2021', '11700', '26', '0', '26', '31200', '1200', '0', '0', '0', '0', '0', '0', '0', '1200', '32400', '0', '32400', '0', '20', '32380', NULL, '2024-09-08 09:14:21', '2024-09-08 09:14:21');
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1248,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1263,7 +1284,7 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
