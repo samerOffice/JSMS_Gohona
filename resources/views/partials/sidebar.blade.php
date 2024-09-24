@@ -153,13 +153,84 @@
           @endif
 
           @if(in_array(42, $permitted_menus_array))
-          <li  class="nav-item nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+          {{-- <li  class="nav-item nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
             <a href="{{url('/expense')}}" >
               <i class="nav-icon fa-solid fa-money-bill" {{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
               <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">
                 Expense
               </p>
             </a>
+          </li> --}}
+
+          <li class="nav-item @if(Request::is('expense')) menu-open 
+                              {{-- @elseif(Request::is('supplier_transaction')) menu-open --}}
+                              @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-money-bill"></i>
+              <p>
+                Expenses
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Daily Payments</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Monthly Payments</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Yearly Payments</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Marketing Costs</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Payments</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Investment Expenses</p>
+                </a>
+              </li>
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Loans/Advances</p>
+                </a>
+              </li>
+                         
+
+              <li class="nav-item" style="padding-left: 15px">
+                <a href="#" class="nav-link">
+                  <i class="fa-solid fa-chevron-right"></i>
+                  <p>Report</p>
+                </a>
+              </li>
+            </ul>
           </li>
           @endif
 

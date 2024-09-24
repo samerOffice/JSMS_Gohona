@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 01:38 PM
+-- Generation Time: Sep 24, 2024 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -190,6 +190,56 @@ INSERT INTO `customer_transactions` (`id`, `transaction_date`, `cash_memo_no`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `daily_payments`
+--
+
+CREATE TABLE `daily_payments` (
+  `id` int(11) NOT NULL,
+  `payment_date` date NOT NULL,
+  `mobile_bill` decimal(10,2) DEFAULT NULL,
+  `snacks` decimal(10,2) DEFAULT NULL,
+  `entertainment_bill` decimal(10,2) DEFAULT NULL,
+  `others` decimal(10,2) DEFAULT NULL,
+  `gift_for_customer` decimal(10,2) DEFAULT NULL,
+  `ornaments_binding_bill` decimal(10,2) DEFAULT NULL,
+  `interest_for_gold_lending` decimal(10,2) DEFAULT NULL,
+  `vangary_loss` decimal(10,2) DEFAULT NULL,
+  `pay_repair_bill` decimal(10,2) DEFAULT NULL,
+  `photocopy` decimal(10,2) DEFAULT NULL,
+  `management_expenses` decimal(10,2) DEFAULT NULL,
+  `transport` decimal(10,2) DEFAULT NULL,
+  `bkash_cost` decimal(10,2) DEFAULT NULL,
+  `repairing_cost` decimal(10,2) DEFAULT NULL,
+  `conveyance` decimal(10,2) DEFAULT NULL,
+  `buy_lock_locker` decimal(10,2) DEFAULT NULL,
+  `cash_back` decimal(10,2) DEFAULT NULL,
+  `live_cost` decimal(10,2) DEFAULT NULL,
+  `parking_cost` decimal(10,2) DEFAULT NULL,
+  `vat_machine` decimal(10,2) DEFAULT NULL,
+  `door_grease` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `daily_payments_others`
+--
+
+CREATE TABLE `daily_payments_others` (
+  `id` int(11) NOT NULL,
+  `daily_payment_id` int(100) DEFAULT NULL,
+  `expense_name` varchar(100) DEFAULT NULL,
+  `expense_amount` varchar(100) DEFAULT NULL,
+  `expense_pay_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `districts`
 --
 
@@ -369,6 +419,79 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `investment_expenses`
+--
+
+CREATE TABLE `investment_expenses` (
+  `id` int(11) NOT NULL,
+  `payment_date` date NOT NULL,
+  `buy_old_gold` decimal(10,2) DEFAULT NULL,
+  `buy_ornaments_readymate` decimal(10,2) DEFAULT NULL,
+  `buy_24k_gold_ananto` decimal(10,2) DEFAULT NULL,
+  `buy_ornaments_from_ananto` decimal(10,2) DEFAULT NULL,
+  `exchange_own_gold` decimal(10,2) DEFAULT NULL,
+  `exchange_own_diamond` decimal(10,2) DEFAULT NULL,
+  `buy_or_exchange_own_gold` decimal(10,2) DEFAULT NULL,
+  `booking_cancel` decimal(10,2) DEFAULT NULL,
+  `deposit_customer_24k_gold` decimal(10,2) DEFAULT NULL,
+  `buy_diamond_from_mihir` decimal(10,2) DEFAULT NULL,
+  `pay_to_sajal_bhai` decimal(10,2) DEFAULT NULL,
+  `pay_to_ananto` decimal(10,2) DEFAULT NULL,
+  `order_cancel` decimal(10,2) DEFAULT NULL,
+  `deposit_in_city_bank` decimal(10,2) DEFAULT NULL,
+  `pay_vangary_profit` decimal(10,2) DEFAULT NULL,
+  `deposit_in_dutch_bangla_bank` decimal(10,2) DEFAULT NULL,
+  `shop_decoration_advance` decimal(10,2) DEFAULT NULL,
+  `pay_to_customer` decimal(10,2) DEFAULT NULL,
+  `due_cancel` decimal(10,2) DEFAULT NULL,
+  `box_bill_shamim_products` decimal(10,2) DEFAULT NULL,
+  `diamond_test_mechine_wet_mechine` decimal(10,2) DEFAULT NULL,
+  `buy_stone` decimal(10,2) DEFAULT NULL,
+  `software_advance_payment` decimal(10,2) DEFAULT NULL,
+  `buy_coffee_machine_computer` decimal(10,2) DEFAULT NULL,
+  `stationary_printing` decimal(10,2) DEFAULT NULL,
+  `balance_or_cash_in_hand` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loan_or_advance_expenses`
+--
+
+CREATE TABLE `loan_or_advance_expenses` (
+  `id` int(11) NOT NULL,
+  `member_type` int(10) DEFAULT NULL COMMENT '1 = staff, 2 = customer, 3 = supplier',
+  `expense_type` int(10) DEFAULT NULL COMMENT '1 = loan, 2 = advance',
+  `expense_amount` varchar(100) DEFAULT NULL,
+  `expense_pay_date` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marketing_costs`
+--
+
+CREATE TABLE `marketing_costs` (
+  `id` int(11) NOT NULL,
+  `payment_date` date DEFAULT NULL,
+  `advertising` decimal(10,2) DEFAULT NULL,
+  `sms_buy` decimal(10,2) DEFAULT NULL,
+  `facebook_boosting` decimal(10,2) DEFAULT NULL,
+  `facebook_design` decimal(10,2) DEFAULT NULL,
+  `web_side_charge` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menus`
 --
 
@@ -478,6 +601,49 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `monthly_payments`
+--
+
+CREATE TABLE `monthly_payments` (
+  `id` int(11) NOT NULL,
+  `payment_month` date NOT NULL,
+  `shop_rent_advance` decimal(10,2) DEFAULT NULL,
+  `staff_salary` int(11) DEFAULT NULL,
+  `management_salary` int(11) DEFAULT NULL,
+  `service_charge` decimal(10,2) DEFAULT NULL,
+  `electricity_bill` decimal(10,2) DEFAULT NULL,
+  `water_bill` decimal(10,2) DEFAULT NULL,
+  `internet_bill` decimal(10,2) DEFAULT NULL,
+  `jewelers_member_fees` decimal(10,2) DEFAULT NULL,
+  `vat` decimal(10,2) DEFAULT NULL,
+  `vat_office` decimal(10,2) DEFAULT NULL,
+  `vat_liton` decimal(10,2) DEFAULT NULL,
+  `staff_bonus` decimal(10,2) DEFAULT NULL,
+  `vat_memo` decimal(10,2) DEFAULT NULL,
+  `market_member_fees` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monthly_payment_others`
+--
+
+CREATE TABLE `monthly_payment_others` (
+  `id` int(100) NOT NULL,
+  `monthly_payment_id` int(100) DEFAULT NULL,
+  `expense_name` varchar(100) DEFAULT NULL,
+  `expense_amount` varchar(100) DEFAULT NULL,
+  `expense_pay_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_reset_tokens`
 --
 
@@ -486,6 +652,21 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_expenses`
+--
+
+CREATE TABLE `payment_expenses` (
+  `id` int(11) NOT NULL,
+  `expense_name` varchar(100) DEFAULT NULL,
+  `expense_amount` varchar(100) DEFAULT NULL,
+  `expense_pay_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -950,6 +1131,24 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `status`, `email_verified
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `yearly_payments`
+--
+
+CREATE TABLE `yearly_payments` (
+  `id` int(11) NOT NULL,
+  `payment_year` year(4) NOT NULL,
+  `trade_license` decimal(10,2) DEFAULT NULL,
+  `pahela_boishakh_expenses` decimal(10,2) DEFAULT NULL,
+  `valentine_gate` decimal(10,2) DEFAULT NULL,
+  `zakat` decimal(10,2) DEFAULT NULL,
+  `dealing_licence` decimal(10,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `zones`
 --
 
@@ -1026,6 +1225,18 @@ ALTER TABLE `customer_transactions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `daily_payments`
+--
+ALTER TABLE `daily_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `daily_payments_others`
+--
+ALTER TABLE `daily_payments_others`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -1052,6 +1263,24 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `investment_expenses`
+--
+ALTER TABLE `investment_expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `loan_or_advance_expenses`
+--
+ALTER TABLE `loan_or_advance_expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `marketing_costs`
+--
+ALTER TABLE `marketing_costs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menus`
 --
 ALTER TABLE `menus`
@@ -1070,10 +1299,28 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `monthly_payments`
+--
+ALTER TABLE `monthly_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `monthly_payment_others`
+--
+ALTER TABLE `monthly_payment_others`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `payment_expenses`
+--
+ALTER TABLE `payment_expenses`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `payment_methods`
@@ -1181,6 +1428,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `yearly_payments`
+--
+ALTER TABLE `yearly_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `zones`
 --
 ALTER TABLE `zones`
@@ -1233,6 +1486,18 @@ ALTER TABLE `customer_transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `daily_payments`
+--
+ALTER TABLE `daily_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `daily_payments_others`
+--
+ALTER TABLE `daily_payments_others`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
@@ -1257,6 +1522,24 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `investment_expenses`
+--
+ALTER TABLE `investment_expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `loan_or_advance_expenses`
+--
+ALTER TABLE `loan_or_advance_expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `marketing_costs`
+--
+ALTER TABLE `marketing_costs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
@@ -1273,6 +1556,24 @@ ALTER TABLE `menu_permissions`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `monthly_payments`
+--
+ALTER TABLE `monthly_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `monthly_payment_others`
+--
+ALTER TABLE `monthly_payment_others`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment_expenses`
+--
+ALTER TABLE `payment_expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -1375,6 +1676,12 @@ ALTER TABLE `today_rates`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `yearly_payments`
+--
+ALTER TABLE `yearly_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `zones`
