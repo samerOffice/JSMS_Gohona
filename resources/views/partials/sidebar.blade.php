@@ -162,8 +162,8 @@
             </a>
           </li> --}}
 
-          <li class="nav-item @if(Request::is('expense')) menu-open 
-                              {{-- @elseif(Request::is('supplier_transaction')) menu-open --}}
+          <li class="nav-item @if(Request::is('daily_payment_list')) menu-open 
+                              @elseif(Request::is('yearly_payment_list')) menu-open
                               @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-money-bill"></i>
@@ -175,9 +175,9 @@
             <ul class="nav nav-treeview">
               
               <li class="nav-item" style="padding-left: 15px">
-                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
-                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
-                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Daily Payments</p>
+                <a href="{{url('/daily_payment_list')}}" class="nav-link {{ Request::is('daily_payment_list') ? 'nav-link active' : ''}}" style="{{ Request::is('daily_payment_list') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('daily_payment_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('daily_payment_list') ? 'color: white; !important' : ''}}">Daily Payments</p>
                 </a>
               </li>
 
@@ -189,9 +189,9 @@
               </li>
 
               <li class="nav-item" style="padding-left: 15px">
-                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
-                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
-                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Yearly Payments</p>
+                <a href="{{url('/yearly_payment_list')}}" class="nav-link {{ Request::is('yearly_payment_list') ? 'nav-link active' : ''}}" style="{{ Request::is('yearly_payment_list') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('yearly_payment_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('yearly_payment_list') ? 'color: white; !important' : ''}}">Yearly Payments</p>
                 </a>
               </li>
 

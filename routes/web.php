@@ -27,6 +27,16 @@ use App\Http\Controllers\RoleAndPermissionController;
 use App\Http\Controllers\CustomerTransactionController;
 use App\Http\Controllers\SupplierTransactionController;
 
+#### CLEAR ALL IN ONE ####
+use Illuminate\Support\Facades\Artisan;
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    // Artisan::call('optimize:clear');
+    Artisan::call('route:clear');
+    // Artisan::call('optimize');
+    return 'Caches cleared and configuration files regenerated.';
+});
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('guest');
@@ -133,8 +143,23 @@ Route::resource('employee', EmployeeController::class);
 Route::get('/employee_renew/{emp_id}', [EmployeeController::class, 'renew'])->name('employee.renew');
 
 
-//expenses
-Route::resource('expense', ExpenseController::class);
+//-----********* Expenses (start)*********-------
+
+//daily payments
+Route::get('/daily_payment_list', [ExpenseController::class, 'daily_payment_list'])->name('daily_payment_list');
+Route::get('/create_daily_payment', [ExpenseController::class, 'create_daily_payment'])->name('create_daily_payment');
+Route::post('/store_daily_payment', [ExpenseController::class, 'store_daily_payment'])->name('store_daily_payment');
+Route::get('/edit_daily_expense/{daily_expense_id}', [ExpenseController::class, 'edit_daily_expense'])->name('edit_daily_expense');
+Route::post('/update_daily_payment', [ExpenseController::class, 'update_daily_payment'])->name('update_daily_payment');
+Route::get('/delete_daily_payment/{delete_id}', [ExpenseController::class, 'delete_daily_payment'])->name('delete_daily_payment');
+
+
+//yearly payments
+Route::get('/yearly_payment_list', [ExpenseController::class, 'yearly_payment_list'])->name('yearly_payment_list');
+Route::get('/create_yearly_payment', [ExpenseController::class, 'create_yearly_payment'])->name('create_yearly_payment');
+Route::post('/store_yearly_payment', [ExpenseController::class, 'store_yearly_payment'])->name('store_yearly_payment');
+//-----********* Expenses (end)*********-------
+
 
 //payrolls
 Route::resource('payroll', PayrollController::class);

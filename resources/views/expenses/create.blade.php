@@ -21,110 +21,126 @@ Expense
 
                 <div class="card-body" >
                 {{-- form starts  --}}
-                <form id="expenseForm" action="{{route('expense.store')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="row" style=" margin: 0 10px; padding: 10px;"> 
-
-                    <div class="col-md-4 col-sm-4">                     
-                        <label  class="col-form-label text-start">Expense Type</label>         
-                        <select class="form-control" id="expense_type" name="expense_type" style="width: 100%;">
-                            <option value="">Select</option>
-                            <option value="1">Daily Payment</option>
-                            <option value="2">Monthly Payment</option>
-                            <option value="3">Yearly Payment</option>
-                            <option value="4">Marketing Cost</option>
-                            <option value="5">Payments</option>
-                            <option value="6">Investment Expenses</option>
-                            <option value="7">Loan/Advance</option>
-                        </select>
-                        <br> 
-                    </div>
-
-                <div class="col-md-12" style="display:none" id="monthly_staff_salary">    
-                           
-                    <table style="border-collapse: collapse; border-spacing: 0; width: 100%;">               
-                        <tbody>
-                            <div id="monthly_salary_container">
-                                <h5>Staff Salary</h5> 
-                                <hr>
-                                @foreach($salaries as $salary)
-                                <div class="form-row">
-                                    <div class="row" style="width: 100%">
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="expense_name" class="col-form-label text-start">Expense Name</label>
-                                            <input type="text" class="form-control expense_name" name="expense_name[]" value="Salary ({{$salary->staff_name}})">
-                                        </div>
-
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="expense_amount"  class="col-form-label text-start">Expense Amount (BDT)</label>
-                                            <input type="number" step="0.01" readonly class="form-control expense_amount" name="expense_amount[]" value="{{$salary->staff_paid_salary_amount}}"> 
-                                        </div>
-                            
-                                        <div class="form-group col-md-3 col-sm-4">
-                                            <label  class="col-form-label text-start">Payment Date</label>         
-                                            <input type="date" id="expense_pay_date" name="expense_pay_date[]" value="{{$salary->staff_salary_date}}" class="form-control" />
-                                        </div>  
-                                        </div>                                       
-                                </div>
-                                @endforeach
-                                <hr>
-                                <br> 
-                            </div>
-                        </tbody>
-                    </table>  
-                                   
-                </div>
-                                        
-                <div class="col-md-12">  
-                          
-                    <table class="table table-bordered nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">               
-                        <tbody>
-                            <div id="form-container">
-                                <div class="form-row">
-                                    <div class="row" style="width: 100%">
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="expense_name" class="col-form-label text-start">Expense Name</label>
-                                            <input type="text" class="form-control expense_name" name="expense_name[]">
-                                        </div>
-
-                                        <div class="form-group col-md-4 col-sm-4">
-                                            <label for="expense_amount"  class="col-form-label text-start">Expense Amount (BDT)</label>
-                                            <input type="number" step="0.01" id="initial_expense_amount" onkeyup="initialExpenseAmount()" class="form-control expense_amount" name="expense_amount[]"> 
-                                        </div>
-                            
-                                        <div class="form-group col-md-3 col-sm-4">
-                                            <label  class="col-form-label text-start">Payment Date</label>         
-                                            <input type="date" id="expense_pay_date" name="expense_pay_date[]" value="{{ date('Y-m-d') }}" class="form-control" />
-                                        </div>
-                            
-                                        <div class="form-group">
-                                        <a style="margin-top: 35px; color:white" class="btn btn-info" id="addButton"><i class="fas fa-plus"></i></a>   
-                                        </div>
-
-                                        </div> 
-                                        {{-- row ends  --}}                                             
-                                </div>
-                            </div>
-                        </tbody>
-                    </table>                  
-                </div>
-
-                    <!-- total amount start -->
-                    <div class="form-group col-md-8 col-sm-6"></div>
-                    <div class="form-group col-md-3 col-sm-6">
-                    <label class="col-form-label">Total Amount (BDT)</label>
-                    <input type="text" readonly style="background-color: #e7ffd9" class="form-control" id="totalAmount" name="total_amount">
-                    </div>
-                    <div class="form-group col-md-1"></div>
-                    <!-- total amount end -->
+                <form action="/submit_expenses" method="post">
+                    <table>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Input</th>
+                        </tr>
+                        <tr>
+                            <td>Payment Date</td>
+                            <td><input type="date" name="payment_date" required></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Old Gold</td>
+                            <td><input type="number" name="buy_old_gold" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Ornaments Readymate</td>
+                            <td><input type="number" name="buy_ornaments_readymate" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy 24K Gold / Ananto</td>
+                            <td><input type="number" name="buy_24k_gold_ananto" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Ornaments From Ananto</td>
+                            <td><input type="number" name="buy_ornaments_from_ananto" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Exchange Own Gold</td>
+                            <td><input type="number" name="exchange_own_gold" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Exchange Own Diamond</td>
+                            <td><input type="number" name="exchange_own_diamond" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy or Exchange Own Gold</td>
+                            <td><input type="number" name="buy_or_exchange_own_gold" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Booking Cancel</td>
+                            <td><input type="number" name="booking_cancel" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Deposit Customer 24K Gold</td>
+                            <td><input type="number" name="deposit_customer_24k_gold" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Diamond From Mihir</td>
+                            <td><input type="number" name="buy_diamond_from_mihir" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Pay to Sajal Bhai</td>
+                            <td><input type="number" name="pay_to_sajal_bhai" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Pay to Ananto</td>
+                            <td><input type="number" name="pay_to_ananto" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Order Cancel</td>
+                            <td><input type="number" name="order_cancel" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Deposit in City Bank</td>
+                            <td><input type="number" name="deposit_in_city_bank" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Pay Vangary Profit</td>
+                            <td><input type="number" name="pay_vangary_profit" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Deposit in Dutch Bangla Bank</td>
+                            <td><input type="number" name="deposit_in_dutch_bangla_bank" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Shop Decoration Advance</td>
+                            <td><input type="number" name="shop_decoration_advance" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Pay to Customer</td>
+                            <td><input type="number" name="pay_to_customer" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Due Cancel</td>
+                            <td><input type="number" name="due_cancel" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Box Bill (Shamim Products)</td>
+                            <td><input type="number" name="box_bill_shamim_products" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Diamond Test Machine / Wet Machine</td>
+                            <td><input type="number" name="diamond_test_mechine_wet_mechine" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Stone</td>
+                            <td><input type="number" name="buy_stone" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Software Advance / Payment</td>
+                            <td><input type="number" name="software_advance_payment" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Buy Coffee Machine / Computer</td>
+                            <td><input type="number" name="buy_coffee_machine_computer" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Stationary Printing</td>
+                            <td><input type="number" name="stationary_printing" step="0.01"></td>
+                        </tr>
+                        <tr>
+                            <td>Balance or Cash in Hand</td>
+                            <td><input type="number" name="balance_or_cash_in_hand" step="0.01"></td>
+                        </tr>
+                    </table>
             
-                    <div class="col-11"> 
-                        <br>     
-                        <button type="submit" class="btn btn-primary btn-lg float-right">Submit</button>          
+                    <div class="submit-btn">
+                        <button type="submit">Submit</button>
                     </div>
-        </div>     
-        </form> 
+                </form>
         {{-- form ends  --}}
 
             </div> <!--end of card body -->
