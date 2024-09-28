@@ -163,7 +163,10 @@
           </li> --}}
 
           <li class="nav-item @if(Request::is('daily_payment_list')) menu-open 
+                              @elseif(Request::is('monthly_payment_list')) menu-open
                               @elseif(Request::is('yearly_payment_list')) menu-open
+                              @elseif(Request::is('marketing_cost_list')) menu-open
+                              @elseif(Request::is('expense')) menu-open
                               @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-money-bill"></i>
@@ -182,9 +185,9 @@
               </li>
 
               <li class="nav-item" style="padding-left: 15px">
-                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
-                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
-                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Monthly Payments</p>
+                <a href="{{url('/monthly_payment_list')}}" class="nav-link {{ Request::is('monthly_payment_list') ? 'nav-link active' : ''}}" style="{{ Request::is('monthly_payment_list') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('monthly_payment_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('monthly_payment_list') ? 'color: white; !important' : ''}}">Monthly Payments</p>
                 </a>
               </li>
 
@@ -196,9 +199,9 @@
               </li>
 
               <li class="nav-item" style="padding-left: 15px">
-                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
-                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
-                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Marketing Costs</p>
+                <a href="{{url('/marketing_cost_list')}}" class="nav-link {{ Request::is('marketing_cost_list') ? 'nav-link active' : ''}}" style="{{ Request::is('marketing_cost_list') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('marketing_cost_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('marketing_cost_list') ? 'color: white; !important' : ''}}">Marketing Costs</p>
                 </a>
               </li>
 

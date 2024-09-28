@@ -26,7 +26,7 @@ Monthly Payment
 
                 <div class="card-body" >
                 {{-- form starts  --}}
-                <form action="{{route('update_monthly_payment')}}" method="post">
+                <form action="{{route('update_yearly_payment')}}" method="post">
                     @csrf
                     <div class="table-responsive">
                     <table class="table table-bordered">
@@ -180,14 +180,35 @@ Monthly Payment
                     </table>
                     </div>
 
-                    <h4 class="text-center">Others</h4>
-                    <div class="col-md-12">   
-                        <div id="form-container">
-                            <!-- Rows will be added here dynamically -->
-                        </div> 
-                        <button type="button" class="add-button btn btn-info" id="addButton"><i class="fas fa-plus"></i></button>            
-                    </div>
+                    <h4 class="text-center">Others samer</h4>
+                    <div class="col-md-12">                
+                        <table class="table table-bordered nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">               
+                            <tbody id="form-container">
+                                <div class="form-row">
+                                    <div class="row" style="width: 100%">
+                                        <div class="form-group col-md-4 col-sm-4">
+                                            <label for="expense_name" class="col-form-label text-start">Expense Name</label>
+                                            <input type="text" class="form-control" name="expense_name[]">
+                                        </div>
                     
+                                        <div class="form-group col-md-4 col-sm-4">
+                                            <label for="expense_amount" class="col-form-label text-start">Expense Amount (BDT)</label>
+                                            <input type="number" step="0.01" id="initial_expense_amount" class="form-control" name="expense_amount[]"> 
+                                        </div>
+                            
+                                        <div class="form-group col-md-3 col-sm-4">
+                                            <label class="col-form-label text-start">Payment Date</label>         
+                                            <input type="date" id="expense_pay_date" name="expense_pay_date[]" value="{{ date('Y-m-d') }}" class="form-control" />
+                                        </div>
+                            
+                                        <div class="form-group">
+                                            <a style="margin-top: 35px; color:white" class="btn btn-info" id="addButton"><i class="fas fa-plus"></i> Add</a>   
+                                        </div>   
+                                    </div>                                   
+                                </div>
+                            </tbody>
+                        </table>                  
+                    </div>
                     
                     <br>
                     <div class="form-group text-center mt-3">
@@ -213,68 +234,57 @@ Monthly Payment
 @push('myScripts')
 <script>
 
-$(document).ready(function() {
-        fetchData();
-        $('#addButton').on('click', function() {          
-                addRow({});       
+document.getElementById('addButton').addEventListener('click', function(e) {
+    e.preventDefault();
+    var expense_id = document.getElementById('expenseId').value;
+    // Fetch data via Axios
+
+    const baseUrl = "{{ url('/') }}/";
+
+    axios.get(baseUrl +'monthly_payment_dependancy/'+expense_id)
+        .then(function (response) {
+            // Assuming the response contains a list of expenses or relevant data
+            console.log(response);
+            const expenseData = response.data;
+
+            // Dynamically create a new row
+            const newRow = `
+                <div class="form-row">
+                    <div class="row" style="width: 100%">
+                        <div class="form-group col-md-4 col-sm-4">
+                            <label for="expense_name" class="col-form-label text-start">Expense Name</label>
+                            <input type="text" class="form-control" name="expense_name[]" value="${expenseData.expense_name}">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4">
+                            <label for="expense_amount" class="col-form-label text-start">Expense Amount (BDT)</label>
+                            <input type="number" step="0.01" class="form-control" name="expense_amount[]" value="${expenseData.expense_amount}"> 
+                        </div>
+                        <div class="form-group col-md-3 col-sm-4">
+                            <label class="col-form-label text-start">Payment Date</label>         
+                            <input type="date" name="expense_pay_date[]" value="${expenseData.expense_pay_date}" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <a style="margin-top: 35px; color:white" class="btn btn-danger removeButton"><i class="fas fa-minus"></i> Remove</a>   
+                        </div>   
+                    </div>
+                </div>
+            `;
+
+            // Append the new row to the container
+            document.getElementById('form-container').insertAdjacentHTML('beforeend', newRow);
+        })
+        .catch(function (error) {
+            console.error('Error fetching data:', error);
         });
-    });
+});
 
-
-    function fetchData() {
-        var expense_id = document.getElementById('expenseId').value;
-        const baseUrl = "{{ url('/') }}/";
-        
-        axios.get(baseUrl +'monthly_payment_dependancy/'+expense_id).then(response=>{           
-            if (Array.isArray(response.data)) {
-                    response.data.forEach(function(expense) {
-                        console.log('Adding row for monthly other expenses:', expense);
-                        addRow({
-                            expenseName: expense.expense_name,
-                            expenseAmount: expense.expense_amount,
-                            expensePayDate: expense.expense_pay_date
-                        });
-                    });
-                } else {
-                    console.error('Unexpected response format:', response);
-                }
-            console.log(response);               
-        }).catch(error => console.error('Failed to fetch product data:', error))
+// Event listener to handle removing rows
+document.getElementById('form-container').addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('removeButton')) {
+        e.preventDefault();
+        e.target.closest('.form-row').remove();
     }
-
-
-
-        function addRow(data) {
-        const container = $('#form-container');
-        const newRow = $(`
-            <div class="form-row">
-               <div class="form-group col-md-4 col-sm-4">
-                    <label for="expense_name" class="col-form-label text-start">Expense Name</label>
-                    <input type="text" class="form-control" name="expense_name[]" value="${data.expenseName || ''}">
-                </div>
-
-                <div class="form-group col-md-4 col-sm-4">
-                    <label for="expense_amount"  class="col-form-label text-start">Expense Amount (BDT)</label>
-                    <input type="number" step="0.01" id="initial_expense_amount" class="form-control" name="expense_amount[]" value="${data.expenseAmount || ''}"> 
-                </div>
-                
-                <div class="form-group col-md-3 col-sm-4">
-                    <label  class="col-form-label text-start">Payment Date</label>         
-                    <input type="date" id="expense_pay_date" name="expense_pay_date[]" value="${data.expensePayDate || ''}" class="form-control" />
-                </div>
-
-                <div class="form-group">                                        
-                    <button style="margin-top:35px !important" class="remove-button btn btn-danger">x</button>   
-                </div>
-
-            </div>
-        `);
-
-        container.append(newRow);
-        newRow.find('.remove-button').on('click', function() {
-            newRow.remove();
-        });
-    }
+});
 
 </script>
 @endpush

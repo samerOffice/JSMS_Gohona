@@ -149,16 +149,40 @@ Route::get('/employee_renew/{emp_id}', [EmployeeController::class, 'renew'])->na
 Route::get('/daily_payment_list', [ExpenseController::class, 'daily_payment_list'])->name('daily_payment_list');
 Route::get('/create_daily_payment', [ExpenseController::class, 'create_daily_payment'])->name('create_daily_payment');
 Route::post('/store_daily_payment', [ExpenseController::class, 'store_daily_payment'])->name('store_daily_payment');
-Route::get('/edit_daily_expense/{daily_expense_id}', [ExpenseController::class, 'edit_daily_expense'])->name('edit_daily_expense');
+Route::get('/edit_daily_expense/{expense_id}', [ExpenseController::class, 'edit_daily_expense'])->name('edit_daily_expense');
 Route::post('/update_daily_payment', [ExpenseController::class, 'update_daily_payment'])->name('update_daily_payment');
 Route::get('/delete_daily_payment/{delete_id}', [ExpenseController::class, 'delete_daily_payment'])->name('delete_daily_payment');
 
+
+//monthly payments
+Route::get('/monthly_payment_list', [ExpenseController::class, 'monthly_payment_list'])->name('monthly_payment_list');
+Route::get('/create_monthly_payment', [ExpenseController::class, 'create_monthly_payment'])->name('create_monthly_payment');
+Route::post('/store_monthly_payment', [ExpenseController::class, 'store_monthly_payment'])->name('store_monthly_payment');
+Route::get('/edit_monthly_expense/{expense_id}', [ExpenseController::class, 'edit_monthly_expense'])->name('edit_monthly_expense');
+Route::get('/monthly_payment_dependancy/{expense_id}', [ExpenseController::class, 'monthly_payment_dependancy']);
+Route::post('/update_monthly_payment', [ExpenseController::class, 'update_monthly_payment'])->name('update_monthly_payment');
+Route::get('/delete_monthly_payment/{delete_id}', [ExpenseController::class, 'delete_monthly_payment'])->name('delete_monthly_payment');
 
 //yearly payments
 Route::get('/yearly_payment_list', [ExpenseController::class, 'yearly_payment_list'])->name('yearly_payment_list');
 Route::get('/create_yearly_payment', [ExpenseController::class, 'create_yearly_payment'])->name('create_yearly_payment');
 Route::post('/store_yearly_payment', [ExpenseController::class, 'store_yearly_payment'])->name('store_yearly_payment');
+Route::get('/edit_yearly_expense/{expense_id}', [ExpenseController::class, 'edit_yearly_expense'])->name('edit_yearly_expense');
+Route::post('/update_yearly_payment', [ExpenseController::class, 'update_yearly_payment'])->name('update_yearly_payment');
+Route::get('/delete_yearly_payment/{delete_id}', [ExpenseController::class, 'delete_yearly_payment'])->name('delete_yearly_payment');
+
+//marketing Cost
+Route::get('/marketing_cost_list', [ExpenseController::class, 'marketing_cost_list'])->name('marketing_cost_list');
+Route::get('/create_marketing_cost', [ExpenseController::class, 'create_marketing_cost'])->name('create_marketing_cost');
+Route::post('/store_marketing_cost', [ExpenseController::class, 'store_marketing_cost'])->name('store_marketing_cost');
+Route::get('/edit_marketing_cost/{expense_id}', [ExpenseController::class, 'edit_marketing_cost'])->name('edit_marketing_cost');
+Route::post('/update_marketing_cost', [ExpenseController::class, 'update_marketing_cost'])->name('update_marketing_cost');
+Route::get('/delete_marketing_cost/{delete_id}', [ExpenseController::class, 'delete_marketing_cost'])->name('delete_marketing_cost');
+
+Route::resource('expense', ExpenseController::class);
+
 //-----********* Expenses (end)*********-------
+
 
 
 //payrolls

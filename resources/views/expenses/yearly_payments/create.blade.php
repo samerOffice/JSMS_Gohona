@@ -37,14 +37,14 @@ Yearly Payment
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {{-- <tr>
                                     <td>Payment Date</td>
                                     <td>
                                         <div class="form-group">
                                             <input type="date" name="payment_date" class="form-control" required>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <td>Trade License</td>
                                     <td>

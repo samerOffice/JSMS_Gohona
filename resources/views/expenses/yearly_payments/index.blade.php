@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Daily Payment
+Yearly Payment
 @endsection
 
 @section('content')
@@ -47,7 +47,7 @@ Daily Payment
                         <thead>
                         <tr>
                           <th>Serial No.</th>
-                          <th>Payment Date</th>
+                          <th>Payment Year</th>
                           <th>Action</th>
                         </tr>
                         </thead>
@@ -56,9 +56,9 @@ Daily Payment
                             @foreach($expenses as $expense)
                         <tr>
                           <td>{{$i++}}</td>                    
-                          <td>{{$expense->payment_date}}</td>                          
+                          <td>{{$expense->payment_year}}</td>                          
                           <td>
-                             <a href="{{route('edit_daily_expense', $expense->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
+                             <a href="{{route('edit_yearly_expense', $expense->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                              <a onclick="Swal.fire({
                                 title: 'Are You Sure?',
                                 text: '',
@@ -69,7 +69,7 @@ Daily Payment
                                 
                               }).then((result)=>{
                                 if (result.isConfirmed){
-                                    var deleteExpense = '{{ route('delete_daily_payment', $expense->id )}}';
+                                    var deleteExpense = '{{ route('delete_yearly_payment', $expense->id )}}';
                                     window.location.href = deleteExpense;
                                     Swal.fire({
                                     title: 'Deleted!',

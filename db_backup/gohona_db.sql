@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2024 at 02:03 PM
+-- Generation Time: Sep 28, 2024 at 02:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -221,6 +221,13 @@ CREATE TABLE `daily_payments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `daily_payments`
+--
+
+INSERT INTO `daily_payments` (`id`, `payment_date`, `mobile_bill`, `snacks`, `entertainment_bill`, `others`, `gift_for_customer`, `ornaments_binding_bill`, `interest_for_gold_lending`, `vangary_loss`, `pay_repair_bill`, `photocopy`, `management_expenses`, `transport`, `bkash_cost`, `repairing_cost`, `conveyance`, `buy_lock_locker`, `cash_back`, `live_cost`, `parking_cost`, `vat_machine`, `door_grease`, `created_at`, `updated_at`) VALUES
+(1, '2024-09-25', 100.00, 200.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 540.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-25 10:45:58', '2024-09-25 11:48:14');
+
 -- --------------------------------------------------------
 
 --
@@ -236,6 +243,15 @@ CREATE TABLE `daily_payments_others` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `daily_payments_others`
+--
+
+INSERT INTO `daily_payments_others` (`id`, `daily_payment_id`, `expense_name`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 'my other expense', '250', '2024-09-25', '2024-09-25 10:45:58', '2024-09-25 10:45:58'),
+(2, 2, 'aa', '204', '2024-09-25', '2024-09-25 10:52:51', '2024-09-25 10:52:51'),
+(3, 2, 'kk', '107', '2024-09-25', '2024-09-25 10:52:51', '2024-09-25 10:52:51');
 
 -- --------------------------------------------------------
 
@@ -484,7 +500,7 @@ CREATE TABLE `marketing_costs` (
   `sms_buy` decimal(10,2) DEFAULT NULL,
   `facebook_boosting` decimal(10,2) DEFAULT NULL,
   `facebook_design` decimal(10,2) DEFAULT NULL,
-  `web_side_charge` decimal(10,2) DEFAULT NULL,
+  `website_charge` decimal(10,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -606,7 +622,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `monthly_payments` (
   `id` int(11) NOT NULL,
-  `payment_month` date NOT NULL,
+  `payment_month` varchar(100) DEFAULT NULL,
   `shop_rent_advance` decimal(10,2) DEFAULT NULL,
   `staff_salary` int(11) DEFAULT NULL,
   `management_salary` int(11) DEFAULT NULL,
@@ -1146,6 +1162,13 @@ CREATE TABLE `yearly_payments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `yearly_payments`
+--
+
+INSERT INTO `yearly_payments` (`id`, `payment_year`, `trade_license`, `pahela_boishakh_expenses`, `valentine_gate`, `zakat`, `dealing_licence`, `created_at`, `updated_at`) VALUES
+(2, '2024', 200.00, 100.00, 321.00, 2500.00, 700.00, '2024-09-28 07:21:17', '2024-09-28 07:21:45');
+
 -- --------------------------------------------------------
 
 --
@@ -1489,13 +1512,13 @@ ALTER TABLE `customer_transactions`
 -- AUTO_INCREMENT for table `daily_payments`
 --
 ALTER TABLE `daily_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `daily_payments_others`
 --
 ALTER TABLE `daily_payments_others`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -1537,7 +1560,7 @@ ALTER TABLE `loan_or_advance_expenses`
 -- AUTO_INCREMENT for table `marketing_costs`
 --
 ALTER TABLE `marketing_costs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -1561,13 +1584,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `monthly_payments`
 --
 ALTER TABLE `monthly_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monthly_payment_others`
 --
 ALTER TABLE `monthly_payment_others`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `payment_expenses`
@@ -1681,7 +1704,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `yearly_payments`
 --
 ALTER TABLE `yearly_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `zones`
