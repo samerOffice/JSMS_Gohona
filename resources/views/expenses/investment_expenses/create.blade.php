@@ -12,133 +12,252 @@ Expense
                     <br> 
                     <div>
                     <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-outline-info float-right" href="{{route('investment_expense_list')}}">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+                        </div>
                     <div class="col-1"></div>
-                    <div class="col-10">
+                    <div class="col-md-10 col-sm-12">
                     <div class="card" style="">
                     <div class="card-header">                                   
-                        <h4 class="card-title ">Add New Expense</h4>
+                        <h4 class="card-title ">Add Investment Expense</h4>
                     </div>
 
                 <div class="card-body" >
                 {{-- form starts  --}}
-                <form action="/submit_expenses" method="post">
-                    <table>
-                        <tr>
-                            <th>Field Name</th>
-                            <th>Input</th>
-                        </tr>
-                        <tr>
-                            <td>Payment Date</td>
-                            <td><input type="date" name="payment_date" required></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Old Gold</td>
-                            <td><input type="number" name="buy_old_gold" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Ornaments Readymate</td>
-                            <td><input type="number" name="buy_ornaments_readymate" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy 24K Gold / Ananto</td>
-                            <td><input type="number" name="buy_24k_gold_ananto" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Ornaments From Ananto</td>
-                            <td><input type="number" name="buy_ornaments_from_ananto" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Exchange Own Gold</td>
-                            <td><input type="number" name="exchange_own_gold" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Exchange Own Diamond</td>
-                            <td><input type="number" name="exchange_own_diamond" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy or Exchange Own Gold</td>
-                            <td><input type="number" name="buy_or_exchange_own_gold" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Booking Cancel</td>
-                            <td><input type="number" name="booking_cancel" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Deposit Customer 24K Gold</td>
-                            <td><input type="number" name="deposit_customer_24k_gold" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Diamond From Mihir</td>
-                            <td><input type="number" name="buy_diamond_from_mihir" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Pay to Sajal Bhai</td>
-                            <td><input type="number" name="pay_to_sajal_bhai" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Pay to Ananto</td>
-                            <td><input type="number" name="pay_to_ananto" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Order Cancel</td>
-                            <td><input type="number" name="order_cancel" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Deposit in City Bank</td>
-                            <td><input type="number" name="deposit_in_city_bank" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Pay Vangary Profit</td>
-                            <td><input type="number" name="pay_vangary_profit" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Deposit in Dutch Bangla Bank</td>
-                            <td><input type="number" name="deposit_in_dutch_bangla_bank" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Shop Decoration Advance</td>
-                            <td><input type="number" name="shop_decoration_advance" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Pay to Customer</td>
-                            <td><input type="number" name="pay_to_customer" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Due Cancel</td>
-                            <td><input type="number" name="due_cancel" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Box Bill (Shamim Products)</td>
-                            <td><input type="number" name="box_bill_shamim_products" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Diamond Test Machine / Wet Machine</td>
-                            <td><input type="number" name="diamond_test_mechine_wet_mechine" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Stone</td>
-                            <td><input type="number" name="buy_stone" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Software Advance / Payment</td>
-                            <td><input type="number" name="software_advance_payment" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Buy Coffee Machine / Computer</td>
-                            <td><input type="number" name="buy_coffee_machine_computer" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Stationary Printing</td>
-                            <td><input type="number" name="stationary_printing" step="0.01"></td>
-                        </tr>
-                        <tr>
-                            <td>Balance or Cash in Hand</td>
-                            <td><input type="number" name="balance_or_cash_in_hand" step="0.01"></td>
-                        </tr>
+                <form action="{{route('store_investment_expense')}}" method="post">
+                    @csrf
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Field Name</th>
+                                <th>Input</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Payment Date</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="date" name="payment_date" class="form-control" required>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Old Gold</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_old_gold" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Ornaments Readymade</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_ornaments_readymade" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy 24K Gold / Ananto</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_24k_gold_ananto" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Ornaments from Ananto</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_ornaments_from_ananto" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Exchange Own Gold</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="exchange_own_gold" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Exchange Own Diamond</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="exchange_own_diamond" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy or Exchange Own Gold</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_or_exchange_own_gold" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Booking Cancel</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="booking_cancel" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Deposit Customer 24K Gold</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="deposit_customer_24k_gold" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Diamond from Mihir</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_diamond_from_mihir" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pay to Sajal Bhai</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="pay_to_sajal_bhai" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pay to Ananto</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="pay_to_ananto" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Order Cancel</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="order_cancel" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Deposit in City Bank</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="deposit_in_city_bank" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pay Vangary Profit</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="pay_vangary_profit" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Deposit in Dutch Bangla Bank</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="deposit_in_dutch_bangla_bank" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Shop Decoration Advance</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="shop_decoration_advance" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pay to Customer</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="pay_to_customer" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Due Cancel</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="due_cancel" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Box Bill (Shamim Products)</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="box_bill_shamim_products" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Diamond Test Machine / Wet Machine</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="diamond_test_machine_wet_machine" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Stone</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_stone" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Software Advance / Payment</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="software_advance_payment" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Buy Coffee Machine / Computer</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="buy_coffee_machine_computer" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stationary Printing</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="stationary_printing" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Balance or Cash in Hand</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="number" name="balance_or_cash_in_hand" class="form-control" step="0.01">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-            
-                    <div class="submit-btn">
-                        <button type="submit">Submit</button>
+                    </div>
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
                     </div>
                 </form>
         {{-- form ends  --}}

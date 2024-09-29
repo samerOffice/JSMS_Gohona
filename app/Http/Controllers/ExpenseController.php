@@ -555,7 +555,7 @@ class ExpenseController extends Controller
  
          $expenses = DB::table('expenses')->get();
  
-         return view('expenses.index',compact('permitted_menus_array','expenses'));
+         return view('expenses.payments.index',compact('permitted_menus_array','expenses'));
      }
 
 
@@ -569,23 +569,14 @@ class ExpenseController extends Controller
         $permitted_menus = $menu_data->menus;
         $permitted_menus_array = explode(',', $permitted_menus);
         
-        return view('expenses.create',compact('permitted_menus_array'));
+        return view('expenses.payments.create',compact('permitted_menus_array'));
     }
-     //-------- Payments (end) ----------
-
-   
 
 
-    
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     { 
        
-        $expense_type = $request->expense_type;  
-
+        $expense_type = 5;
         $expense_names = $request->expense_name;
         $expense_amounts = $request->expense_amount;
         $expense_pay_dates = $request->expense_pay_date;
@@ -609,17 +600,7 @@ class ExpenseController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         $user_role = Auth::user()->role_id;
@@ -634,12 +615,9 @@ class ExpenseController extends Controller
                     ->where('id',$id)
                     ->first();
 
-        return view('expenses.edit',compact('permitted_menus_array','expense'));
+        return view('expenses.payments.edit',compact('permitted_menus_array','expense'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $data = array();
@@ -653,11 +631,156 @@ class ExpenseController extends Controller
         return redirect()->route('expense.index')->withSuccess('Expense Details is updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    public function delete_payment_expense($id)
     {
-        //
+        $deleted = DB::table('expenses')
+                        ->where('id', $id)
+                        ->delete();
+        return redirect()->route('expense.index')->withSuccess('Expense is deleted successfully');   
     }
+
+     //-------- Payments (end) ----------
+
+
+     //-------- Investment Expense (start) ---------
+     public function investment_expense_list(){
+         
+         $user_role = Auth::user()->role_id;
+         $menu_data = DB::table('menu_permissions')
+                 ->where('role',$user_role)
+                 ->first();
+         $permitted_menus = $menu_data->menus;
+         $permitted_menus_array = explode(',', $permitted_menus);
+ 
+         $expenses = DB::table('investment_expenses')->get();
+ 
+         return view('expenses.investment_expenses.index',compact('permitted_menus_array','expenses'));
+     }
+
+     public function create_investment_expense(){
+
+        $user_role = Auth::user()->role_id;
+         $menu_data = DB::table('menu_permissions')
+                 ->where('role',$user_role)
+                 ->first();
+         $permitted_menus = $menu_data->menus;
+         $permitted_menus_array = explode(',', $permitted_menus);
+
+         return view('expenses.investment_expenses.create',compact('permitted_menus_array'));
+
+     }
+
+     public function store_investment_expense(Request $request){
+
+        $investment_expense = DB::table('investment_expenses')
+                                ->insertGetId([
+                                'payment_date'=>$request->payment_date,
+                                'buy_old_gold'=>$request->buy_old_gold,
+                                'buy_ornaments_readymade'=>$request->buy_ornaments_readymade,
+                                'buy_24k_gold_ananto'=>$request->buy_24k_gold_ananto,
+                                'buy_ornaments_from_ananto'=>$request->buy_ornaments_from_ananto,
+                                'exchange_own_gold'=>$request->exchange_own_gold,
+                                'exchange_own_diamond'=>$request->exchange_own_diamond,
+                                'buy_or_exchange_own_gold'=>$request->buy_or_exchange_own_gold,
+                                'booking_cancel'=>$request->booking_cancel,
+                                'deposit_customer_24k_gold'=>$request->deposit_customer_24k_gold,
+                                'buy_diamond_from_mihir'=>$request->buy_diamond_from_mihir,
+                                'pay_to_sajal_bhai'=>$request->pay_to_sajal_bhai,
+                                'pay_to_ananto'=>$request->pay_to_ananto,
+                                'order_cancel'=>$request->order_cancel,
+                                'deposit_in_city_bank'=>$request->deposit_in_city_bank,
+                                'pay_vangary_profit'=>$request->pay_vangary_profit,
+                                'deposit_in_dutch_bangla_bank'=>$request->deposit_in_dutch_bangla_bank,
+                                'shop_decoration_advance'=>$request->shop_decoration_advance,
+                                'pay_to_customer'=>$request->pay_to_customer,
+                                'due_cancel'=>$request->due_cancel,
+                                'box_bill_shamim_products'=>$request->box_bill_shamim_products,
+                                'diamond_test_machine_wet_machine'=>$request->diamond_test_machine_wet_machine,
+                                'buy_stone'=>$request->buy_stone,
+                                'software_advance_payment'=>$request->software_advance_payment,
+                                'buy_coffee_machine_computer'=>$request->buy_coffee_machine_computer,
+                                'stationary_printing'=>$request->stationary_printing,
+                                'balance_or_cash_in_hand'=>$request->balance_or_cash_in_hand
+                                ]);
+
+        return redirect()->route('investment_expense_list')->withSuccess('Investment Expenses are added successfully'); 
+     }
+
+
+     public function edit_investment_expense($id){
+        
+        $user_role = Auth::user()->role_id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('role',$user_role)
+                        ->first();
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        $expense = DB::table('investment_expenses')
+                        ->where('id',$id)
+                        ->first();
+
+        return view('expenses.investment_expenses.edit',compact('permitted_menus_array','expense')); 
+     }
+
+     public function update_investment_expense(Request $request){
+
+        $data = array();
+        $data['payment_date'] = $request->payment_date;
+        $data['buy_old_gold'] = $request->buy_old_gold;
+        $data['buy_ornaments_readymade'] = $request->buy_ornaments_readymade;
+        $data['buy_24k_gold_ananto'] = $request->buy_24k_gold_ananto;
+        $data['buy_ornaments_from_ananto'] = $request->buy_ornaments_from_ananto;
+        $data['exchange_own_gold'] = $request->exchange_own_gold;
+        $data['exchange_own_diamond'] = $request->exchange_own_diamond;
+        $data['buy_or_exchange_own_gold'] = $request->buy_or_exchange_own_gold;
+        $data['booking_cancel'] = $request->booking_cancel;
+        $data['deposit_customer_24k_gold'] = $request->deposit_customer_24k_gold;
+        $data['buy_diamond_from_mihir'] = $request->buy_diamond_from_mihir;
+        $data['pay_to_sajal_bhai'] = $request->pay_to_sajal_bhai;
+        $data['pay_to_ananto'] = $request->pay_to_ananto;
+        $data['order_cancel'] = $request->order_cancel;
+
+        $data['deposit_in_city_bank'] = $request->deposit_in_city_bank;
+        $data['pay_vangary_profit'] = $request->pay_vangary_profit;
+        $data['deposit_in_dutch_bangla_bank'] = $request->deposit_in_dutch_bangla_bank;
+        $data['shop_decoration_advance'] = $request->shop_decoration_advance;
+        $data['pay_to_customer'] = $request->pay_to_customer;
+        $data['due_cancel'] = $request->due_cancel;
+
+        $data['box_bill_shamim_products'] = $request->box_bill_shamim_products;
+        $data['diamond_test_machine_wet_machine'] = $request->diamond_test_machine_wet_machine;
+        $data['buy_stone'] = $request->buy_stone;
+        $data['software_advance_payment'] = $request->software_advance_payment;
+        $data['buy_coffee_machine_computer'] = $request->buy_coffee_machine_computer;
+        $data['stationary_printing'] = $request->stationary_printing;
+        $data['balance_or_cash_in_hand'] = $request->balance_or_cash_in_hand;
+       
+        $updated = DB::table('investment_expenses')
+                  ->where('id', $request->id)
+                  ->update($data);
+
+        return redirect()->route('investment_expense_list')->withSuccess('Investment Expenses are updated successfully'); 
+     }
+
+
+     public function delete_investment_expense($id){
+
+        $deleted = DB::table('investment_expenses')
+                  ->where('id', $id)
+                  ->delete();
+        return redirect()->route('investment_expense_list')->withSuccess('Investment Expense is deleted successfully');   
+    }
+
+
+     //-------- Investment Expense (end) ----------
+
+   
+
+  
+    
+
+   
+    
 }

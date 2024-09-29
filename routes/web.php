@@ -179,7 +179,17 @@ Route::get('/edit_marketing_cost/{expense_id}', [ExpenseController::class, 'edit
 Route::post('/update_marketing_cost', [ExpenseController::class, 'update_marketing_cost'])->name('update_marketing_cost');
 Route::get('/delete_marketing_cost/{delete_id}', [ExpenseController::class, 'delete_marketing_cost'])->name('delete_marketing_cost');
 
+//payments
 Route::resource('expense', ExpenseController::class);
+Route::get('/delete_payment_expense/{delete_id}', [ExpenseController::class, 'delete_payment_expense'])->name('delete_payment_expense');
+
+//investment expenses
+Route::get('/investment_expense_list', [ExpenseController::class, 'investment_expense_list'])->name('investment_expense_list');
+Route::get('/create_investment_expense', [ExpenseController::class, 'create_investment_expense'])->name('create_investment_expense');
+Route::post('/store_investment_expense', [ExpenseController::class, 'store_investment_expense'])->name('store_investment_expense');
+Route::get('/edit_investment_expense/{expense_id}', [ExpenseController::class, 'edit_investment_expense'])->name('edit_investment_expense');
+Route::post('/update_investment_expense', [ExpenseController::class, 'update_investment_expense'])->name('update_investment_expense');
+Route::get('/delete_investment_expense/{delete_id}', [ExpenseController::class, 'delete_investment_expense'])->name('delete_investment_expense');
 
 //-----********* Expenses (end)*********-------
 

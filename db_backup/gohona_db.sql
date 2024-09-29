@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2024 at 02:01 PM
+-- Generation Time: Sep 29, 2024 at 09:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -412,9 +412,9 @@ INSERT INTO `expenses` (`id`, `expense_type`, `expense_name`, `expense_amount`, 
 (1, 1, 'Snacks', '150', '2024-09-08', '2024-09-08 07:53:23', '2024-09-08 07:53:23'),
 (2, 1, 'Parking Cost', '147', '2024-09-08', '2024-09-08 07:53:23', '2024-09-08 07:53:23'),
 (3, 2, 'Salary (Kartik Paul)', '32400', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
-(4, 2, 'Salary (Kartik Paul)', '32380', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
 (5, 2, 'Water Bill', '3390', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
-(6, 2, 'Shop Rent', '52500', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09');
+(6, 2, 'Shop Rent', '52500', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
+(8, 5, 'modhu', '240', '2024-09-29', '2024-09-29 05:33:59', '2024-09-29 05:33:59');
 
 -- --------------------------------------------------------
 
@@ -442,7 +442,7 @@ CREATE TABLE `investment_expenses` (
   `id` int(11) NOT NULL,
   `payment_date` date NOT NULL,
   `buy_old_gold` decimal(10,2) DEFAULT NULL,
-  `buy_ornaments_readymate` decimal(10,2) DEFAULT NULL,
+  `buy_ornaments_readymade` decimal(10,2) DEFAULT NULL,
   `buy_24k_gold_ananto` decimal(10,2) DEFAULT NULL,
   `buy_ornaments_from_ananto` decimal(10,2) DEFAULT NULL,
   `exchange_own_gold` decimal(10,2) DEFAULT NULL,
@@ -461,7 +461,7 @@ CREATE TABLE `investment_expenses` (
   `pay_to_customer` decimal(10,2) DEFAULT NULL,
   `due_cancel` decimal(10,2) DEFAULT NULL,
   `box_bill_shamim_products` decimal(10,2) DEFAULT NULL,
-  `diamond_test_mechine_wet_mechine` decimal(10,2) DEFAULT NULL,
+  `diamond_test_machine_wet_machine` decimal(10,2) DEFAULT NULL,
   `buy_stone` decimal(10,2) DEFAULT NULL,
   `software_advance_payment` decimal(10,2) DEFAULT NULL,
   `buy_coffee_machine_computer` decimal(10,2) DEFAULT NULL,
@@ -1536,7 +1536,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1548,7 +1548,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `investment_expenses`
 --
 ALTER TABLE `investment_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `loan_or_advance_expenses`
