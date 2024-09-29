@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Expense
+Investment Expense
 @endsection
 
 @section('content')

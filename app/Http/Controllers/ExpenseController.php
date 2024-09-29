@@ -776,7 +776,109 @@ class ExpenseController extends Controller
 
      //-------- Investment Expense (end) ----------
 
-   
+
+
+     //-------- Loan/Advance (start) ----------
+     public function loan_or_advance_list(){
+         
+        $user_role = Auth::user()->role_id;
+        $menu_data = DB::table('menu_permissions')
+                ->where('role',$user_role)
+                ->first();
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        $expenses = DB::table('loan_or_advance_expenses')
+                        ->leftJoin('employees','loan_or_advance_expenses.employee_id','employees.id')
+                        ->select('employees.emp_name as employee_name','loan_or_advance_expenses.*')
+                        ->get();
+
+        return view('expenses.loan_or_advances.index',compact('permitted_menus_array','expenses'));
+    }
+
+    public function create_loan_or_advance()
+    {
+        $user_role = Auth::user()->role_id;
+
+        $menu_data = DB::table('menu_permissions')
+                        ->where('role',$user_role)
+                        ->first();
+
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        $employees = DB::table('employees')->get();
+        
+        return view('expenses.loan_or_advances.create',compact('permitted_menus_array','employees'));
+    }
+
+    public function store_loan_or_advance(Request $request){
+
+        $daily_payment = DB::table('loan_or_advance_expenses')
+                            ->insertGetId([
+                            'employee_id'=>$request->employee_id,
+                            'expense_type'=>$request->expense_type,
+                            'expense_amount'=>$request->expense_amount,
+                            'expense_pay_date'=>$request->expense_pay_date
+                            ]);
+
+    return redirect()->route('loan_or_advance_list')->withSuccess('Expense is added successfully');
+    }
+
+
+    public function edit_loan_or_advance($id){
+
+        $user_role = Auth::user()->role_id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('role',$user_role)
+                        ->first();
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+        $expense = DB::table('loan_or_advance_expenses')
+                        ->leftJoin('employees','loan_or_advance_expenses.employee_id','employees.id')
+                        ->select(
+                            'employees.emp_name as employee_name',
+                            'employees.designation as employee_designation',
+                            'loan_or_advance_expenses.*'
+                            )
+                        ->where('loan_or_advance_expenses.id',$id)
+                        ->first();
+
+        $employees = DB::table('employees')->get();
+
+        return view('expenses.loan_or_advances.edit',compact('permitted_menus_array','expense','employees')); 
+    }
+
+
+    public function update_loan_or_advance(Request $request){
+        
+        $data = array();
+        $data['employee_id'] = $request->employee_id;
+        $data['expense_type'] = $request->expense_type;
+        $data['expense_amount'] = $request->expense_amount;
+        $data['expense_pay_date'] = $request->expense_pay_date;
+      
+        $updated = DB::table('loan_or_advance_expenses')
+                  ->where('id', $request->id)
+                  ->update($data);
+
+        return redirect()->route('loan_or_advance_list')->withSuccess('Expense is updated successfully'); 
+    }
+
+    public function delete_loan_or_advance($id){
+
+        $deleted = DB::table('loan_or_advance_expenses')
+                    ->where('id', $id)
+                    ->delete();
+        return redirect()->route('loan_or_advance_list')->withSuccess('Expense is deleted successfully');   
+    }
+
+
+     //-------- Loan/Advance (end) ----------
+  
+
+    
 
   
     

@@ -191,6 +191,14 @@ Route::get('/edit_investment_expense/{expense_id}', [ExpenseController::class, '
 Route::post('/update_investment_expense', [ExpenseController::class, 'update_investment_expense'])->name('update_investment_expense');
 Route::get('/delete_investment_expense/{delete_id}', [ExpenseController::class, 'delete_investment_expense'])->name('delete_investment_expense');
 
+//loan/advances
+Route::get('/loan_or_advance_list', [ExpenseController::class, 'loan_or_advance_list'])->name('loan_or_advance_list');
+Route::get('/create_loan_or_advance', [ExpenseController::class, 'create_loan_or_advance'])->name('create_loan_or_advance');
+Route::post('/store_loan_or_advance', [ExpenseController::class, 'store_loan_or_advance'])->name('store_loan_or_advance');
+Route::get('/edit_loan_or_advance/{expense_id}', [ExpenseController::class, 'edit_loan_or_advance'])->name('edit_loan_or_advance');
+Route::post('/update_loan_or_advance', [ExpenseController::class, 'update_loan_or_advance'])->name('update_loan_or_advance');
+Route::get('/delete_loan_or_advance/{delete_id}', [ExpenseController::class, 'delete_loan_or_advance'])->name('delete_loan_or_advance');
+
 //-----********* Expenses (end)*********-------
 
 

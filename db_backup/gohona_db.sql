@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2024 at 09:24 AM
+-- Generation Time: Sep 29, 2024 at 02:17 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -386,7 +386,7 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `emp_name`, `designation`, `joining_date`, `yearly_bonus_date`, `renew_date`, `renewed_yearly_bonus_date`, `per_day_salary`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name_one`, `emergency_contact_number_one`, `emergency_contact_relation_one`, `emergency_contact_name_two`, `emergency_contact_number_two`, `emergency_contact_relation_two`, `emergency_contact_name_three`, `emergency_contact_number_three`, `emergency_contact_relation_three`, `yearly_bonus_status`, `created_at`, `updated_at`) VALUES
-(1, 'Kartik Paul', 'Employee', '2021-05-02', NULL, NULL, NULL, '1200', NULL, NULL, NULL, NULL, NULL, NULL, '1995-07-04', 'A+', NULL, 'Single', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-12 04:42:42', '2024-08-12 04:42:42');
+(1, 'Kartik Paul', 'Sales Executive', '2021-05-02', NULL, NULL, NULL, '1200', NULL, NULL, NULL, NULL, NULL, NULL, '1995-07-04', 'A+', NULL, 'Single', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-12 04:42:42', '2024-08-12 04:42:42');
 
 -- --------------------------------------------------------
 
@@ -479,7 +479,7 @@ CREATE TABLE `investment_expenses` (
 
 CREATE TABLE `loan_or_advance_expenses` (
   `id` int(11) NOT NULL,
-  `member_type` int(10) DEFAULT NULL COMMENT '1 = staff, 2 = customer, 3 = supplier',
+  `employee_id` int(100) DEFAULT NULL,
   `expense_type` int(10) DEFAULT NULL COMMENT '1 = loan, 2 = advance',
   `expense_amount` varchar(100) DEFAULT NULL,
   `expense_pay_date` varchar(100) DEFAULT NULL,
@@ -1554,7 +1554,7 @@ ALTER TABLE `investment_expenses`
 -- AUTO_INCREMENT for table `loan_or_advance_expenses`
 --
 ALTER TABLE `loan_or_advance_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `marketing_costs`

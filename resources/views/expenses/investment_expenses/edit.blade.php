@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Daily Payment
+Investment Expense
 @endsection
 
 @section('content')

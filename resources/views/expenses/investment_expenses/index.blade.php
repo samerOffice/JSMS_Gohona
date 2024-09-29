@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Marketing Cost
+Investment Expense
 @endsection
 
 @section('content')

@@ -168,6 +168,7 @@
                               @elseif(Request::is('marketing_cost_list')) menu-open
                               @elseif(Request::is('expense')) menu-open
                               @elseif(Request::is('investment_expense_list')) menu-open
+                              @elseif(Request::is('loan_or_advance_list')) menu-open
                               @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-money-bill"></i>
@@ -221,9 +222,9 @@
               </li>
 
               <li class="nav-item" style="padding-left: 15px">
-                <a href="{{url('/expense')}}" class="nav-link {{ Request::is('expense') ? 'nav-link active' : ''}}" style="{{ Request::is('expense') ? 'background-color: #17a2b8; !important' : ''}}">
-                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense') ? 'color: white; !important' : ''}}"></i>
-                  <p style="{{ Request::is('expense') ? 'color: white; !important' : ''}}">Loans/Advances</p>
+                <a href="{{url('/loan_or_advance_list')}}" class="nav-link {{ Request::is('loan_or_advance_list') ? 'nav-link active' : ''}}" style="{{ Request::is('loan_or_advance_list') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('loan_or_advance_list') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('loan_or_advance_list') ? 'color: white; !important' : ''}}">Loans/Advances</p>
                 </a>
               </li>
                          
