@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2024 at 10:07 AM
+-- Generation Time: Sep 30, 2024 at 03:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -415,7 +415,8 @@ INSERT INTO `expenses` (`id`, `expense_type`, `expense_name`, `expense_amount`, 
 (3, 2, 'Salary (Kartik Paul)', '32400', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
 (5, 2, 'Water Bill', '3390', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
 (6, 2, 'Shop Rent', '52500', '2024-09-08', '2024-09-08 10:28:09', '2024-09-08 10:28:09'),
-(8, 5, 'modhu', '240', '2024-09-29', '2024-09-29 05:33:59', '2024-09-29 05:33:59');
+(8, 5, 'modhu', '240', '2024-09-29', '2024-09-29 05:33:59', '2024-09-29 05:33:59'),
+(9, 5, 'minor expense', '205.44', '2024-09-30', '2024-09-30 12:42:52', '2024-09-30 12:42:52');
 
 -- --------------------------------------------------------
 
@@ -472,6 +473,13 @@ CREATE TABLE `investment_expenses` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `investment_expenses`
+--
+
+INSERT INTO `investment_expenses` (`id`, `payment_date`, `buy_old_gold`, `buy_ornaments_readymade`, `buy_24k_gold_ananto`, `buy_ornaments_from_ananto`, `exchange_own_gold`, `exchange_own_diamond`, `buy_or_exchange_own_gold`, `booking_cancel`, `deposit_customer_24k_gold`, `buy_diamond_from_mihir`, `pay_to_sajal_bhai`, `pay_to_ananto`, `order_cancel`, `deposit_in_city_bank`, `pay_vangary_profit`, `deposit_in_dutch_bangla_bank`, `shop_decoration_advance`, `pay_to_customer`, `due_cancel`, `box_bill_shamim_products`, `diamond_test_machine_wet_machine`, `buy_stone`, `software_advance_payment`, `buy_coffee_machine_computer`, `stationary_printing`, `balance_or_cash_in_hand`, `created_at`, `updated_at`) VALUES
+(2, '2024-09-30', 120.00, 100.00, 205.40, 100.00, 210.00, 586.00, 61.50, 54130.00, 542.00, 5152.00, 500.00, 5000.00, 4100.00, 1400.00, 4100.00, 5200.00, 6520.00, 500.00, 4502.00, 5820.00, 500.00, 4100.00, 582.00, 520.00, 552.00, 100.00, '2024-09-30 13:29:55', '2024-09-30 13:30:04');
+
 -- --------------------------------------------------------
 
 --
@@ -487,6 +495,13 @@ CREATE TABLE `loan_or_advance_expenses` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `loan_or_advance_expenses`
+--
+
+INSERT INTO `loan_or_advance_expenses` (`id`, `employee_id`, `expense_type`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, '100', '2024-09-30', '2024-09-30 13:41:15', '2024-09-30 13:41:15');
 
 -- --------------------------------------------------------
 
@@ -505,6 +520,13 @@ CREATE TABLE `marketing_costs` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `marketing_costs`
+--
+
+INSERT INTO `marketing_costs` (`id`, `payment_date`, `advertising`, `sms_buy`, `facebook_boosting`, `facebook_design`, `website_charge`, `created_at`, `updated_at`) VALUES
+(2, '2024-09-30', 2540.60, 100.00, 260.00, 120.67, 200.00, '2024-09-30 12:29:07', '2024-09-30 12:29:07');
 
 -- --------------------------------------------------------
 
@@ -648,7 +670,9 @@ CREATE TABLE `monthly_payments` (
 --
 
 INSERT INTO `monthly_payments` (`id`, `payment_date`, `payment_month`, `shop_rent_advance`, `staff_salary`, `management_salary`, `service_charge`, `electricity_bill`, `water_bill`, `internet_bill`, `jewelers_member_fees`, `vat`, `vat_office`, `vat_liton`, `staff_bonus`, `vat_memo`, `market_member_fees`, `created_at`, `updated_at`) VALUES
-(2, '2024-09-29', '09-2024', 45700.00, NULL, NULL, 250.00, 4700.00, 2540.00, 200.00, 1000.00, 1400.00, 150.00, 100.00, 500.00, 1000.00, 400.00, '2024-09-30 07:20:51', '2024-09-30 08:03:57');
+(3, '2024-09-30', '09-2024', 150.77, NULL, NULL, 100.00, 2300.00, 1350.00, 2500.00, 410.00, 100.00, 100.00, 200.00, 200.80, 100.00, 300.00, '2024-09-30 10:25:06', '2024-09-30 13:05:23'),
+(6, '2024-09-21', '09-2024', 200.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-30 13:01:38', '2024-09-30 13:04:04'),
+(7, '2024-09-09', '09-2024', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100.00, NULL, NULL, NULL, NULL, NULL, '2024-09-30 13:05:59', '2024-09-30 13:05:59');
 
 -- --------------------------------------------------------
 
@@ -665,13 +689,6 @@ CREATE TABLE `monthly_payment_others` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `monthly_payment_others`
---
-
-INSERT INTO `monthly_payment_others` (`id`, `monthly_payment_id`, `expense_name`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
-(7, 2, NULL, NULL, '2024-09-30', '2024-09-30 08:03:57', '2024-09-30 08:03:57');
 
 -- --------------------------------------------------------
 
@@ -1168,6 +1185,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `role_id`, `status`, `email_verified
 
 CREATE TABLE `yearly_payments` (
   `id` int(11) NOT NULL,
+  `payment_date` date DEFAULT NULL,
   `payment_year` year(4) NOT NULL,
   `trade_license` decimal(10,2) DEFAULT NULL,
   `pahela_boishakh_expenses` decimal(10,2) DEFAULT NULL,
@@ -1182,8 +1200,8 @@ CREATE TABLE `yearly_payments` (
 -- Dumping data for table `yearly_payments`
 --
 
-INSERT INTO `yearly_payments` (`id`, `payment_year`, `trade_license`, `pahela_boishakh_expenses`, `valentine_gate`, `zakat`, `dealing_licence`, `created_at`, `updated_at`) VALUES
-(2, '2024', 200.00, 100.00, 321.00, 2500.00, 700.00, '2024-09-28 07:21:17', '2024-09-28 07:21:45');
+INSERT INTO `yearly_payments` (`id`, `payment_date`, `payment_year`, `trade_license`, `pahela_boishakh_expenses`, `valentine_gate`, `zakat`, `dealing_licence`, `created_at`, `updated_at`) VALUES
+(2, '2024-09-29', '2024', 200.00, 100.00, 321.00, 2500.00, 700.00, '2024-09-28 07:21:17', '2024-09-30 11:54:12');
 
 -- --------------------------------------------------------
 
@@ -1552,7 +1570,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1564,19 +1582,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `investment_expenses`
 --
 ALTER TABLE `investment_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `loan_or_advance_expenses`
 --
 ALTER TABLE `loan_or_advance_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `marketing_costs`
 --
 ALTER TABLE `marketing_costs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `menus`
@@ -1600,13 +1618,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `monthly_payments`
 --
 ALTER TABLE `monthly_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `monthly_payment_others`
 --
 ALTER TABLE `monthly_payment_others`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `payment_expenses`

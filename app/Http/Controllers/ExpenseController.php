@@ -192,8 +192,8 @@ class ExpenseController extends Controller
                         'payrolls.final_pay_amount as staff_paid_salary_amount',
                         'payrolls.salary_date as staff_salary_date'
                         )
-                    ->whereMonth('salary_date',Carbon::now()->month)
-                    ->whereYear('salary_date',Carbon::now()->year)
+                    ->whereMonth('payrolls.salary_date',Carbon::now()->month)
+                    ->whereYear('payrolls.salary_date',Carbon::now()->year)
                     ->get();
 
         return view('expenses.monthly_payments.create',compact('permitted_menus_array','previousMonth','currentMonth','salaries'));
@@ -221,24 +221,25 @@ class ExpenseController extends Controller
                             'market_member_fees'=>$request->market_member_fees
                             ]);
 
-            $expense_names = $request->expense_name;
-            $expense_amounts = $request->expense_amount;
-            $expense_pay_dates = $request->expense_pay_date;
+        //     $expense_names = $request->expense_name;
+        //     $expense_amounts = $request->expense_amount;
+        //     $expense_pay_dates = $request->expense_pay_date;
 
-            foreach ($expense_names as $key => $expense_name) {
-                
-                $expense_amount = $expense_amounts[$key] ?? null;
-                $expense_pay_date = $expense_pay_dates[$key] ?? null;
-                
-                DB::table('monthly_payment_others')
-                    ->insert([
-                    'monthly_payment_id' => $monthly_payment,
-                    'expense_name' => $expense_name,
-                    'expense_amount' => $expense_amount,
-                    'expense_pay_date' => $expense_pay_date  
-                ]);
+        //    // Loop through each expense name and insert if not null
+        // foreach ($expense_names as $key => $expense_name) {
+        //     // Check if the expense name is not null or empty
+        //     if (!empty($expense_name)) {
+        //         $expense_amount = $expense_amounts[$key] ?? null;
+        //         $expense_pay_date = $expense_pay_dates[$key] ?? null;
 
-            }
+        //         DB::table('monthly_payment_others')->insert([
+        //             'monthly_payment_id' => $monthly_payment,
+        //             'expense_name' => $expense_name,
+        //             'expense_amount' => $expense_amount,
+        //             'expense_pay_date' => $expense_pay_date
+        //         ]);
+        //     }
+        // }
 
     return redirect()->route('monthly_payment_list')->withSuccess('Monthly Payments are added successfully'); 
     }
@@ -273,8 +274,8 @@ class ExpenseController extends Controller
                         'payrolls.final_pay_amount as staff_paid_salary_amount',
                         'payrolls.salary_date as staff_salary_date'
                         )
-                    ->whereMonth('salary_date',$payment_month_number)
-                    ->whereYear('salary_date',$payment_year)
+                    ->whereMonth('payrolls.salary_date',$payment_month_number)
+                    ->whereYear('payrolls.salary_date',$payment_year)
                     ->get();
 
 
@@ -297,30 +298,30 @@ class ExpenseController extends Controller
 
         $expense_id = $request->id;
 
-        // Delete existing records for the given expense_id
-        DB::table('monthly_payment_others')
-            ->where('monthly_payment_id', $expense_id)
-            ->delete();
+        // // Delete existing records for the given expense_id
+        // DB::table('monthly_payment_others')
+        //     ->where('monthly_payment_id', $expense_id)
+        //     ->delete();
 
-        // Insert new records
-        $expense_names = $request->expense_name;
-        $expense_amounts = $request->expense_amount;
-        $expense_pay_dates = $request->expense_pay_date;
+        // // Insert new records
+        // $expense_names = $request->expense_name;
+        // $expense_amounts = $request->expense_amount;
+        // $expense_pay_dates = $request->expense_pay_date;
 
-        foreach ($expense_names as $key => $expense_name) {
+        // foreach ($expense_names as $key => $expense_name) {
             
-            $expense_amount = $expense_amounts[$key] ?? null;
-            $expense_pay_date = $expense_pay_dates[$key] ?? null;
+        //     $expense_amount = $expense_amounts[$key] ?? null;
+        //     $expense_pay_date = $expense_pay_dates[$key] ?? null;
             
-            DB::table('monthly_payment_others')
-                ->insert([
-                'monthly_payment_id' => $expense_id,
-                'expense_name' => $expense_name,
-                'expense_amount' => $expense_amount,
-                'expense_pay_date' => $expense_pay_date  
-            ]);
+        //     DB::table('monthly_payment_others')
+        //         ->insert([
+        //         'monthly_payment_id' => $expense_id,
+        //         'expense_name' => $expense_name,
+        //         'expense_amount' => $expense_amount,
+        //         'expense_pay_date' => $expense_pay_date  
+        //     ]);
 
-        }
+        // }
 
         $data = array();
         $data['payment_date'] = $request->payment_date;
@@ -398,6 +399,7 @@ class ExpenseController extends Controller
 
         $yearly_payment = DB::table('yearly_payments')
                                 ->insertGetId([
+                                'payment_date'=>$request->payment_date,
                                 'payment_year'=>$currentYear,
                                 'trade_license'=>$request->trade_license,
                                 'pahela_boishakh_expenses'=>$request->pahela_boishakh_expenses,
@@ -430,6 +432,7 @@ class ExpenseController extends Controller
     public function update_yearly_payment(Request $request){
   
         $data = array();
+        $data['payment_date'] = $request->payment_date;
         $data['trade_license'] = $request->trade_license;
         $data['pahela_boishakh_expenses'] = $request->pahela_boishakh_expenses;
         $data['valentine_gate'] = $request->valentine_gate;
@@ -1033,6 +1036,31 @@ class ExpenseController extends Controller
 
 
     
+              // Calculate grand total
+                $daily_grand_total = 
+                $total_mobile_bill +
+                $total_snacks +
+                $total_entertainment_bill +
+                $total_others +
+                $total_gift_for_customer +
+                $total_ornaments_binding_bill +
+                $total_interest_for_gold_lending +
+                $total_vangary_loss +
+                $total_pay_repair_bill +
+                $total_photocopy +
+                $total_management_expenses +
+                $total_transport +
+                $total_bkash_cost +
+                $total_repairing_cost +
+                $total_conveyance +
+                $total_buy_lock_locker +
+                $total_cash_back +
+                $total_live_cost +
+                $total_parking_cost +
+                $total_vat_machine +
+                $total_door_grease;
+
+
             //----------- ***** Monthly Payments calculation ****** ------------
             
             $monthly_payments = DB::table('monthly_payments')
@@ -1040,13 +1068,415 @@ class ExpenseController extends Controller
                                 ->get();
 
 
+
+            // Sum for shop_rent_advance
+            $total_shop_rent_advance = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('shop_rent_advance');
+
+            // Sum for service_charge
+            $total_service_charge = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('service_charge');
+
+            // Sum for electricity_bill
+            $total_electricity_bill = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('electricity_bill');
+
+            // Sum for water_bill
+            $total_water_bill = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('water_bill');
+
+            // Sum for internet_bill
+            $total_internet_bill = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('internet_bill');
+
+            // Sum for jewelers_member_fees
+            $total_jewelers_member_fees = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('jewelers_member_fees');
+
+            // Sum for vat
+            $total_vat = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('vat');
+
+            // Sum for vat_office
+            $total_vat_office = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('vat_office');
+
+            // Sum for vat_liton
+            $total_vat_liton = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('vat_liton');
+
+            // Sum for staff_bonus
+            $total_staff_bonus = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('staff_bonus');
+
+            // Sum for vat_memo
+            $total_vat_memo = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('vat_memo');
+
+            // Sum for market_member_fees
+            $total_market_member_fees = DB::table('monthly_payments')
+                ->whereMonth('payment_date', $current_month)
+                ->whereYear('payment_date', $current_date->year)
+                ->sum('market_member_fees');
+
+
+            
+                $total_monthly_payment = 
+                    $total_shop_rent_advance + 
+                    $total_service_charge + 
+                    $total_electricity_bill + 
+                    $total_water_bill + 
+                    $total_internet_bill + 
+                    $total_jewelers_member_fees + 
+                    $total_vat + 
+                    $total_vat_office + 
+                    $total_vat_liton + 
+                    $total_staff_bonus + 
+                    $total_vat_memo + 
+                    $total_market_member_fees;
+
+
+
+            $salaries = DB::table('payrolls')
+                            ->leftJoin('employees','payrolls.employee','employees.id')
+                            ->select(
+                                'payrolls.id as payroll_id',
+                                'employees.emp_name as staff_name',
+                                'payrolls.final_pay_amount as staff_paid_salary_amount',
+                                'payrolls.salary_date as staff_salary_date'
+                                )
+                            ->whereMonth('payrolls.salary_date',Carbon::now()->month)
+                            ->whereYear('payrolls.salary_date',Carbon::now()->year)
+                            ->get();
+
              $total_monthly_salaries = DB::table('payrolls')
                                 ->whereMonth('salary_date',Carbon::now()->month)
                                 ->whereYear('salary_date',Carbon::now()->year)
                                 ->sum('final_pay_amount');
 
-            // dd($total_salaries);
-        
+            $monthly_payment_others = DB::table('monthly_payment_others')
+                                ->whereMonth('expense_pay_date',$current_month)
+                                ->whereYear('expense_pay_date', $current_date->year) // Ensure it's the current year
+                                ->get();
+
+            $total_monthly_payment_others = DB::table('monthly_payment_others')
+                                ->whereMonth('expense_pay_date',Carbon::now()->month)
+                                ->whereYear('expense_pay_date',Carbon::now()->year)
+                                ->sum('expense_amount');
+
+
+            $monthly_grand_total = $total_monthly_payment + $total_monthly_salaries + $total_monthly_payment_others;
+
+    
+
+        //----------- ***** Yearly Payments calculation ****** ------------
+
+        $yearly_payments = DB::table('yearly_payments')
+                            ->whereYear('payment_date', $current_date->year) // Ensure it's the current year
+                            ->get();
+
+
+            // Sum for trade_license
+            $total_trade_license = DB::table('yearly_payments')
+            ->whereYear('payment_date', $current_date->year)
+            ->sum('trade_license');
+
+            // Sum for pahela_boishakh_expenses
+            $total_pahela_boishakh_expenses = DB::table('yearly_payments')
+            ->whereYear('payment_date', $current_date->year)
+            ->sum('pahela_boishakh_expenses');
+
+            // Sum for valentine_gate
+            $total_valentine_gate = DB::table('yearly_payments')
+            ->whereYear('payment_date', $current_date->year)
+            ->sum('valentine_gate');
+
+            // Sum for zakat
+            $total_zakat = DB::table('yearly_payments')
+            ->whereYear('payment_date', $current_date->year)
+            ->sum('zakat');
+
+            // Sum for dealing_licence
+            $total_dealing_licence = DB::table('yearly_payments')
+            ->whereYear('payment_date', $current_date->year)
+            ->sum('dealing_licence');
+
+
+            $yearly_grand_total = $total_trade_license +
+                                    $total_pahela_boishakh_expenses +
+                                    $total_valentine_gate +
+                                    $total_zakat +
+                                    $total_dealing_licence;
+                                    
+                                    
+    //----------- ***** Marketing Cost calculation ****** ------------
+
+    $marketing_costs = DB::table('marketing_costs')
+                        ->whereMonth('payment_date', $current_month)
+                        ->whereYear('payment_date', $current_date->year) // Ensure it's the current year
+                        ->get();
+
+        // Sum for advertising
+        $total_advertising = DB::table('marketing_costs')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('advertising');
+
+        // Sum for sms_buy
+        $total_sms_buy = DB::table('marketing_costs')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('sms_buy');
+
+        // Sum for facebook_boosting
+        $total_facebook_boosting = DB::table('marketing_costs')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('facebook_boosting');
+
+        // Sum for facebook_design
+        $total_facebook_design = DB::table('marketing_costs')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('facebook_design');
+
+        // Sum for website_charge
+        $total_website_charge = DB::table('marketing_costs')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('website_charge');
+
+        $marketing_cost_grand_total = $total_advertising +
+                           $total_sms_buy +
+                           $total_facebook_boosting +
+                           $total_facebook_design +
+                           $total_website_charge;
+
+
+        //----------- ***** Payment Expense calculation ****** ------------
+
+        $payments = DB::table('expenses')
+                        ->whereMonth('expense_pay_date', $current_month)
+                        ->whereYear('expense_pay_date', $current_date->year) // Ensure it's the current year
+                        ->where('expense_type',5)
+                        ->get();
+
+        $total_payments = DB::table('expenses')
+                            ->whereMonth('expense_pay_date', $current_month)
+                            ->whereYear('expense_pay_date', $current_date->year) // Ensure it's the current year
+                            ->where('expense_type',5)
+                            ->sum('expense_amount');
+
+         //----------- ***** Investment Expense calculation ****** ------------
+
+         $investment_payments = DB::table('investment_expenses')
+                                ->whereMonth('payment_date', $current_month)
+                                ->whereYear('payment_date', $current_date->year) // Ensure it's the current year  
+                                ->get();
+
+       // Assuming $current_month and $current_date are defined
+
+        // Sum for each field
+        $total_buy_old_gold = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_old_gold');
+
+        $total_buy_ornaments_readymade = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_ornaments_readymade');
+
+        $total_buy_24k_gold_ananto = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_24k_gold_ananto');
+
+        $total_buy_ornaments_from_ananto = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_ornaments_from_ananto');
+
+        $total_exchange_own_gold = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('exchange_own_gold');
+
+        $total_exchange_own_diamond = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('exchange_own_diamond');
+
+        $total_buy_or_exchange_own_gold = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_or_exchange_own_gold');
+
+        $total_booking_cancel = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('booking_cancel');
+
+        $total_deposit_customer_24k_gold = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('deposit_customer_24k_gold');
+
+        $total_buy_diamond_from_mihir = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_diamond_from_mihir');
+
+        $total_pay_to_sajal_bhai = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('pay_to_sajal_bhai');
+
+        $total_pay_to_ananto = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('pay_to_ananto');
+
+        $total_order_cancel = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('order_cancel');
+
+        $total_deposit_in_city_bank = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('deposit_in_city_bank');
+
+        $total_pay_vangary_profit = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('pay_vangary_profit');
+
+        $total_deposit_in_dutch_bangla_bank = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('deposit_in_dutch_bangla_bank');
+
+        $total_shop_decoration_advance = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('shop_decoration_advance');
+
+        $total_pay_to_customer = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('pay_to_customer');
+
+        $total_due_cancel = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('due_cancel');
+
+        $total_box_bill_shamim_products = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('box_bill_shamim_products');
+
+        $total_diamond_test_machine_wet_machine = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('diamond_test_machine_wet_machine');
+
+        $total_buy_stone = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_stone');
+
+        $total_software_advance_payment = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('software_advance_payment');
+
+        $total_buy_coffee_machine_computer = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('buy_coffee_machine_computer');
+
+        $total_stationary_printing = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('stationary_printing');
+
+        $total_balance_or_cash_in_hand = DB::table('investment_expenses')
+        ->whereMonth('payment_date', $current_month)
+        ->whereYear('payment_date', $current_date->year)
+        ->sum('balance_or_cash_in_hand');
+
+
+        $investment_expense_grand_total = $total_buy_old_gold +
+               $total_buy_ornaments_readymade +
+               $total_buy_24k_gold_ananto +
+               $total_buy_ornaments_from_ananto +
+               $total_exchange_own_gold +
+               $total_exchange_own_diamond +
+               $total_buy_or_exchange_own_gold +
+               $total_booking_cancel +
+               $total_deposit_customer_24k_gold +
+               $total_buy_diamond_from_mihir +
+               $total_pay_to_sajal_bhai +
+               $total_pay_to_ananto +
+               $total_order_cancel +
+               $total_deposit_in_city_bank +
+               $total_pay_vangary_profit +
+               $total_deposit_in_dutch_bangla_bank +
+               $total_shop_decoration_advance +
+               $total_pay_to_customer +
+               $total_due_cancel +
+               $total_box_bill_shamim_products +
+               $total_diamond_test_machine_wet_machine +
+               $total_buy_stone +
+               $total_software_advance_payment +
+               $total_buy_coffee_machine_computer +
+               $total_stationary_printing +
+               $total_balance_or_cash_in_hand;
+
+
+        $loan_or_advances = DB::table('loan_or_advance_expenses')
+               ->leftJoin('employees','loan_or_advance_expenses.employee_id','employees.id')
+               ->select(
+                   'employees.emp_name as employee_name',
+                   'loan_or_advance_expenses.expense_amount as loan_or_advance_amount',
+                   'loan_or_advance_expenses.expense_type as loan_or_advance_expense_type',
+                   'loan_or_advance_expenses.expense_pay_date as expense_pay_date'
+                   )
+               ->whereMonth('loan_or_advance_expenses.expense_pay_date',Carbon::now()->month)
+               ->whereYear('loan_or_advance_expenses.expense_pay_date',Carbon::now()->year)
+               ->get();
+
+        $total_loan_or_advances = DB::table('loan_or_advance_expenses')
+                   ->whereMonth('expense_pay_date',Carbon::now()->month)
+                   ->whereYear('expense_pay_date',Carbon::now()->year)
+                   ->sum('expense_amount');
+
+
+                                
         return view('expenses.expense_ledger', compact(
                                         'permitted_menus_array',
 
@@ -1072,9 +1502,81 @@ class ExpenseController extends Controller
                                         'total_parking_cost',
                                         'total_vat_machine',
                                         'total_door_grease',
+                                        'daily_grand_total',
 
                                         'monthly_payments',
-                                        'total_monthly_salaries'
+                                        'total_shop_rent_advance',
+                                        'total_service_charge',
+                                        'total_electricity_bill',
+                                        'total_water_bill',
+                                        'total_internet_bill',
+                                        'total_jewelers_member_fees',
+                                        'total_vat',
+                                        'total_vat_office',
+                                        'total_vat_liton',
+                                        'total_staff_bonus',
+                                        'total_vat_memo',
+                                        'total_market_member_fees',
+                                        'total_monthly_payment',
+
+                                        'salaries',
+                                        'total_monthly_salaries',
+
+                                        'monthly_payment_others',
+                                        'total_monthly_payment_others',
+
+                                        'monthly_grand_total',
+
+                                        'yearly_payments',
+                                        'total_trade_license',
+                                        'total_pahela_boishakh_expenses',
+                                        'total_valentine_gate',
+                                        'total_zakat',
+                                        'total_dealing_licence',
+                                        'yearly_grand_total',
+
+                                        'marketing_costs',
+                                        'total_advertising',
+                                        'total_sms_buy',
+                                        'total_facebook_boosting',
+                                        'total_facebook_design',
+                                        'total_website_charge',
+                                        'marketing_cost_grand_total',
+
+                                        'payments',
+                                        'total_payments',
+
+                                        'investment_payments',
+                                        'total_buy_old_gold',
+                                        'total_buy_ornaments_readymade',
+                                        'total_buy_24k_gold_ananto',
+                                        'total_buy_ornaments_from_ananto',
+                                        'total_exchange_own_gold',
+                                        'total_exchange_own_diamond',
+                                        'total_buy_or_exchange_own_gold',
+                                        'total_booking_cancel',
+                                        'total_deposit_customer_24k_gold',
+                                        'total_buy_diamond_from_mihir',
+                                        'total_pay_to_sajal_bhai',
+                                        'total_pay_to_ananto',
+                                        'total_order_cancel',
+                                        'total_deposit_in_city_bank',
+                                        'total_pay_vangary_profit',
+                                        'total_deposit_in_dutch_bangla_bank',
+                                        'total_shop_decoration_advance',
+                                        'total_pay_to_customer',
+                                        'total_due_cancel',
+                                        'total_box_bill_shamim_products',
+                                        'total_diamond_test_machine_wet_machine',
+                                        'total_buy_stone',
+                                        'total_software_advance_payment',
+                                        'total_buy_coffee_machine_computer',
+                                        'total_stationary_printing',
+                                        'total_balance_or_cash_in_hand',
+                                        'investment_expense_grand_total',
+
+                                        'loan_or_advances',
+                                        'total_loan_or_advances'
                                     ));
                                     
 

@@ -198,7 +198,7 @@ Monthly Payment
                             </tbody>
                         </table>
                     </div>
-            
+{{--             
                 <h4 class="text-center">Others</h4>
 
                     <div class="col-md-12">  
@@ -221,7 +221,7 @@ Monthly Payment
                                 
                                             <div class="form-group col-md-3 col-sm-4">
                                                 <label  class="col-form-label text-start">Payment Date</label>         
-                                                <input type="date" id="expense_pay_date" name="expense_pay_date[]" value="{{ date('Y-m-d') }}" class="form-control" />
+                                                <input type="date" id="expense_pay_date" name="expense_pay_date[]"  class="form-control" />
                                             </div>
                                 
                                             <div class="form-group">
@@ -232,7 +232,7 @@ Monthly Payment
                                 </div>
                             </tbody>
                         </table>                  
-                    </div>
+                    </div> --}}
 
                     <div class="form-group text-center mt-3">
                         <button type="submit" class="btn btn-primary float-right">Submit</button>

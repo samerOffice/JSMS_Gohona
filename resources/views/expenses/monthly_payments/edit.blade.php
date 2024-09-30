@@ -193,13 +193,13 @@ Monthly Payment
                     </table>
                     </div>
 
-                    <h4 class="text-center">Others</h4>
+                    {{-- <h4 class="text-center">Others</h4>
                     <div class="col-md-12">   
                         <div id="form-container">
                             <!-- Rows will be added here dynamically -->
                         </div> 
                         <button type="button" class="add-button btn btn-info" id="addButton"><i class="fas fa-plus"></i></button>            
-                    </div>
+                    </div> --}}
                     
                     
                     <br>
