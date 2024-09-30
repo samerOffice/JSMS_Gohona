@@ -36,7 +36,9 @@ Monthly Payment
                                 <th>Input</th>
                             </tr>
                         </thead>
-                        <tbody>                              
+                        <tbody>  
+                            
+                            
                             <tr>
                                 <td>Payment Month</td>
                                 <td>
@@ -45,6 +47,17 @@ Monthly Payment
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>Payment Date</td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="date" name="payment_date" value="{{$expense->payment_date}}" class="form-control" required>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            
                             <tr>
                                 <td>Shop Rent / Advance</td>
                                 <td>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2024 at 02:17 PM
+-- Generation Time: Sep 30, 2024 at 10:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -226,7 +226,8 @@ CREATE TABLE `daily_payments` (
 --
 
 INSERT INTO `daily_payments` (`id`, `payment_date`, `mobile_bill`, `snacks`, `entertainment_bill`, `others`, `gift_for_customer`, `ornaments_binding_bill`, `interest_for_gold_lending`, `vangary_loss`, `pay_repair_bill`, `photocopy`, `management_expenses`, `transport`, `bkash_cost`, `repairing_cost`, `conveyance`, `buy_lock_locker`, `cash_back`, `live_cost`, `parking_cost`, `vat_machine`, `door_grease`, `created_at`, `updated_at`) VALUES
-(1, '2024-09-25', 100.00, 200.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 540.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-25 10:45:58', '2024-09-25 11:48:14');
+(1, '2024-09-25', 100.00, 200.00, 200.00, 10.00, 10.00, 20.00, 50.00, 210.00, 130.00, 540.00, 1321.00, 250.00, 1000.00, 3500.00, 52102.00, 540.00, 1400.00, 410.00, 1000.00, 500.00, 200.00, '2024-09-25 10:45:58', '2024-09-30 06:49:53'),
+(3, '2024-09-30', 70.00, 400.00, 200.00, 100.00, 500.00, 500.00, 1400.00, 520.00, 6520.50, 100.00, 600.00, 400.00, 480.00, 980.00, 1357.00, 4500.00, 65630.50, 1200.00, 2500.00, 100.00, 150.00, '2024-09-30 06:51:05', '2024-09-30 06:51:05');
 
 -- --------------------------------------------------------
 
@@ -622,6 +623,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `monthly_payments` (
   `id` int(11) NOT NULL,
+  `payment_date` date DEFAULT NULL,
   `payment_month` varchar(100) DEFAULT NULL,
   `shop_rent_advance` decimal(10,2) DEFAULT NULL,
   `staff_salary` int(11) DEFAULT NULL,
@@ -641,6 +643,13 @@ CREATE TABLE `monthly_payments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `monthly_payments`
+--
+
+INSERT INTO `monthly_payments` (`id`, `payment_date`, `payment_month`, `shop_rent_advance`, `staff_salary`, `management_salary`, `service_charge`, `electricity_bill`, `water_bill`, `internet_bill`, `jewelers_member_fees`, `vat`, `vat_office`, `vat_liton`, `staff_bonus`, `vat_memo`, `market_member_fees`, `created_at`, `updated_at`) VALUES
+(2, '2024-09-29', '09-2024', 45700.00, NULL, NULL, 250.00, 4700.00, 2540.00, 200.00, 1000.00, 1400.00, 150.00, 100.00, 500.00, 1000.00, 400.00, '2024-09-30 07:20:51', '2024-09-30 08:03:57');
+
 -- --------------------------------------------------------
 
 --
@@ -656,6 +665,13 @@ CREATE TABLE `monthly_payment_others` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `monthly_payment_others`
+--
+
+INSERT INTO `monthly_payment_others` (`id`, `monthly_payment_id`, `expense_name`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
+(7, 2, NULL, NULL, '2024-09-30', '2024-09-30 08:03:57', '2024-09-30 08:03:57');
 
 -- --------------------------------------------------------
 
@@ -1512,7 +1528,7 @@ ALTER TABLE `customer_transactions`
 -- AUTO_INCREMENT for table `daily_payments`
 --
 ALTER TABLE `daily_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `daily_payments_others`
@@ -1584,13 +1600,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `monthly_payments`
 --
 ALTER TABLE `monthly_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monthly_payment_others`
 --
 ALTER TABLE `monthly_payment_others`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payment_expenses`

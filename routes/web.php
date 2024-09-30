@@ -199,6 +199,10 @@ Route::get('/edit_loan_or_advance/{expense_id}', [ExpenseController::class, 'edi
 Route::post('/update_loan_or_advance', [ExpenseController::class, 'update_loan_or_advance'])->name('update_loan_or_advance');
 Route::get('/delete_loan_or_advance/{delete_id}', [ExpenseController::class, 'delete_loan_or_advance'])->name('delete_loan_or_advance');
 
+
+//report
+Route::get('/expense_ledger', [ExpenseController::class, 'expense_ledger'])->name('expense_ledger');
+
 //-----********* Expenses (end)*********-------
 
 

@@ -206,6 +206,7 @@ class ExpenseController extends Controller
             $monthly_payment = DB::table('monthly_payments')
                             ->insertGetId([
                             'payment_month'=>Carbon::now()->format('m-Y'),
+                            'payment_date'=>$request->payment_date,
                             'shop_rent_advance'=>$request->shop_rent_advance,
                             'service_charge'=>$request->service_charge,
                             'electricity_bill'=>$request->electricity_bill,
@@ -322,6 +323,7 @@ class ExpenseController extends Controller
         }
 
         $data = array();
+        $data['payment_date'] = $request->payment_date;
         $data['shop_rent_advance'] = $request->shop_rent_advance;
         $data['service_charge'] = $request->service_charge;
         $data['electricity_bill'] = $request->electricity_bill;
@@ -876,6 +878,208 @@ class ExpenseController extends Controller
 
 
      //-------- Loan/Advance (end) ----------
+
+
+     //-------- Expense Ledger (start) ----------
+        public function expense_ledger(){
+
+        $user_role = Auth::user()->role_id;
+        $menu_data = DB::table('menu_permissions')
+                        ->where('role',$user_role)
+                        ->first();
+
+        $permitted_menus = $menu_data->menus;
+        $permitted_menus_array = explode(',', $permitted_menus);
+
+
+        $current_date = Carbon::now();
+        $current_month = Carbon::now()->format('m');
+        $previous_month = $current_date->subMonth()->format('m');
+
+
+        //----------- ***** Daily Payments calculation ****** ------------
+
+        $daily_payments = DB::table('daily_payments')
+                                ->whereMonth('payment_date',$current_month)
+                                ->whereYear('payment_date', $current_date->year) // Ensure it's the current year
+                                ->get();
+
+
+            // Sum for mobile_bill
+            $total_mobile_bill = DB::table('daily_payments')
+                                ->whereMonth('payment_date', $current_month)
+                                ->whereYear('payment_date', $current_date->year)
+                                ->sum('mobile_bill');
+
+            // Sum for snacks
+            $total_snacks = DB::table('daily_payments')
+                            ->whereMonth('payment_date', $current_month)
+                            ->whereYear('payment_date', $current_date->year)
+                            ->sum('snacks');
+
+            // Sum for entertainment_bill
+            $total_entertainment_bill = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('entertainment_bill');
+
+            // Sum for others
+            $total_others = DB::table('daily_payments')
+                                ->whereMonth('payment_date', $current_month)
+                                ->whereYear('payment_date', $current_date->year)
+                                ->sum('others');
+
+            // Sum for gift_for_customer
+            $total_gift_for_customer = DB::table('daily_payments')
+                                        ->whereMonth('payment_date', $current_month)
+                                        ->whereYear('payment_date', $current_date->year)
+                                        ->sum('gift_for_customer');
+
+            // Sum for ornaments_binding_bill
+            $total_ornaments_binding_bill = DB::table('daily_payments')
+                                            ->whereMonth('payment_date', $current_month)
+                                            ->whereYear('payment_date', $current_date->year)
+                                            ->sum('ornaments_binding_bill');
+
+            // Sum for interest_for_gold_lending
+            $total_interest_for_gold_lending = DB::table('daily_payments')
+                                            ->whereMonth('payment_date', $current_month)
+                                            ->whereYear('payment_date', $current_date->year)
+                                            ->sum('interest_for_gold_lending');
+
+            // Sum for vangary_loss
+            $total_vangary_loss = DB::table('daily_payments')
+                                        ->whereMonth('payment_date', $current_month)
+                                        ->whereYear('payment_date', $current_date->year)
+                                        ->sum('vangary_loss');
+
+            // Sum for pay_repair_bill
+            $total_pay_repair_bill = DB::table('daily_payments')
+                                        ->whereMonth('payment_date', $current_month)
+                                        ->whereYear('payment_date', $current_date->year)
+                                        ->sum('pay_repair_bill');
+
+            // Sum for photocopy
+            $total_photocopy = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('photocopy');
+
+            // Sum for management_expenses
+            $total_management_expenses = DB::table('daily_payments')
+                                        ->whereMonth('payment_date', $current_month)
+                                        ->whereYear('payment_date', $current_date->year)
+                                        ->sum('management_expenses');
+
+            // Sum for transport
+            $total_transport = DB::table('daily_payments')
+                                ->whereMonth('payment_date', $current_month)
+                                ->whereYear('payment_date', $current_date->year)
+                                ->sum('transport');
+
+            // Sum for bkash_cost
+            $total_bkash_cost = DB::table('daily_payments')
+                                ->whereMonth('payment_date', $current_month)
+                                ->whereYear('payment_date', $current_date->year)
+                                ->sum('bkash_cost');
+
+            // Sum for repairing_cost
+            $total_repairing_cost = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('repairing_cost');
+
+            // Sum for conveyance
+            $total_conveyance = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('conveyance');
+
+            // Sum for buy_lock_locker
+            $total_buy_lock_locker = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('buy_lock_locker');
+
+            // Sum for cash_back
+            $total_cash_back = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('cash_back');
+
+            // Sum for live_cost
+            $total_live_cost = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('live_cost');
+
+            // Sum for parking_cost
+            $total_parking_cost = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('parking_cost');
+
+            // Sum for vat_machine
+            $total_vat_machine = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('vat_machine');
+
+            // Sum for door_grease
+            $total_door_grease = DB::table('daily_payments')
+                                    ->whereMonth('payment_date', $current_month)
+                                    ->whereYear('payment_date', $current_date->year)
+                                    ->sum('door_grease');
+
+
+    
+            //----------- ***** Monthly Payments calculation ****** ------------
+            
+            $monthly_payments = DB::table('monthly_payments')
+                                ->where('payment_month', "{$current_month}-{$current_date->year}")
+                                ->get();
+
+
+             $total_monthly_salaries = DB::table('payrolls')
+                                ->whereMonth('salary_date',Carbon::now()->month)
+                                ->whereYear('salary_date',Carbon::now()->year)
+                                ->sum('final_pay_amount');
+
+            // dd($total_salaries);
+        
+        return view('expenses.expense_ledger', compact(
+                                        'permitted_menus_array',
+
+                                        'daily_payments',
+                                        'total_mobile_bill',
+                                        'total_snacks',
+                                        'total_entertainment_bill',
+                                        'total_others',
+                                        'total_gift_for_customer',
+                                        'total_ornaments_binding_bill',
+                                        'total_interest_for_gold_lending',
+                                        'total_vangary_loss',
+                                        'total_pay_repair_bill',
+                                        'total_photocopy',
+                                        'total_management_expenses',
+                                        'total_transport',
+                                        'total_bkash_cost',
+                                        'total_repairing_cost',
+                                        'total_conveyance',
+                                        'total_buy_lock_locker',
+                                        'total_cash_back',
+                                        'total_live_cost',
+                                        'total_parking_cost',
+                                        'total_vat_machine',
+                                        'total_door_grease',
+
+                                        'monthly_payments',
+                                        'total_monthly_salaries'
+                                    ));
+                                    
+
+        }
+     //-------- Expense Ledger (end) ----------
   
 
     

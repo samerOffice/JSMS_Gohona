@@ -169,6 +169,7 @@
                               @elseif(Request::is('expense')) menu-open
                               @elseif(Request::is('investment_expense_list')) menu-open
                               @elseif(Request::is('loan_or_advance_list')) menu-open
+                              @elseif(Request::is('expense_ledger')) menu-open
                               @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fa-solid fa-money-bill"></i>
@@ -227,12 +228,11 @@
                   <p style="{{ Request::is('loan_or_advance_list') ? 'color: white; !important' : ''}}">Loans/Advances</p>
                 </a>
               </li>
-                         
 
               <li class="nav-item" style="padding-left: 15px">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-chevron-right"></i>
-                  <p>Report</p>
+                <a href="{{url('/expense_ledger')}}" class="nav-link {{ Request::is('expense_ledger') ? 'nav-link active' : ''}}" style="{{ Request::is('expense_ledger') ? 'background-color: #17a2b8; !important' : ''}}">
+                  <i class="fa-solid fa-chevron-right" style="{{ Request::is('expense_ledger') ? 'color: white; !important' : ''}}"></i>
+                  <p style="{{ Request::is('expense_ledger') ? 'color: white; !important' : ''}}">Expense Report</p>
                 </a>
               </li>
             </ul>
