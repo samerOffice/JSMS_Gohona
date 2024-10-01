@@ -58,6 +58,25 @@ class PayrollController extends Controller
                     ->where('id',$selectedEmployeeId)
                     ->first();
 
+        $current_date = Carbon::now();
+
+        // Check if it's January, then fetch data for December of the previous year
+        if ($current_date->month == 1) {
+            $year = $current_date->year - 1;
+            $previous_month = 12; // December
+        } else {
+            $year = $current_date->year;
+            $previous_month = $current_date->month - 1;
+        }
+        $previous_month = $current_date->subMonth()->format('m');
+        $employee_advance = DB::table('loan_or_advance_expenses')
+                              ->leftJoin('employees','loan_or_advance_expenses.employee_id','employees.id')
+                              ->whereMonth('loan_or_advance_expenses.expense_pay_date',$previous_month)
+                              ->whereYear('loan_or_advance_expenses.expense_pay_date', $year) // Ensure it's the current year
+                              ->where('loan_or_advance_expenses.expense_type',2)
+                              ->where('loan_or_advance_expenses.employee_id',$selectedEmployeeId)
+                              ->sum('loan_or_advance_expenses.expense_amount');
+
         $joining_date = $employeeInfo->joining_date;
         $joining_month = Carbon::parse($joining_date)->format('m');
   
@@ -67,7 +86,8 @@ class PayrollController extends Controller
             'renew_date' => $employeeInfo->renew_date,
             'renewed_yearly_bonus_date' => $employeeInfo->renewed_yearly_bonus_date,
             'joining_month' => $joining_month,
-            'per_day_salary' => $employeeInfo->per_day_salary
+            'per_day_salary' => $employeeInfo->per_day_salary,
+            'employee_advance' => $employee_advance
         ];
 
         return $data;

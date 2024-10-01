@@ -69,6 +69,12 @@ Route::get('/preview_sale/{sale_id}', [SaleController::class, 'preview_sale'])->
 Route::resource('stock', StockController::class);
 Route::get('/stock_list', [StockController::class, 'stock_list'])->name('stock_list');
 
+//stock-sale
+Route::get('/stock_sale_create', [StockController::class, 'stock_sale_create'])->name('stock_sale_create');
+Route::post('/stock_sale_store', [StockController::class, 'stock_sale_store'])->name('stock_sale_store');
+Route::get('/preview_last_stock_sale', [StockController::class, 'preview_last_stock_sale'])->name('preview_last_stock_sale');
+Route::get('/preview_stock_sale/{sale_id}', [StockController::class, 'preview_stock_sale'])->name('preview_stock_sale');
+
 //product-category
 Route::get('/product_category_list', [ProductCategoryController::class, 'index'])->name('product_category_list');
 Route::get('/add_product_category', [ProductCategoryController::class, 'add_product_category'])->name('add_product_category');
@@ -141,6 +147,7 @@ Route::resource('settings', SettingController::class);
 //employees
 Route::resource('employee', EmployeeController::class);
 Route::get('/employee_renew/{emp_id}', [EmployeeController::class, 'renew'])->name('employee.renew');
+Route::get('/employee_super_admin_permission/{emp_id}', [EmployeeController::class, 'super_admin_permission'])->name('employee.super_admin_permission');
 
 
 //-----********* Expenses (start)*********-------

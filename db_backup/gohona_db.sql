@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2024 at 03:42 PM
+-- Generation Time: Oct 01, 2024 at 12:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,13 @@ CREATE TABLE `bookings` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `booking_number`, `bin_no`, `booking_date`, `client_no`, `client_id`, `user_id`, `item_total_amount`, `vat_amount`, `subtotal_amount`, `discount_amount`, `total_amount`, `total_paid_amount`, `total_due_amount`, `created_at`, `updated_at`) VALUES
+(1, '822746', '004315254-0101', '2024-10-01', NULL, 1, 1, '273.00', '14.00', '287.00', '10', '277.00', '277.00', '0.00', '2024-10-01 09:39:40', '2024-10-01 09:39:40');
+
 -- --------------------------------------------------------
 
 --
@@ -67,6 +74,13 @@ CREATE TABLE `booking_calculations` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `booking_calculations`
+--
+
+INSERT INTO `booking_calculations` (`id`, `booking_number`, `booking_date`, `product_id`, `unit_price_amount`, `wage`, `payment_type`, `payment_info`, `reference`, `payment_amount`, `created_at`, `updated_at`) VALUES
+(1, '822746', '2024-10-01', 64, '100', '4.8', NULL, NULL, NULL, NULL, '2024-10-01 09:39:40', '2024-10-01 09:39:40');
+
 -- --------------------------------------------------------
 
 --
@@ -84,6 +98,13 @@ CREATE TABLE `booking_payment_calculations` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booking_payment_calculations`
+--
+
+INSERT INTO `booking_payment_calculations` (`id`, `booking_number`, `booking_date`, `payment_type`, `payment_info`, `reference`, `payment_amount`, `created_at`, `updated_at`) VALUES
+(1, '822746', '2024-10-01', 'cash', 'CASH', 'samer', '277', '2024-10-01 09:39:40', '2024-10-01 09:39:40');
 
 -- --------------------------------------------------------
 
@@ -351,6 +372,7 @@ CREATE TABLE `employees` (
   `emp_name` varchar(100) DEFAULT NULL,
   `designation` varchar(100) DEFAULT NULL,
   `joining_date` date DEFAULT NULL,
+  `super_admin_permission` int(10) DEFAULT NULL COMMENT '1 = Yes, 2 = No',
   `yearly_bonus_date` date DEFAULT NULL,
   `renew_date` date DEFAULT NULL,
   `renewed_yearly_bonus_date` date DEFAULT NULL,
@@ -386,8 +408,8 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`id`, `emp_name`, `designation`, `joining_date`, `yearly_bonus_date`, `renew_date`, `renewed_yearly_bonus_date`, `per_day_salary`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name_one`, `emergency_contact_number_one`, `emergency_contact_relation_one`, `emergency_contact_name_two`, `emergency_contact_number_two`, `emergency_contact_relation_two`, `emergency_contact_name_three`, `emergency_contact_number_three`, `emergency_contact_relation_three`, `yearly_bonus_status`, `created_at`, `updated_at`) VALUES
-(1, 'Kartik Paul', 'Sales Executive', '2021-05-02', NULL, NULL, NULL, '1200', NULL, NULL, NULL, NULL, NULL, NULL, '1995-07-04', 'A+', NULL, 'Single', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-12 04:42:42', '2024-08-12 04:42:42');
+INSERT INTO `employees` (`id`, `emp_name`, `designation`, `joining_date`, `super_admin_permission`, `yearly_bonus_date`, `renew_date`, `renewed_yearly_bonus_date`, `per_day_salary`, `father_name`, `mother_name`, `mobile_number`, `nid_number`, `present_address`, `permanent_address`, `birth_date`, `blood_group`, `nationality`, `marital_status`, `religion`, `gender`, `profile_pic`, `emergency_contact_name_one`, `emergency_contact_number_one`, `emergency_contact_relation_one`, `emergency_contact_name_two`, `emergency_contact_number_two`, `emergency_contact_relation_two`, `emergency_contact_name_three`, `emergency_contact_number_three`, `emergency_contact_relation_three`, `yearly_bonus_status`, `created_at`, `updated_at`) VALUES
+(1, 'Kartik Paul', 'Sales Executive', '2021-05-02', 1, '2024-10-01', '2024-10-01', NULL, '1200', NULL, NULL, NULL, NULL, NULL, NULL, '1995-07-04', 'A+', NULL, 'Single', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-08-12 04:42:42', '2024-08-12 04:42:42');
 
 -- --------------------------------------------------------
 
@@ -501,7 +523,8 @@ CREATE TABLE `loan_or_advance_expenses` (
 --
 
 INSERT INTO `loan_or_advance_expenses` (`id`, `employee_id`, `expense_type`, `expense_amount`, `expense_pay_date`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, '100', '2024-09-30', '2024-09-30 13:41:15', '2024-09-30 13:41:15');
+(2, 1, 1, '100', '2024-09-30', '2024-09-30 13:41:15', '2024-09-30 13:41:15'),
+(3, 1, 2, '540', '2024-09-18', '2024-10-01 06:27:49', '2024-10-01 06:27:49');
 
 -- --------------------------------------------------------
 
@@ -858,9 +881,9 @@ INSERT INTO `products` (`id`, `product_nr`, `product_details`, `product_category
 (1, 'BNG-068', 'asdffsdfs', NULL, NULL, '3.8', NULL, NULL, NULL, NULL, '6.7', 'Fixed', NULL, NULL, 2, 1, NULL, NULL),
 (11, 'dsf', 'aa@gmail.com', 9, NULL, '2.2', NULL, NULL, NULL, NULL, '2.6', 'Fixed', NULL, NULL, 1, 1, NULL, NULL),
 (12, 'qqq', 'qq@gmai', 9, NULL, '32kg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL),
-(64, 'R2', 'RING 22K', NULL, NULL, '2.68', NULL, NULL, NULL, NULL, '4.8', 'Fixed', NULL, NULL, NULL, 1, NULL, NULL),
-(65, 'R3', 'RING 21K', NULL, NULL, '2.68', NULL, NULL, NULL, '25000', '4.8', 'Percentage', NULL, NULL, NULL, 1, NULL, NULL),
-(67, 'wedding bangles', 'bridal wedding bangles', 9, 1, '200gm', 1, '1', NULL, NULL, '2', 'Percentage', 5, NULL, 1, 1, NULL, NULL);
+(64, 'R2', 'RING 22K', NULL, NULL, '2.68', NULL, NULL, NULL, NULL, '4.8', 'Fixed', NULL, NULL, NULL, 3, NULL, NULL),
+(65, 'R3', 'RING 21K', NULL, NULL, '2.68', NULL, NULL, NULL, '25000', '4.8', 'Percentage', NULL, NULL, NULL, 2, NULL, NULL),
+(67, 'wedding bangles', 'bridal wedding bangles', 9, 1, '200gm', 3, '1', NULL, NULL, '2', 'Percentage', 5, NULL, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1049,6 +1072,93 @@ CREATE TABLE `stocks` (
 INSERT INTO `stocks` (`id`, `stock_memo`, `stock_date`, `stock_name`, `created_at`, `updated_at`) VALUES
 (1, '202407-13', '2024-07-13', 'Test Stock', '2024-07-13 11:23:41', '2024-07-13 11:23:41'),
 (2, '202407-519', '2024-07-13', 'Test Stock-2', '2024-07-13 11:47:41', '2024-07-13 11:47:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_sales`
+--
+
+CREATE TABLE `stock_sales` (
+  `id` int(11) NOT NULL,
+  `sale_number` varchar(255) DEFAULT NULL,
+  `sale_type` int(100) DEFAULT NULL,
+  `bin_no` varchar(100) DEFAULT NULL,
+  `sale_date` date DEFAULT NULL,
+  `client_no` int(255) DEFAULT NULL,
+  `client_id` int(255) DEFAULT NULL,
+  `user_id` int(100) DEFAULT NULL,
+  `item_total_amount` varchar(255) DEFAULT NULL,
+  `vat_amount` varchar(255) DEFAULT NULL,
+  `subtotal_amount` varchar(255) DEFAULT NULL,
+  `discount_amount` varchar(100) DEFAULT NULL,
+  `total_amount` varchar(255) DEFAULT NULL,
+  `total_paid_amount` varchar(255) DEFAULT NULL,
+  `total_return_amount` varchar(255) DEFAULT NULL,
+  `total_due_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stock_sales`
+--
+
+INSERT INTO `stock_sales` (`id`, `sale_number`, `sale_type`, `bin_no`, `sale_date`, `client_no`, `client_id`, `user_id`, `item_total_amount`, `vat_amount`, `subtotal_amount`, `discount_amount`, `total_amount`, `total_paid_amount`, `total_return_amount`, `total_due_amount`, `created_at`, `updated_at`) VALUES
+(1, '132638', 1, '004315254-0101', '2024-10-01', NULL, 1, 1, '1,65,544.00', '8,277.00', '1,73,821.00', '100', '1,73,721.00', '1,73,500.00', NULL, '221.00', '2024-10-01 10:45:21', '2024-10-01 10:45:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_sale_calculations`
+--
+
+CREATE TABLE `stock_sale_calculations` (
+  `id` int(11) NOT NULL,
+  `sale_number` varchar(255) DEFAULT NULL,
+  `sale_date` date DEFAULT NULL,
+  `product_id` int(255) DEFAULT NULL,
+  `unit_price_amount` varchar(255) DEFAULT NULL,
+  `wage` varchar(255) DEFAULT NULL,
+  `payment_type` varchar(100) DEFAULT NULL,
+  `payment_info` varchar(100) DEFAULT NULL,
+  `reference` varchar(100) DEFAULT NULL,
+  `payment_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stock_sale_calculations`
+--
+
+INSERT INTO `stock_sale_calculations` (`id`, `sale_number`, `sale_date`, `product_id`, `unit_price_amount`, `wage`, `payment_type`, `payment_info`, `reference`, `payment_amount`, `created_at`, `updated_at`) VALUES
+(1, '132638', '2024-10-01', 65, '50040', '6437', NULL, NULL, NULL, NULL, '2024-10-01 10:45:21', '2024-10-01 10:45:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_sale_payment_calculations`
+--
+
+CREATE TABLE `stock_sale_payment_calculations` (
+  `id` int(11) NOT NULL,
+  `sale_number` varchar(255) DEFAULT NULL,
+  `sale_date` date DEFAULT NULL,
+  `payment_type` varchar(100) DEFAULT NULL,
+  `payment_info` varchar(100) DEFAULT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  `payment_amount` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stock_sale_payment_calculations`
+--
+
+INSERT INTO `stock_sale_payment_calculations` (`id`, `sale_number`, `sale_date`, `payment_type`, `payment_info`, `reference`, `payment_amount`, `created_at`, `updated_at`) VALUES
+(1, '132638', '2024-10-01', 'cash', 'CASH', NULL, '173500', '2024-10-01 10:45:21', '2024-10-01 10:45:21');
 
 -- --------------------------------------------------------
 
@@ -1454,6 +1564,24 @@ ALTER TABLE `stocks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stock_sales`
+--
+ALTER TABLE `stock_sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stock_sale_calculations`
+--
+ALTER TABLE `stock_sale_calculations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stock_sale_payment_calculations`
+--
+ALTER TABLE `stock_sale_payment_calculations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -1504,19 +1632,19 @@ ALTER TABLE `zones`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `booking_calculations`
 --
 ALTER TABLE `booking_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `booking_payment_calculations`
 --
 ALTER TABLE `booking_payment_calculations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `booking_terms_and_conditions`
@@ -1588,7 +1716,7 @@ ALTER TABLE `investment_expenses`
 -- AUTO_INCREMENT for table `loan_or_advance_expenses`
 --
 ALTER TABLE `loan_or_advance_expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `marketing_costs`
@@ -1703,6 +1831,24 @@ ALTER TABLE `settings`
 --
 ALTER TABLE `stocks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `stock_sales`
+--
+ALTER TABLE `stock_sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `stock_sale_calculations`
+--
+ALTER TABLE `stock_sale_calculations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `stock_sale_payment_calculations`
+--
+ALTER TABLE `stock_sale_payment_calculations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `suppliers`

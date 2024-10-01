@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Sales List
+Stock Sales List
 @endsection
 
 @section('content')
@@ -12,18 +12,10 @@ Sales List
       <div class="container-fluid">
         <br>
         <div class="row">
-            <div class="col-12">  
-              
-              <a class="btn btn-outline-danger float-right ml-2" href="{{route('stock_list')}}">
-                <i class="fas fa-list"></i> Stock List
-              </a> 
-                <a class="btn btn-outline-primary float-right ml-2" href="{{route('stock.create')}}">
-                    <i class="fas fa-plus"></i> Add Stock
+            <div class="col-12">                              
+                <a class="btn btn-outline-primary float-right" href="{{route('stock_sale_create')}}">
+                    <i class="fas fa-plus"></i> Add Stock Sale
                 </a> 
-
-                <a class="btn btn-outline-success float-right" href="">
-                    <i class="fas fa-plus"></i> Add Sale
-                </a>
             </div>
 
             <div class="col-12">
@@ -47,117 +39,64 @@ Sales List
                 <br>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Stocks</h3>
+                      <h3 class="card-title">Stock Sales List</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="datatable" class="mb-0 table table-bordered dt-responsive nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead class="thead" style="background: #ddd;color: #000;">
-                            <tr>
-                                <th>DETAILS</th>
-                                <th>18K</th>
-                                <th>21K</th>
-                                <th>22K</th>
-                                <th>ST.</th>
-                                <th>D 18K</th>
-                                <th>DIA</th>
-                            </tr>
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th>Serial No.</th>                 
+                          <th>Memo Number</th>
+                          <th>Date</th>
+                          <th>Sale Type</th>
+                          <th>Client Name</th>
+                          <th>Item Total Amount (BDT)</th>
+                          <th>VAT Amount (BDT)</th>
+                          <th>Sub Total Amount (BDT)</th>
+                          <th>Discount Amount (BDT)</th>
+                          <th>Total Amount (BDT)</th>
+                          <th>Paid Amount (BDT)</th>
+                          <th>Cashback (BDT)</th>
+                          <th>Due Amount (BDT)</th>
+                          <th>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>BALACE B/F</td>
-                                <td>17.49</td>
-                                <td>84.05</td>
-                                <td>62.55</td>
-                                <td>9.54</td>
-                                <td>13.17</td>
-                                <td>3.88</td>
-                            </tr>
-
-                            <tr>
-                                <td>SALE</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-
-                            <tr>
-                              <td>SALE FROM STOCK</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                          </tr>
-
-                            <tr style=" font-weight: bold;">
-                                <td>BALANCE</td>
-                                <td>17.49</td>
-                                <td>84.05</td>
-                                <td>62.55</td>
-                                <td>9.54</td>
-                                <td>13.17</td>
-                                <td>3.88</td>
-                            </tr>
-
-                            <tr>
-                                <td>NEW STOCK</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-
-                            <tr>
-                                <td>EXCHANGE</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>OLD GOLD</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>S. RETURN</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                            </tr>
-                            
-                        </tbody>
-                        <tfoot class="thead">
-                            <tr style=" font-weight: bold;">
-                                <td>BALANCE</td>
-                                <td>17.49</td>
-                                <td>84.05</td>
-                                <td>62.55</td>
-                                <td>9.54</td>
-                                <td>13.17</td>
-                                <td>3.88</td>
-                            </tr>
+                            @php $i = 1 @endphp
+                            @foreach($sales as $sale)
+                        <tr>
+                          <td>{{$i++}}</td>
+                          <td>{{$sale->sale_number}}</td>                          
+                          <td>{{$sale->sale_date}}</td>
+                          <td>{{$sale->sale_type_name}}</td>
+                          <td>{{$sale->customer_name}}</td>
+                          <td>{{$sale->item_total_amount}}</td>
+                          <td>{{$sale->vat_amount}}</td>
+                          <td>{{$sale->subtotal_amount}}</td>
+                          <td>
+                            @php
+                            echo number_format($sale->discount_amount, 2, '.', '')
+                            @endphp
+                          </td>
+                          <td>{{$sale->total_amount}}</td>
+                          <td>{{$sale->total_paid_amount}}</td>
+                          <td>
+                            @php
+                            echo number_format($sale->total_return_amount, 2, '.', '')
+                            @endphp
+                          </td>
+                          <td>{{$sale->total_due_amount}}</td>
+                          <td>
+                             <a href="{{route('preview_stock_sale',$sale->id)}}" style="color: white"><button class="btn btn-outline-success"><i class="fa-solid fa-eye"></i></button></a>
+                             {{-- <a href="{{route('sale.edit',$sale->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-edit"></i></button></a> --}}
+                             {{-- <a href="{{route('sale.edit',$sale->id)}}" style="color: white"><button class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></a> --}}
+                        </td>
+                        </tr> 
+                        @endforeach              
+                 
                         </tfoot>
-                    </table>
+                      </table>
                     </div>
                     <!-- /.card-body -->
                   </div>

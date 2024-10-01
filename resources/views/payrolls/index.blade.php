@@ -214,9 +214,12 @@ axios.get('sanctum/csrf-cookie').then(response=>{
  axios.post('employee_details_dependancy',{
         data: selectedEmployee
       }).then(response=>{
-      $('#joining_date').val(response.data.joining_date);
 
-       
+      console.log(response.data.employee_advance);
+      console.log(response.data.renew_date);
+
+      $('#joining_date').val(response.data.joining_date);
+      $('#advance_less').val(response.data.employee_advance);
       var emp_joining_date_from_response = response.data.joining_date;
       var dateParts = emp_joining_date_from_response.split("-");
       var jsDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
@@ -242,7 +245,7 @@ axios.get('sanctum/csrf-cookie').then(response=>{
         $('#insurance_allowance').val(0);
         $('#sales_commission').val(0);
         $('#retail_commission').val(0);
-        $('#advance_less').val(0);
+        // $('#advance_less').val(0);
         $('#any_deduction').val(0);
         var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
         var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -747,7 +750,7 @@ $('#total_leave').on('keyup', function(){
     $('#insurance_allowance').val(0);
     $('#sales_commission').val(0);
     $('#retail_commission').val(0);
-    $('#advance_less').val(0);
+    // $('#advance_less').val(0);
     $('#any_deduction').val(0);
     var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
     var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -790,7 +793,7 @@ $('#total_daily_allowance').on('keyup',function(){
   $('#insurance_allowance').val(0);
   $('#sales_commission').val(0);
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -831,7 +834,7 @@ $('#total_travel_allowance').on('keyup',function(){
   $('#insurance_allowance').val(0);
   $('#sales_commission').val(0);
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -870,7 +873,7 @@ $('#rental_cost_allowance').on('keyup',function(){
   $('#insurance_allowance').val(0);
   $('#sales_commission').val(0);
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -903,7 +906,7 @@ $('#hospital_bill_allowance').on('keyup',function(){
   $('#insurance_allowance').val(0);
   $('#sales_commission').val(0);
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -940,7 +943,7 @@ $('#hospital_bill_allowance').on('keyup',function(){
 $('#insurance_allowance').on('keyup',function(){
   $('#sales_commission').val(0);
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -976,7 +979,7 @@ $('#insurance_allowance').on('keyup',function(){
 //sales commission calculation
 $('#sales_commission').on('keyup',function(){
   $('#retail_commission').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -1011,7 +1014,7 @@ $('#sales_commission').on('keyup',function(){
 
 //retail commission calculation
 $('#retail_commission').on('keyup',function(){
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   var total_daily_allowance = parseFloat($('#total_daily_allowance').val());
   var total_travel_allowance = parseFloat($('#total_travel_allowance').val());
@@ -1064,7 +1067,7 @@ $('#yearly_bonus').on('keyup',function(){
   $('#bonus_pay_month').val(current_mm_yyyy);
 
   $('#total_payable_salary').val(0);
-  $('#advance_less').val(0);
+  // $('#advance_less').val(0);
   $('#any_deduction').val(0);
   $('#final_pay_amount').val(0);
 

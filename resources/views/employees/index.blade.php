@@ -74,10 +74,15 @@ Welcome
                              <a href="{{route('employee.edit', $employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td> -->
 
-                        <td>
-                           
-                             <a href="{{route('employee.renew', $employee->id)}}" style="color: white"><button class="btn btn-danger"><i class="fa-solid fa-arrows-rotate"></i> Renew</button></a>
-                            
+                        <td> 
+
+                           @if($employee->super_admin_permission == 1)
+                            <button class="btn btn-secondary" disabled>Yearly Bonus Permitted</button>
+                            @else 
+                            <a href="{{route('employee.super_admin_permission', $employee->id)}}" style="color: white"><button class="btn btn-info">Yearly Bonus Permission</button></a>
+                            @endif                        
+                              |                         
+                             <a href="{{route('employee.renew', $employee->id)}}" style="color: white"><button class="btn btn-danger"><i class="fa-solid fa-arrows-rotate"></i> Renew</button></a>                           
                               | 
                              <a href="{{route('employee.edit', $employee->id)}}" style="color: white"><button class="btn btn-outline-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</button></a>
                         </td>

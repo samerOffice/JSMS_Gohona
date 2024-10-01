@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Sale Create
+Stock Sale Create
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@ Sale Create
                     <!-- start page title -->
                     <div class="row">
                         <div class="col-12">
-                            <a class="btn btn-outline-info float-right" href="{{route('sale.index')}}">
+                            <a class="btn btn-outline-info float-right" href="{{route('stock.index')}}">
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
                         </div>
@@ -28,11 +28,11 @@ Sale Create
                     <div class="col-lg-12">
                     <div class="card">
                     <div class="card-header">                                   
-                        <h4 class="card-title ">Add Sale</h4>
+                        <h4 class="card-title ">Add Stock Sale</h4>
                     </div>
 
                     <div class="card-body">
-                    <form method="POST" action="{{route('sale.store')}}" id="order-form" role="form" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('stock_sale_store')}}" id="order-form" role="form" enctype="multipart/form-data">
                         {{-- <input type="hidden" name="_token" value="8eyHwlhgbvUWRrPpYCRndSFGl7lkmT1kALo2D2Wr"> --}}
                         @csrf
                         <div class="row">

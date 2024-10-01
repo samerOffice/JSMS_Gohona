@@ -165,6 +165,19 @@ class EmployeeController extends Controller
 
     }
 
+    public function super_admin_permission(string $id){
+        
+        $data = array();
+        $data['super_admin_permission'] = 1;
+        $data['yearly_bonus_date'] = Carbon::now()->toDateString();
+        $updated = DB::table('employees')
+                   ->where('id', $id)
+                   ->update($data);
+ 
+       return redirect()->route('employee.index')->withSuccess('Data is updated successfully');
+ 
+     }
+
     /**
      * Remove the specified resource from storage.
      */
